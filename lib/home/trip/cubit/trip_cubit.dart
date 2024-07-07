@@ -65,9 +65,11 @@ class TripCubit extends Cubit<TripState> {
         polylineCoordinates.add(LatLng(point.latitude, point.longitude));
       }
     }
-    emit(TripCreated(
-      polylineId: const PolylineId('trip'),
-      polylinePoints: polylineCoordinates,
-    ));
+    emit(
+      TripCreated(
+        polylinePoints: polylineCoordinates,
+        tripSteps: tripSteps.map((tripStep) => LatLng(tripStep.latitude, tripStep.longitude)).toList(),
+      ),
+    );
   }
 }

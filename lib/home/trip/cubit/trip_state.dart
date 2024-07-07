@@ -15,18 +15,18 @@ class TripLoading extends TripState {}
 
 class TripCreated extends TripState {
   const TripCreated({
-    required this.polylineId,
     required this.polylinePoints,
+    required this.tripSteps,
   });
 
-  final PolylineId polylineId;
   final List<LatLng> polylinePoints;
+  final List<LatLng> tripSteps;
 
   @override
   List<Object?> get props => super.props
     ..addAll([
-      polylineId,
       polylinePoints,
+      tripSteps,
     ]);
 }
 

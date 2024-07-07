@@ -16,6 +16,7 @@ class _TripMapComponentState extends State<TripMapComponent> {
   late TripCubit _cubit;
   late Completer<GoogleMapController> _controller;
   static const double _initialCameraZoom = 14.5;
+  static const PolylineId _tripPolylineId = PolylineId('trip');
 
   @override
   void initState() {
@@ -35,10 +36,19 @@ class _TripMapComponentState extends State<TripMapComponent> {
           polylines: {
             if (state is TripCreated)
               Polyline(
-                polylineId: state.polylineId,
-                color: Colors.red,
+                polylineId: _tripPolylineId,
+                color: Colors.blueAccent,
                 points: state.polylinePoints,
                 width: 8,
+              ),
+          },
+          markers: {
+            if (state is TripCreated)
+              ...state.tripSteps.map(
+                (tripStep) => Marker(
+                  markerId: MarkerId('$tripStep'),
+                  position: tripStep,
+                ),
               ),
           },
           compassEnabled: false,
