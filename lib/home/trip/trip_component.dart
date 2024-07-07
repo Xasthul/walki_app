@@ -54,6 +54,15 @@ class _TripComponentState extends State<TripComponent> {
               minMaxZoomPreference: const MinMaxZoomPreference(15, 17),
             ),
             const TripSettingsComponent(),
+            if (state is TripLoading)
+              AbsorbPointer(
+                child: Container(
+                  width: double.infinity,
+                  height: double.infinity,
+                  color: Colors.white.withOpacity(0.6),
+                  child: const Center(child: CircularProgressIndicator()),
+                ),
+              ),
           ]);
         }),
       );
