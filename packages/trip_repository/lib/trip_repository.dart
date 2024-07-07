@@ -1,4 +1,4 @@
 library;
 
-export 'src/models/point_of_interest_model.dart';
+export 'src/models/trip_step.dart';
 export 'src/trip_repository.dart';
