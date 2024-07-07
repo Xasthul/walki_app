@@ -23,13 +23,15 @@ class _TripSettingsComponentState extends State<TripSettingsComponent> {
 
   void _onSizeChanged() {
     if (_controller.size <= 0.05) {
-      _controller.animateTo(
+      _collapse();
+    }
+  }
+
+  void _collapse() => _controller.animateTo(
         (_sheet.currentWidget! as DraggableScrollableSheet).snapSizes!.first,
         duration: const Duration(milliseconds: 50),
         curve: Curves.easeInOut,
       );
-    }
-  }
 
   @override
   Widget build(BuildContext context) => LayoutBuilder(
@@ -69,7 +71,10 @@ class _TripSettingsComponentState extends State<TripSettingsComponent> {
                       ),
                     ),
                     FilledButton(
-                      onPressed: _cubit.createTrip,
+                      onPressed: () {
+                        _cubit.createTrip();
+                        _collapse();
+                      },
                       child: const Text('Build route'),
                     ),
                   ]),
