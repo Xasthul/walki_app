@@ -34,7 +34,7 @@ packages:
     source: hosted
     version: "2.11.0"
   bloc:
-    dependency: "direct main"
+    dependency: transitive
     description:
       name: bloc
       sha256: "106842ad6569f0b60297619e9e0b1885c2fb9bf84812935490e6c5275777804e"
@@ -576,6 +576,13 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.1.8"
+  point_of_interest_service:
+    dependency: transitive
+    description:
+      path: "packages/point_of_interest_service"
+      relative: true
+    source: path
+    version: "1.0.0"
   pool:
     dependency: transitive
     description:
