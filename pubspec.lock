@@ -577,7 +577,7 @@ packages:
     source: hosted
     version: "2.1.8"
   point_of_interest_service:
-    dependency: transitive
+    dependency: "direct main"
     description:
       path: "packages/point_of_interest_service"
       relative: true
