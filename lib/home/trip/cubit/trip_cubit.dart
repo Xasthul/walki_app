@@ -9,10 +9,9 @@ import 'package:vall/app/common/constants/app_constants.dart';
 part 'trip_state.dart';
 
 class TripCubit extends Cubit<TripState> {
-  TripCubit({
-    required TripRepository tripRepository,
-  })  : _tripRepository = tripRepository,
-        super(InitialLocationLoading());
+  TripCubit({required TripRepository tripRepository})
+      : _tripRepository = tripRepository,
+        super(TripInitialLocationLoading());
 
   final TripRepository _tripRepository;
   late LatLng location;
@@ -27,7 +26,7 @@ class TripCubit extends Cubit<TripState> {
       final position = await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
       location = LatLng(position.latitude, position.longitude);
     } finally {
-      emit(InitialLocationLoaded());
+      emit(TripInitialLocationLoaded());
     }
   }
 

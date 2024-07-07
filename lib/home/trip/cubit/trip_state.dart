@@ -7,18 +7,9 @@ sealed class TripState extends Equatable {
   List<Object?> get props => [];
 }
 
-class InitialLocationLoading extends TripState {}
+class TripInitialLocationLoading extends TripState {}
 
-class InitialLocationLoaded extends TripState {}
-
-class GetInitialLocationFailed extends TripState {
-  const GetInitialLocationFailed(this.error);
-
-  final dynamic error;
-
-  @override
-  List<Object?> get props => super.props..add(error);
-}
+class TripInitialLocationLoaded extends TripState {}
 
 class TripLoading extends TripState {}
 

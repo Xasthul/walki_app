@@ -29,7 +29,7 @@ class _TripComponentState extends State<TripComponent> {
   Widget build(BuildContext context) => SafeArea(
         top: false,
         child: BlocBuilder<TripCubit, TripState>(builder: (context, state) {
-          if (state is InitialLocationLoading) {
+          if (state is TripInitialLocationLoading) {
             return const Center(child: CircularProgressIndicator());
           }
           return Stack(children: [
