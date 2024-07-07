@@ -72,7 +72,8 @@ class _TripSettingsComponentState extends State<TripSettingsComponent> {
                     ),
                     FilledButton(
                       onPressed: () {
-                        _cubit.createTrip();
+                        // TODO(naz): get minutesForTrip from user
+                        _cubit.createTrip(minutesForTrip: 30);
                         _collapse();
                       },
                       child: const Text('Build route'),
