@@ -7,24 +7,8 @@ sealed class HomeState extends Equatable {
   List<Object?> get props => [];
 }
 
-class InitialLocationLoading extends HomeState {}
+class HomeInitial extends HomeState {}
 
-class InitialLocationLoaded extends HomeState {
-  const InitialLocationLoaded(this.location);
-
-  final LatLng location;
-
-  @override
-  List<Object?> get props => [...super.props, location];
-}
-
-class GetInitialLocationFailed extends HomeState {
-  const GetInitialLocationFailed(this.error);
-
-  final dynamic error;
-
-  @override
-  List<Object?> get props => [...super.props, error];
-}
+class GetLocationPermissionSuccess extends HomeState {}
 
 class GetLocationPermissionFailed extends HomeState {}

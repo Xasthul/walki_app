@@ -3,7 +3,6 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:vall/home/cubit/home_cubit.dart';
 import 'package:vall/home/trip/trip_component.dart';
-import 'package:vall/home/trip_settings/trip_settings_component.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -14,14 +13,8 @@ class HomePage extends StatelessWidget {
         child: Scaffold(
           backgroundColor: Colors.white,
           body: BlocBuilder<HomeCubit, HomeState>(builder: (context, state) {
-            if (state is InitialLocationLoaded) {
-              return SafeArea(
-                top: false,
-                child: Stack(children: [
-                  TripComponent(initialLocation: state.location),
-                  const TripSettingsComponent(),
-                ]),
-              );
+            if (state is GetLocationPermissionSuccess) {
+              return const TripComponent();
             }
             return const Center(child: CircularProgressIndicator());
           }),

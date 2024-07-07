@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:vall/home/trip/cubit/trip_cubit.dart';
 
 class TripSettingsComponent extends StatefulWidget {
   const TripSettingsComponent({super.key});
@@ -8,12 +10,14 @@ class TripSettingsComponent extends StatefulWidget {
 }
 
 class _TripSettingsComponentState extends State<TripSettingsComponent> {
+  late TripCubit _cubit;
   final _sheet = GlobalKey();
   late DraggableScrollableController _controller;
 
   @override
   void initState() {
     super.initState();
+    _cubit = BlocProvider.of<TripCubit>(context);
     _controller = DraggableScrollableController()..addListener(_onSizeChanged);
   }
 
@@ -65,7 +69,7 @@ class _TripSettingsComponentState extends State<TripSettingsComponent> {
                       ),
                     ),
                     FilledButton(
-                      onPressed: () {},
+                      onPressed: _cubit.createTrip,
                       child: const Text('Build route'),
                     ),
                   ]),
