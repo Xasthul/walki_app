@@ -9,6 +9,8 @@ environment:
 # Add regular dependencies here.
 dependencies:
   equatable: ^2.0.5
+  point_of_interest_service:
+    path: '../point_of_interest_service'
 
 dev_dependencies:
   lints: ^3.0.0
