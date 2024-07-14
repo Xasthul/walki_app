@@ -5,17 +5,17 @@ import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:vall/app/common/constants/app_constants.dart';
 import 'package:vall/home/trip/utils/entity/trip_step.dart';
-import 'package:vall/home/trip/utils/use_case/trip_repository.dart';
+import 'package:vall/home/trip/utils/use_case/trip_use_case.dart';
 
 part 'trip_state.dart';
 
 class TripCubit extends Cubit<TripState> {
   TripCubit({
-    required TripRepository tripRepository,
-  })  : _tripRepository = tripRepository,
+    required TripUseCase tripUseCase,
+  })  : _tripUseCase = tripUseCase,
         super(TripInitialLocationLoading());
 
-  final TripRepository _tripRepository;
+  final TripUseCase _tripUseCase;
   late LatLng location;
 
   static const LatLng _defaultLocation = LatLng(54.8986908770719, 23.902795599987545);
@@ -35,7 +35,7 @@ class TripCubit extends Cubit<TripState> {
   Future<void> createTrip({required int minutesForTrip}) async {
     emit(TripLoading());
     try {
-      final List<TripStep> tripSteps = _tripRepository.createTrip(
+      final List<TripStep> tripSteps = _tripUseCase.createTrip(
         startingLatitude: location.latitude,
         startingLongitude: location.longitude,
         minutesForTrip: minutesForTrip,

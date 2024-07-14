@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:vall/home/cubit/home_cubit.dart';
 import 'package:vall/home/trip/cubit/trip_cubit.dart';
 import 'package:vall/home/trip/utils/service/point_of_interest_service.dart';
-import 'package:vall/home/trip/utils/use_case/trip_repository.dart';
+import 'package:vall/home/trip/utils/use_case/trip_use_case.dart';
 
 class AppDependencies extends StatelessWidget {
   const AppDependencies({
@@ -18,7 +18,7 @@ class AppDependencies extends StatelessWidget {
         providers: [
           RepositoryProvider(create: (_) => PointOfInterestService()),
           RepositoryProvider(
-            create: (context) => TripRepository(
+            create: (context) => TripUseCase(
               pointOfInterestService: RepositoryProvider.of<PointOfInterestService>(context),
             ),
           ),
@@ -28,7 +28,7 @@ class AppDependencies extends StatelessWidget {
             BlocProvider(create: (_) => HomeCubit()..init()),
             BlocProvider(
               create: (context) => TripCubit(
-                tripRepository: RepositoryProvider.of<TripRepository>(context),
+                tripUseCase: RepositoryProvider.of<TripUseCase>(context),
               )..init(),
             ),
           ],
