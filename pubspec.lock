@@ -576,13 +576,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.1.8"
-  point_of_interest_service:
-    dependency: "direct main"
-    description:
-      path: "packages/point_of_interest_service"
-      relative: true
-    source: path
-    version: "1.0.0"
   pool:
     dependency: transitive
     description:
@@ -732,13 +725,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.0.1"
-  trip_repository:
-    dependency: "direct main"
-    description:
-      path: "packages/trip_repository"
-      relative: true
-    source: path
-    version: "1.0.0"
   typed_data:
     dependency: transitive
     description:

@@ -1,7 +1,7 @@
 import 'dart:math' show atan2, cos, pi, pow, sin, sqrt;
 
-import 'package:point_of_interest_service/point_of_interest_service.dart';
-import 'package:trip_repository/src/models/trip_step.dart';
+import 'package:vall/home/trip/utils/entity/trip_step.dart';
+import 'package:vall/home/trip/utils/service/point_of_interest_service.dart';
 
 class TripRepository {
   TripRepository({required PointOfInterestService pointOfInterestService})
