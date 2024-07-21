@@ -4,15 +4,11 @@ import 'package:vall/home/home_page.dart';
 import 'package:vall/home/places/places_page.dart';
 import 'package:vall/home/trip/trip_page.dart';
 
-const String _homePagePath = '/home';
-const String _tripPagePath = '/trip';
-const String _placesPagePath = '/places';
-
 final appRoutes = GoRouter(
-  initialLocation: _homePagePath,
+  initialLocation: PageName.homePagePath,
   routes: [
     GoRoute(
-      path: _homePagePath,
+      path: PageName.homePagePath,
       builder: (context, state) => const HomePage(),
     ),
     StatefulShellRoute.indexedStack(
@@ -20,13 +16,13 @@ final appRoutes = GoRouter(
       branches: [
         StatefulShellBranch(routes: [
           GoRoute(
-            path: _tripPagePath,
+            path: PageName.tripPagePath,
             builder: (context, state) => const TripPage(),
           ),
         ]),
         StatefulShellBranch(routes: [
           GoRoute(
-            path: _placesPagePath,
+            path: PageName.placesPagePath,
             builder: (context, state) => const PlacesPage(),
           ),
         ]),
@@ -34,3 +30,9 @@ final appRoutes = GoRouter(
     ),
   ],
 );
+
+class PageName {
+  static const String homePagePath = '/home';
+  static const String tripPagePath = '/trip';
+  static const String placesPagePath = '/places';
+}
