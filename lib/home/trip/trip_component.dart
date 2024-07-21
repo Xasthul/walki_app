@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:vall/home/trip/common/component/trip_map_component.dart';
+import 'package:vall/home/trip/common/component/trip_settings_component.dart';
 import 'package:vall/home/trip/cubit/trip_cubit.dart';
-import 'package:vall/home/trip/utils/component/trip_map_component.dart';
-import 'package:vall/home/trip/utils/component/trip_settings_component.dart';
 
 class TripComponent extends StatelessWidget {
   const TripComponent({super.key});
