@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:vall/home/trip/cubit/trip_cubit.dart';
+import 'package:vall/home/trip/common/component/trip_settings_content_component.dart';
 
 class TripSettingsComponent extends StatefulWidget {
   const TripSettingsComponent({super.key});
@@ -10,14 +9,12 @@ class TripSettingsComponent extends StatefulWidget {
 }
 
 class _TripSettingsComponentState extends State<TripSettingsComponent> {
-  late TripCubit _cubit;
   final _sheet = GlobalKey();
   late DraggableScrollableController _controller;
 
   @override
   void initState() {
     super.initState();
-    _cubit = BlocProvider.of<TripCubit>(context);
     _controller = DraggableScrollableController()..addListener(_onSizeChanged);
   }
 
@@ -70,14 +67,7 @@ class _TripSettingsComponentState extends State<TripSettingsComponent> {
                         margin: const EdgeInsets.symmetric(vertical: 12),
                       ),
                     ),
-                    FilledButton(
-                      onPressed: () {
-                        // TODO(naz): get minutesForTrip from user
-                        _cubit.createTrip(minutesForTrip: 30);
-                        _collapse();
-                      },
-                      child: const Text('Build route'),
-                    ),
+                    TripSettingsContentComponent(collapseSettings: _collapse),
                   ]),
                 ),
               ),
@@ -88,7 +78,7 @@ class _TripSettingsComponentState extends State<TripSettingsComponent> {
 
   @override
   void dispose() {
-    super.dispose();
     _controller.dispose();
+    super.dispose();
   }
 }
