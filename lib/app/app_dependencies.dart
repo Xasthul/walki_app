@@ -25,7 +25,7 @@ class AppDependencies extends StatelessWidget {
         ],
         child: MultiBlocProvider(
           providers: [
-            BlocProvider(create: (_) => HomeCubit()..init()),
+            BlocProvider(create: (_) => HomeCubit()),
             BlocProvider(
               create: (context) => TripCubit(
                 tripUseCase: RepositoryProvider.of<TripUseCase>(context),

@@ -5,9 +5,9 @@ import 'package:geolocator/geolocator.dart';
 part 'home_state.dart';
 
 class HomeCubit extends Cubit<HomeState> {
-  HomeCubit() : super(HomeInitial());
-
-  Future<void> init() async => _checkLocationPermissions();
+  HomeCubit() : super(HomeInitial()) {
+    _checkLocationPermissions();
+  }
 
   Future<void> _checkLocationPermissions() async {
     try {
