@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:math' show atan2, cos, pi, pow, sin, sqrt;
 
 import 'package:vall/home/trip/common/entity/trip_step.dart';
@@ -9,6 +10,10 @@ class TripUseCase {
 
   final PointOfInterestService _pointOfInterestService;
   static const int _averageWalkingSpeed = 5; // in km/h
+
+  final StreamController<List<TripStep>> _tripController = StreamController.broadcast();
+
+  Stream<List<TripStep>> get trip => _tripController.stream;
 
   List<TripStep> createTrip({
     required double startingLatitude,
@@ -31,9 +36,11 @@ class TripUseCase {
     final double tripDistance = _calculateTripDistance(tripSteps);
     final double possibleUserDistance = _averageWalkingSpeed * (minutesForTrip / 60);
     if (tripDistance > possibleUserDistance) {
+      _tripController.add([]);
       return [];
     }
 
+    _tripController.add(tripSteps);
     return tripSteps;
   }
 
