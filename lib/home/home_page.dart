@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:vall/app/routes/app_routes.dart';
 import 'package:vall/home/cubit/home_cubit.dart';
 
 class HomePage extends StatelessWidget {
@@ -15,7 +14,7 @@ class HomePage extends StatelessWidget {
           listener: (context, state) {
             if (state is GetLocationPermissionSuccess) {
               // TODO(naz): use type routes
-              return context.go(PageName.tripPagePath);
+              return context.go('/home/trip');
             }
           },
           builder: (context, state) => const Center(child: CircularProgressIndicator()),
