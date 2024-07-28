@@ -3,9 +3,7 @@ import 'package:vall/app/app_dependencies.dart';
 import 'package:vall/app/routes/app_routes.dart';
 import 'package:vall/l10n/generated/app_localizations.dart';
 
-void main() {
-  runApp(const MyApp());
-}
+void main() => runApp(const MyApp());
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
