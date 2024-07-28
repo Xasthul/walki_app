@@ -13,7 +13,7 @@ class TripCubit extends Cubit<TripState> {
   TripCubit({
     required TripUseCase tripUseCase,
   })  : _tripUseCase = tripUseCase,
-        super(TripInitialLocationLoading()) {
+        super(TripCurrentLocationLoading()) {
     _getInitialLocation();
   }
 
@@ -28,7 +28,7 @@ class TripCubit extends Cubit<TripState> {
       final position = await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
       location = LatLng(position.latitude, position.longitude);
     } finally {
-      emit(TripInitialLocationLoaded());
+      emit(TripInitial());
     }
   }
 
@@ -81,5 +81,11 @@ class TripCubit extends Cubit<TripState> {
       }
     }
     return polylineCoordinates;
+  }
+
+  void clearTrip() {
+    emit(TripLoading());
+    _tripUseCase.clearTrip();
+    emit(TripInitial());
   }
 }
