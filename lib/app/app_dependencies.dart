@@ -29,7 +29,7 @@ class AppDependencies extends StatelessWidget {
             BlocProvider(
               create: (context) => TripCubit(
                 tripUseCase: RepositoryProvider.of<TripUseCase>(context),
-              )..init(),
+              ),
             ),
           ],
           child: _child,

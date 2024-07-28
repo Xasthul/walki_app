@@ -13,14 +13,14 @@ class TripCubit extends Cubit<TripState> {
   TripCubit({
     required TripUseCase tripUseCase,
   })  : _tripUseCase = tripUseCase,
-        super(TripInitialLocationLoading());
+        super(TripInitialLocationLoading()) {
+    _getInitialLocation();
+  }
 
   final TripUseCase _tripUseCase;
   late LatLng location;
 
   static const LatLng _defaultLocation = LatLng(54.8986908770719, 23.902795599987545);
-
-  Future<void> init() async => _getInitialLocation();
 
   Future<void> _getInitialLocation() async {
     location = _defaultLocation;
