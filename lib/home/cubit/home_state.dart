@@ -9,6 +9,6 @@ sealed class HomeState extends Equatable {
 
 class HomeInitial extends HomeState {}
 
-class GetLocationPermissionSuccess extends HomeState {}
+class HomeGetLocationPermissionSuccess extends HomeState {}
 
-class GetLocationPermissionFailed extends HomeState {}
+class HomeGetLocationPermissionFailed extends HomeState {}

@@ -13,24 +13,24 @@ class HomeCubit extends Cubit<HomeState> {
     try {
       final bool serviceEnabled = await Geolocator.isLocationServiceEnabled();
       if (!serviceEnabled) {
-        return emit(GetLocationPermissionFailed());
+        return emit(HomeGetLocationPermissionFailed());
       }
 
       LocationPermission permission = await Geolocator.checkPermission();
       if (permission == LocationPermission.denied) {
         permission = await Geolocator.requestPermission();
         if (permission == LocationPermission.denied) {
-          return emit(GetLocationPermissionFailed());
+          return emit(HomeGetLocationPermissionFailed());
         }
       }
 
       if (permission == LocationPermission.deniedForever) {
-        return emit(GetLocationPermissionFailed());
+        return emit(HomeGetLocationPermissionFailed());
       }
 
-      return emit(GetLocationPermissionSuccess());
+      return emit(HomeGetLocationPermissionSuccess());
     } catch (error) {
-      return emit(GetLocationPermissionFailed());
+      return emit(HomeGetLocationPermissionFailed());
     }
   }
 }

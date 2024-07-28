@@ -12,7 +12,7 @@ class HomePage extends StatelessWidget {
         backgroundColor: Colors.white,
         body: BlocConsumer<HomeCubit, HomeState>(
           listener: (context, state) {
-            if (state is GetLocationPermissionSuccess) {
+            if (state is HomeGetLocationPermissionSuccess) {
               // TODO(naz): use type routes
               return context.go('/home/trip');
             }
