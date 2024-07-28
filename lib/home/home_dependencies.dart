@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:vall/home/cubit/home_cubit.dart';
 import 'package:vall/home/places/cubit/places_cubit.dart';
+import 'package:vall/home/trip/common/repository/trip_repository.dart';
 import 'package:vall/home/trip/common/service/point_of_interest_service.dart';
-import 'package:vall/home/trip/common/use_case/trip_use_case.dart';
 import 'package:vall/home/trip/cubit/trip_cubit.dart';
 
 class HomeDependencies extends StatelessWidget {
@@ -19,7 +19,7 @@ class HomeDependencies extends StatelessWidget {
         providers: [
           RepositoryProvider(create: (context) => PointOfInterestService()),
           RepositoryProvider(
-            create: (context) => TripUseCase(
+            create: (context) => TripRepository(
               pointOfInterestService: RepositoryProvider.of<PointOfInterestService>(context),
             ),
           ),
@@ -31,13 +31,13 @@ class HomeDependencies extends StatelessWidget {
             ),
             BlocProvider(
               create: (context) => TripCubit(
-                tripUseCase: RepositoryProvider.of<TripUseCase>(context),
+                tripRepository: RepositoryProvider.of<TripRepository>(context),
               ),
             ),
             BlocProvider(
               lazy: false,
               create: (context) => PlacesCubit(
-                tripUseCase: RepositoryProvider.of<TripUseCase>(context),
+                tripRepository: RepositoryProvider.of<TripRepository>(context),
               ),
             )
           ],

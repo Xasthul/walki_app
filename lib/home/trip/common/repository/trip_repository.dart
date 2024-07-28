@@ -4,8 +4,8 @@ import 'dart:math' show atan2, cos, pi, pow, sin, sqrt;
 import 'package:vall/home/trip/common/entity/trip_step.dart';
 import 'package:vall/home/trip/common/service/point_of_interest_service.dart';
 
-class TripUseCase {
-  TripUseCase({required PointOfInterestService pointOfInterestService})
+class TripRepository {
+  TripRepository({required PointOfInterestService pointOfInterestService})
       : _pointOfInterestService = pointOfInterestService;
 
   final PointOfInterestService _pointOfInterestService;
