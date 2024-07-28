@@ -5,26 +5,29 @@ import 'package:vall/app/common/component/app_loading_indicator.dart';
 import 'package:vall/home/trip/common/component/trip_map_component.dart';
 import 'package:vall/home/trip/common/component/trip_settings_component.dart';
 import 'package:vall/home/trip/cubit/trip_cubit.dart';
+import 'package:vall/home/trip/trip_dependencies.dart';
 
 class TripPage extends StatelessWidget {
   const TripPage({super.key});
 
   @override
-  Widget build(BuildContext context) => AnnotatedRegion<SystemUiOverlayStyle>(
-        value: SystemUiOverlayStyle.dark,
-        child: Scaffold(
-          body: SafeArea(
-            top: false,
-            child: BlocBuilder<TripCubit, TripState>(builder: (context, state) {
-              if (state is TripInitialLocationLoading) {
-                return const Center(child: CircularProgressIndicator());
-              }
-              return Stack(children: [
-                const TripMapComponent(),
-                const TripSettingsComponent(),
-                if (state is TripLoading) const AppLoadingIndicator(),
-              ]);
-            }),
+  Widget build(BuildContext context) => TripDependencies(
+        child: AnnotatedRegion<SystemUiOverlayStyle>(
+          value: SystemUiOverlayStyle.dark,
+          child: Scaffold(
+            body: SafeArea(
+              top: false,
+              child: BlocBuilder<TripCubit, TripState>(builder: (context, state) {
+                if (state is TripCurrentLocationLoading) {
+                  return const Center(child: CircularProgressIndicator());
+                }
+                return Stack(children: [
+                  const TripMapComponent(),
+                  const TripSettingsComponent(),
+                  if (state is TripLoading) const AppLoadingIndicator(),
+                ]);
+              }),
+            ),
           ),
         ),
       );

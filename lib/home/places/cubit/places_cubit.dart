@@ -18,6 +18,7 @@ class PlacesCubit extends Cubit<PlacesState> {
   final TripUseCase _tripUseCase;
   StreamSubscription<List<TripStep>>? _tripSubscription;
 
+  // TODO(naz): loaded only after tab is opened (should be when home loaded)
   void _init() => _tripSubscription = _tripUseCase.trip.listen((trip) {
         if (trip.isEmpty) {
           return emit(PlacesNoTripCreated());
