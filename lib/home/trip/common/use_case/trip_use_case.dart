@@ -77,4 +77,6 @@ class TripUseCase {
   }
 
   double _degreesToRadians(double degrees) => degrees * pi / 180;
+
+  void clearTrip() => _tripController.add([]);
 }
