@@ -1,7 +1,8 @@
 import 'dart:async';
 import 'dart:math' show atan2, cos, pi, pow, sin, sqrt;
 
-import 'package:vall/home/trip/common/entity/trip_step.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:vall/home/trip/common/entity/trip.dart';
 import 'package:vall/home/trip/common/service/point_of_interest_service.dart';
 
 class TripRepository {
@@ -11,47 +12,57 @@ class TripRepository {
   final PointOfInterestService _pointOfInterestService;
   static const int _averageWalkingSpeed = 5; // in km/h
 
-  final StreamController<List<TripStep>> _tripController = StreamController.broadcast();
+  final StreamController<Trip?> _tripController = StreamController.broadcast();
 
-  Stream<List<TripStep>> get trip => _tripController.stream;
+  Stream<Trip?> get trip => _tripController.stream;
 
-  List<TripStep> createTrip({
+  Future<void> createTrip({
     required double startingLatitude,
     required double startingLongitude,
     required int minutesForTrip,
-  }) {
-    final pointsOfInterest = _pointOfInterestService.loadPointsOfInterest(
+  }) async {
+    final pointsOfInterest = await _pointOfInterestService.loadPointsOfInterest(
       latitude: startingLatitude,
       longitude: startingLongitude,
     );
-    final tripSteps = [
-      TripStep(startingLatitude, startingLongitude),
-      ...pointsOfInterest.map((pointsOfInterest) => TripStep(
-            pointsOfInterest.latitude,
-            pointsOfInterest.longitude,
-          )),
-    ];
 
-    // TODO(naz): modify trip if not enough time
-    final double tripDistance = _calculateTripDistance(tripSteps);
-    final double possibleUserDistance = _averageWalkingSpeed * (minutesForTrip / 60);
-    if (tripDistance > possibleUserDistance) {
-      _tripController.add([]);
-      return [];
+    if (pointsOfInterest.isEmpty) {
+      return _tripController.add(null);
     }
 
-    _tripController.add(tripSteps);
-    return tripSteps;
+    final trip = Trip(
+      startingLocation: LatLng(
+        startingLatitude,
+        startingLongitude,
+      ),
+      places: pointsOfInterest,
+    );
+
+    // TODO(naz): modify trip if not enough time
+    final double tripDistance = _calculateTripDistance(trip);
+    final double possibleUserDistance = _averageWalkingSpeed * (minutesForTrip / 60);
+    if (tripDistance > possibleUserDistance) {
+      return _tripController.add(null);
+    }
+    return _tripController.add(trip);
   }
 
-  double _calculateTripDistance(List<TripStep> tripSteps) {
+  double _calculateTripDistance(Trip trip) {
     double tripDistance = 0.0;
-    for (int i = 0; i < tripSteps.length - 1; i++) {
+
+    tripDistance += _distanceBetween(
+      trip.startingLocation.latitude,
+      trip.startingLocation.longitude,
+      trip.places[0].latitude,
+      trip.places[0].longitude,
+    );
+
+    for (int i = 0; i < trip.places.length - 1; i++) {
       tripDistance += _distanceBetween(
-        tripSteps[i].latitude,
-        tripSteps[i].longitude,
-        tripSteps[i + 1].latitude,
-        tripSteps[i + 1].longitude,
+        trip.places[i].latitude,
+        trip.places[i].longitude,
+        trip.places[i + 1].latitude,
+        trip.places[i + 1].longitude,
       );
     }
     return tripDistance;
@@ -78,5 +89,5 @@ class TripRepository {
 
   double _degreesToRadians(double degrees) => degrees * pi / 180;
 
-  void clearTrip() => _tripController.add([]);
+  void clearTrip() => _tripController.add(null);
 }
