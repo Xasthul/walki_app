@@ -77,7 +77,7 @@ class TripCubit extends Cubit<TripState> {
 
   Future<void> createTrip({required int minutesForTrip}) async {
     if (_trip == null || _trip!.places.isEmpty) {
-      return emit(TripCreationFailed());
+      return;
     }
     emit(TripLoading());
     try {
