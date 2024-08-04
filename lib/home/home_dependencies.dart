@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:vall/home/cubit/home_cubit.dart';
+import 'package:vall/home/places/common/repository/places_repository.dart';
 import 'package:vall/home/places/cubit/places_cubit.dart';
 import 'package:vall/home/trip/common/repository/trip_repository.dart';
 import 'package:vall/home/trip/common/service/point_of_interest_service.dart';
@@ -18,25 +19,26 @@ class HomeDependencies extends StatelessWidget {
   Widget build(BuildContext context) => MultiRepositoryProvider(
         providers: [
           RepositoryProvider(create: (context) => PointOfInterestService()),
+          RepositoryProvider(create: (context) => TripRepository()),
           RepositoryProvider(
-            create: (context) => TripRepository(
+            create: (context) => PlacesRepository(
               pointOfInterestService: RepositoryProvider.of<PointOfInterestService>(context),
             ),
           ),
         ],
         child: MultiBlocProvider(
           providers: [
-            BlocProvider(
-              create: (context) => HomeCubit(),
-            ),
+            BlocProvider(create: (context) => HomeCubit()),
             BlocProvider(
               create: (context) => TripCubit(
                 tripRepository: RepositoryProvider.of<TripRepository>(context),
+                placesRepository: RepositoryProvider.of<PlacesRepository>(context),
               ),
             ),
             BlocProvider(
               lazy: false,
               create: (context) => PlacesCubit(
+                placesRepository: RepositoryProvider.of<PlacesRepository>(context),
                 tripRepository: RepositoryProvider.of<TripRepository>(context),
               ),
             )
