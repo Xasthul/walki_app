@@ -12,6 +12,8 @@ class _TripSettingsComponentState extends State<TripSettingsComponent> {
   final _sheet = GlobalKey();
   late DraggableScrollableController _controller;
 
+  static const double _expandedSize = 0.5;
+
   @override
   void initState() {
     super.initState();
@@ -34,14 +36,13 @@ class _TripSettingsComponentState extends State<TripSettingsComponent> {
   Widget build(BuildContext context) => LayoutBuilder(
         builder: (context, constraints) {
           final double collapsedSize = 72 / constraints.maxHeight;
-          const double expandedSize = 0.8;
           return DraggableScrollableSheet(
             key: _sheet,
             initialChildSize: collapsedSize,
-            maxChildSize: expandedSize,
+            maxChildSize: _expandedSize,
             minChildSize: 0,
             snap: true,
-            snapSizes: [collapsedSize, expandedSize],
+            snapSizes: [collapsedSize, _expandedSize],
             controller: _controller,
             builder: (context, scrollController) => DecoratedBox(
               decoration: const BoxDecoration(
