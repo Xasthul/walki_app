@@ -75,6 +75,7 @@ class TripCubit extends Cubit<TripState> {
     );
   }
 
+  // TODO(naz): show previous state under loading + show previous state when error
   Future<void> createTrip({required int minutesForTrip}) async {
     if (_trip == null || _trip!.places.isEmpty) {
       return;
