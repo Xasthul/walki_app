@@ -42,19 +42,51 @@ class _TripMapComponentState extends State<TripMapComponent> {
                 width: 8,
               ),
           },
-          markers: {
-            if (state is TripCreated)
-              ...state.tripSteps.map(
-                (tripStep) => Marker(
-                  markerId: MarkerId('$tripStep'),
-                  position: tripStep,
-                ),
-              ),
-          },
+          markers: _getMarkers(state),
           compassEnabled: false,
           myLocationEnabled: true,
           myLocationButtonEnabled: false,
           minMaxZoomPreference: const MinMaxZoomPreference(15, 17),
         ),
       );
+
+  Set<Marker> _getMarkers(TripState state) => {
+        ...switch (state) {
+          TripPlacesNearbyFound() => state.places.map(
+              (place) => Marker(
+                markerId: MarkerId('$place'),
+                position: place,
+                icon: _foundPlaceMarkerIcon,
+              ),
+            ),
+          TripCreation() => {
+              ...state.places.map(
+                (place) => Marker(
+                  markerId: MarkerId('$place'),
+                  position: place,
+                  icon: _foundPlaceMarkerIcon,
+                ),
+              ),
+              ...state.selectedPlaces.map(
+                (place) => Marker(
+                  markerId: MarkerId('$place'),
+                  position: place,
+                  icon: _selectedPlaceMarkerIcon,
+                ),
+              ),
+            },
+          TripCreated() => state.places.map(
+              (place) => Marker(
+                markerId: MarkerId('$place'),
+                position: place,
+                icon: _selectedPlaceMarkerIcon,
+              ),
+            ),
+          _ => {},
+        }
+      };
+
+  BitmapDescriptor get _selectedPlaceMarkerIcon => BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueGreen);
+
+  BitmapDescriptor get _foundPlaceMarkerIcon => BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueMagenta);
 }
