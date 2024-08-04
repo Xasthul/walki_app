@@ -7,6 +7,13 @@ sealed class PlacesState extends Equatable {
   List<Object?> get props => [];
 }
 
-class PlacesNoTripCreated extends PlacesState {}
+class PlacesNotDiscovered extends PlacesState {}
 
-class PlacesTripCreated extends PlacesState {}
+class PlacesDiscovered extends PlacesState {
+  const PlacesDiscovered(this.places);
+
+  final List<PointOfInterest> places;
+
+  @override
+  List<Object?> get props => super.props..add(places);
+}
