@@ -13,22 +13,31 @@ class TripSettingsContentComponent extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final cubit = BlocProvider.of<TripCubit>(context);
-    return Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+    return Column(children: [
       FilledButton(
         onPressed: () {
-          // TODO(naz): get minutesForTrip from user
-          cubit.createTrip(minutesForTrip: 30);
+          cubit.findPlaces();
           _collapseSettings();
         },
-        child: const Text('Create trip'),
+        child: const Text('Find places nearby'),
       ),
-      FilledButton(
-        onPressed: () {
-          cubit.clearTrip();
-          _collapseSettings();
-        },
-        child: const Text('Clear trip'),
-      ),
+      Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+        FilledButton(
+          onPressed: () {
+            // TODO(naz): get minutesForTrip from user
+            cubit.createTrip(minutesForTrip: 30);
+            _collapseSettings();
+          },
+          child: const Text('Create trip'),
+        ),
+        FilledButton(
+          onPressed: () {
+            cubit.clearTrip();
+            _collapseSettings();
+          },
+          child: const Text('Clear trip'),
+        ),
+      ]),
     ]);
   }
 }
