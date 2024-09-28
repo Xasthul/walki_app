@@ -3,13 +3,13 @@ import 'dart:async';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_polyline_points/flutter_polyline_points.dart';
-import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:vall/app/common/constants/app_constants.dart';
 import 'package:vall/home/places/misc/repository/places_repository.dart';
 import 'package:vall/home/trip/misc/entity/point_of_interest.dart';
 import 'package:vall/home/trip/misc/entity/trip.dart';
 import 'package:vall/home/trip/misc/repository/trip_repository.dart';
+import 'package:vall/home/trip/misc/use_case/current_location_use_case.dart';
 
 part 'trip_state.dart';
 
@@ -17,28 +17,21 @@ class TripCubit extends Cubit<TripState> {
   TripCubit({
     required TripRepository tripRepository,
     required PlacesRepository placesRepository,
+    required CurrentLocationUseCase currentLocationUseCase,
   })  : _tripRepository = tripRepository,
         _placesRepository = placesRepository,
-        super(TripCurrentLocationLoading());
-
-  // TODO(naz): separate cubit for map and settings?
-  // add LocationRepository, which will expose stream of location
-  // both cubits listen to them
+        _currentLocationUseCase = currentLocationUseCase,
+        super(TripInitial());
 
   final TripRepository _tripRepository;
   final PlacesRepository _placesRepository;
+  final CurrentLocationUseCase _currentLocationUseCase;
 
   StreamSubscription<Trip?>? _tripSubscription;
-  late LatLng location;
   List<PointOfInterest> _places = [];
   Trip? _trip;
 
-  static const LatLng _defaultLocation = LatLng(54.8986908770719, 23.902795599987545);
-
-  void load() {
-    _setupTripSubscription();
-    _getInitialLocation();
-  }
+  void load() => _setupTripSubscription();
 
   void _setupTripSubscription() => _tripSubscription = _tripRepository.tripStream.listen((trip) async {
         _trip = trip;
@@ -53,19 +46,10 @@ class TripCubit extends Cubit<TripState> {
         );
       });
 
-  Future<void> _getInitialLocation() async {
-    location = _defaultLocation;
-    try {
-      final position = await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
-      location = LatLng(position.latitude, position.longitude);
-    } finally {
-      emit(TripIdle());
-    }
-  }
-
   Future<void> findPlaces() async {
     emit(TripLoading());
-    _places = await _placesRepository.findPlaces(startingPosition: location);
+    final currentLocation = await _currentLocationUseCase.getCurrentLocation();
+    _places = await _placesRepository.findPlaces(startingPosition: currentLocation);
     emit(
       TripPlacesNearbyFound(
         places: _pointsOfInterestToLatLng(_places),
@@ -80,7 +64,11 @@ class TripCubit extends Cubit<TripState> {
     }
     emit(TripLoading());
     try {
-      final List<LatLng> polylineCoordinates = await _getPolylineCoordinates(trip: _trip!);
+      final currentLocation = await _currentLocationUseCase.getCurrentLocation();
+      final List<LatLng> polylineCoordinates = await _getPolylineCoordinates(
+        trip: _trip!,
+        currentLocation: currentLocation,
+      );
       emit(
         TripCreated(
           polylinePoints: polylineCoordinates,
@@ -92,7 +80,10 @@ class TripCubit extends Cubit<TripState> {
     }
   }
 
-  Future<List<LatLng>> _getPolylineCoordinates({required Trip trip}) async {
+  Future<List<LatLng>> _getPolylineCoordinates({
+    required Trip trip,
+    required LatLng currentLocation,
+  }) async {
     final polylinePoints = PolylinePoints();
     final List<PolylineWayPoint> wayPoints = [];
     final places = trip.places;
@@ -106,7 +97,7 @@ class TripCubit extends Cubit<TripState> {
     }
     final PolylineResult result = await polylinePoints.getRouteBetweenCoordinates(
       request: PolylineRequest(
-        origin: PointLatLng(location.latitude, location.longitude),
+        origin: PointLatLng(currentLocation.latitude, currentLocation.longitude),
         destination: PointLatLng(places.last.latitude, places.last.longitude),
         wayPoints: wayPoints,
         mode: TravelMode.walking,
@@ -128,7 +119,7 @@ class TripCubit extends Cubit<TripState> {
   void clearTrip() {
     emit(TripLoading());
     _tripRepository.clearTrip();
-    emit(TripIdle());
+    emit(TripInitial());
   }
 
   @override

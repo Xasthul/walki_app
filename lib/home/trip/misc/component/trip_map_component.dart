@@ -6,22 +6,26 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:vall/home/trip/cubit/trip_cubit.dart';
 
 class TripMapComponent extends StatefulWidget {
-  const TripMapComponent({super.key});
+  const TripMapComponent({
+    super.key,
+    required LatLng initialLocation,
+  }) : _initialLocation = initialLocation;
+
+  final LatLng _initialLocation;
 
   @override
   State<TripMapComponent> createState() => _TripMapComponentState();
 }
 
 class _TripMapComponentState extends State<TripMapComponent> {
-  late TripCubit _cubit;
   late Completer<GoogleMapController> _controller;
+
   static const double _initialCameraZoom = 14.5;
   static const PolylineId _tripPolylineId = PolylineId('trip');
 
   @override
   void initState() {
     super.initState();
-    _cubit = BlocProvider.of<TripCubit>(context);
     _controller = Completer<GoogleMapController>();
   }
 
@@ -29,7 +33,7 @@ class _TripMapComponentState extends State<TripMapComponent> {
   Widget build(BuildContext context) => BlocBuilder<TripCubit, TripState>(
         builder: (context, state) => GoogleMap(
           initialCameraPosition: CameraPosition(
-            target: _cubit.location,
+            target: widget._initialLocation,
             zoom: _initialCameraZoom,
           ),
           onMapCreated: _controller.complete,

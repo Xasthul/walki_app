@@ -3,9 +3,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:vall/home/cubit/location_permission/location_permission_cubit.dart';
 import 'package:vall/home/places/cubit/places_cubit.dart';
 import 'package:vall/home/places/misc/repository/places_repository.dart';
+import 'package:vall/home/trip/cubit/initial_location/initial_location_cubit.dart';
 import 'package:vall/home/trip/cubit/trip_cubit.dart';
 import 'package:vall/home/trip/misc/repository/trip_repository.dart';
 import 'package:vall/home/trip/misc/service/point_of_interest_service.dart';
+import 'package:vall/home/trip/misc/use_case/current_location_use_case.dart';
 
 class HomeDependencies extends StatelessWidget {
   const HomeDependencies({
@@ -22,9 +24,10 @@ class HomeDependencies extends StatelessWidget {
           RepositoryProvider(create: (context) => TripRepository()),
           RepositoryProvider(
             create: (context) => PlacesRepository(
-              pointOfInterestService: RepositoryProvider.of<PointOfInterestService>(context),
+              pointOfInterestService: context.read<PointOfInterestService>(),
             ),
           ),
+          RepositoryProvider(create: (context) => CurrentLocationUseCase()),
         ],
         child: MultiBlocProvider(
           providers: [
@@ -32,16 +35,22 @@ class HomeDependencies extends StatelessWidget {
               create: (context) => LocationPermissionCubit()..load(),
             ),
             BlocProvider(
+              create: (context) => InitialLocationCubit(
+                currentLocationUseCase: context.read<CurrentLocationUseCase>(),
+              )..load(),
+            ),
+            BlocProvider(
               create: (context) => TripCubit(
-                tripRepository: RepositoryProvider.of<TripRepository>(context),
-                placesRepository: RepositoryProvider.of<PlacesRepository>(context),
+                tripRepository: context.read<TripRepository>(),
+                placesRepository: context.read<PlacesRepository>(),
+                currentLocationUseCase: context.read<CurrentLocationUseCase>(),
               )..load(),
             ),
             BlocProvider(
               lazy: false,
               create: (context) => PlacesCubit(
-                placesRepository: RepositoryProvider.of<PlacesRepository>(context),
-                tripRepository: RepositoryProvider.of<TripRepository>(context),
+                placesRepository: context.read<PlacesRepository>(),
+                tripRepository: context.read<TripRepository>(),
               )..load(),
             )
           ],
