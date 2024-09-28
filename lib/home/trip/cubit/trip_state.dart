@@ -1,40 +1,30 @@
 part of 'trip_cubit.dart';
 
 sealed class TripState extends Equatable {
-  const TripState();
+  const TripState({
+    this.foundPlaces = const [],
+    this.selectedPlaces = const [],
+  });
+
+  final List<LatLng> foundPlaces;
+  final List<LatLng> selectedPlaces;
 
   @override
-  List<Object?> get props => [];
+  List<Object?> get props => [foundPlaces, selectedPlaces];
 }
 
 class TripInitial extends TripState {}
 
-class TripLoading extends TripState {}
+class TripLoading extends TripState {
+  const TripLoading({super.foundPlaces, super.selectedPlaces});
+}
 
 class TripPlacesNearbyFound extends TripState {
-  const TripPlacesNearbyFound({required this.places});
-
-  final List<LatLng> places;
-
-  @override
-  List<Object?> get props => super.props..add(places);
+  const TripPlacesNearbyFound({super.foundPlaces});
 }
 
 class TripCreation extends TripState {
-  const TripCreation({
-    required this.places,
-    required this.selectedPlaces,
-  });
-
-  final List<LatLng> places;
-  final List<LatLng> selectedPlaces;
-
-  @override
-  List<Object?> get props => super.props
-    ..addAll([
-      places,
-      selectedPlaces,
-    ]);
+  const TripCreation({super.foundPlaces, super.selectedPlaces});
 }
 
 class TripCreated extends TripState {
@@ -54,4 +44,6 @@ class TripCreated extends TripState {
     ]);
 }
 
-class TripCreationFailed extends TripState {}
+class TripCreationFailed extends TripState {
+  const TripCreationFailed({super.foundPlaces, super.selectedPlaces});
+}

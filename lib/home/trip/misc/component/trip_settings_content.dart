@@ -12,10 +12,7 @@ class _TripSettingsContent extends StatelessWidget {
     final cubit = context.read<TripCubit>();
     return Column(children: [
       FilledButton(
-        onPressed: () {
-          cubit.findPlaces();
-          _collapseSettings();
-        },
+        onPressed: cubit.findPlaces,
         child: const Text('Find places nearby'),
       ),
       Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
@@ -28,10 +25,7 @@ class _TripSettingsContent extends StatelessWidget {
           child: const Text('Create trip'),
         ),
         FilledButton(
-          onPressed: () {
-            cubit.clearTrip();
-            _collapseSettings();
-          },
+          onPressed: cubit.clearTrip,
           child: const Text('Clear trip'),
         ),
       ]),

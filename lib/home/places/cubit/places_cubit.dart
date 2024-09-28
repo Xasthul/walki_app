@@ -29,9 +29,7 @@ class PlacesCubit extends Cubit<PlacesState> {
 
   // TODO(naz): find optimal route method to sort selected places
 
-  void addPlaceToTrip(PointOfInterest place) {
-    _tripRepository.addPlace(place);
-  }
+  void addPlaceToTrip(PointOfInterest place) => _tripRepository.addPlace(place);
 
   @override
   Future<void> close() {

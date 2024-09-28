@@ -1,16 +1,14 @@
 import 'package:flutter_polyline_points/flutter_polyline_points.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:vall/app/common/constants/app_constants.dart';
-import 'package:vall/home/trip/misc/entity/trip.dart';
 
 class TripUseCase {
   Future<List<LatLng>> getPolylineCoordinates({
-    required Trip trip,
+    required List<LatLng> places,
     required LatLng currentLocation,
   }) async {
     final polylinePoints = PolylinePoints();
     final List<PolylineWayPoint> wayPoints = [];
-    final places = trip.places;
 
     final int placesNumber = places.length;
     if (placesNumber > 1) {

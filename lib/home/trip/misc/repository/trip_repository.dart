@@ -11,6 +11,9 @@ class TripRepository {
   Stream<Trip?> get tripStream => _tripController.stream;
 
   void addPlace(PointOfInterest place) {
+    if (_trip.places.contains(place)) {
+      return;
+    }
     _trip = _trip.copyWith(places: [..._trip.places, place]);
     _tripController.add(_trip);
   }

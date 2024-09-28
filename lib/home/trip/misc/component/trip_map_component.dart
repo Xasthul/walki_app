@@ -55,25 +55,21 @@ class _TripMapComponentState extends State<TripMapComponent> {
 
   Set<Marker> _getMarkers(TripState state) => {
         ...switch (state) {
-          TripPlacesNearbyFound() => _drawMarkers(
-              places: state.places,
-              icon: _foundPlaceMarkerIcon,
-            ),
-          TripCreation() => {
-              ..._drawMarkers(
-                places: state.places,
-                icon: _foundPlaceMarkerIcon,
-              ),
-              ..._drawMarkers(
-                places: state.places,
-                icon: _selectedPlaceMarkerIcon,
-              ),
-            },
+          TripInitial() => {},
           TripCreated() => _drawMarkers(
               places: state.places,
               icon: _selectedPlaceMarkerIcon,
             ),
-          _ => {},
+          _ => {
+              ..._drawMarkers(
+                places: state.foundPlaces,
+                icon: _foundPlaceMarkerIcon,
+              ),
+              ..._drawMarkers(
+                places: state.selectedPlaces,
+                icon: _selectedPlaceMarkerIcon,
+              ),
+            },
         }
       };
 
@@ -85,7 +81,7 @@ class _TripMapComponentState extends State<TripMapComponent> {
         (place) => Marker(
           markerId: MarkerId('$place'),
           position: place,
-          icon: _selectedPlaceMarkerIcon,
+          icon: icon,
         ),
       );
 
