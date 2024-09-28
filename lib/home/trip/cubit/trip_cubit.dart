@@ -19,9 +19,7 @@ class TripCubit extends Cubit<TripState> {
     required PlacesRepository placesRepository,
   })  : _tripRepository = tripRepository,
         _placesRepository = placesRepository,
-        super(TripCurrentLocationLoading()) {
-    _init();
-  }
+        super(TripCurrentLocationLoading());
 
   // TODO(naz): separate cubit for map and settings?
   // add LocationRepository, which will expose stream of location
@@ -37,7 +35,7 @@ class TripCubit extends Cubit<TripState> {
 
   static const LatLng _defaultLocation = LatLng(54.8986908770719, 23.902795599987545);
 
-  void _init() {
+  void load() {
     _setupTripSubscription();
     _getInitialLocation();
   }

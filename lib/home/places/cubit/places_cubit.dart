@@ -14,15 +14,13 @@ class PlacesCubit extends Cubit<PlacesState> {
     required TripRepository tripRepository,
   })  : _placesRepository = placesRepository,
         _tripRepository = tripRepository,
-        super(PlacesNotDiscovered()) {
-    _init();
-  }
+        super(PlacesNotDiscovered());
 
   final PlacesRepository _placesRepository;
   final TripRepository _tripRepository;
   StreamSubscription<List<PointOfInterest>>? _placesSubscription;
 
-  void _init() => _placesSubscription = _placesRepository.places.listen((places) {
+  void load() => _placesSubscription = _placesRepository.places.listen((places) {
         if (places.isEmpty) {
           return emit(PlacesNotDiscovered());
         }

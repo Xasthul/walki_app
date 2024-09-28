@@ -33,14 +33,14 @@ class HomeDependencies extends StatelessWidget {
               create: (context) => TripCubit(
                 tripRepository: RepositoryProvider.of<TripRepository>(context),
                 placesRepository: RepositoryProvider.of<PlacesRepository>(context),
-              ),
+              )..load(),
             ),
             BlocProvider(
               lazy: false,
               create: (context) => PlacesCubit(
                 placesRepository: RepositoryProvider.of<PlacesRepository>(context),
                 tripRepository: RepositoryProvider.of<TripRepository>(context),
-              ),
+              )..load(),
             )
           ],
           child: _child,
