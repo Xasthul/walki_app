@@ -2,9 +2,9 @@ import 'dart:async';
 
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:vall/home/places/common/repository/places_repository.dart';
-import 'package:vall/home/trip/common/entity/point_of_interest.dart';
-import 'package:vall/home/trip/common/repository/trip_repository.dart';
+import 'package:vall/home/places/misc/repository/places_repository.dart';
+import 'package:vall/home/trip/misc/entity/point_of_interest.dart';
+import 'package:vall/home/trip/misc/repository/trip_repository.dart';
 
 part 'places_state.dart';
 

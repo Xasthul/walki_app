@@ -1,4 +1,4 @@
-import 'package:vall/home/trip/common/entity/point_of_interest.dart';
+import 'package:vall/home/trip/misc/entity/point_of_interest.dart';
 
 class PointOfInterestService {
   // TODO(naz): implement

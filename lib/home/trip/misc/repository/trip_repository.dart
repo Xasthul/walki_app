@@ -1,7 +1,7 @@
 import 'dart:async';
 
-import 'package:vall/home/trip/common/entity/point_of_interest.dart';
-import 'package:vall/home/trip/common/entity/trip.dart';
+import 'package:vall/home/trip/misc/entity/point_of_interest.dart';
+import 'package:vall/home/trip/misc/entity/trip.dart';
 
 class TripRepository {
   Trip _trip = const Trip(places: []);

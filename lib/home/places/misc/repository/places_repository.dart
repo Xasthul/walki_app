@@ -1,8 +1,8 @@
 import 'dart:async';
 
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:vall/home/trip/common/entity/point_of_interest.dart';
-import 'package:vall/home/trip/common/service/point_of_interest_service.dart';
+import 'package:vall/home/trip/misc/entity/point_of_interest.dart';
+import 'package:vall/home/trip/misc/service/point_of_interest_service.dart';
 
 class PlacesRepository {
   PlacesRepository({

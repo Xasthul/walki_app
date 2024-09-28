@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:vall/home/trip/common/component/trip_settings_content_component.dart';
+import 'package:vall/home/trip/misc/component/trip_settings_content_component.dart';
 
 class TripSettingsComponent extends StatefulWidget {
   const TripSettingsComponent({super.key});

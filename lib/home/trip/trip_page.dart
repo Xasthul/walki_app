@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:vall/app/common/component/app_loading_indicator.dart';
-import 'package:vall/home/trip/common/component/trip_map_component.dart';
-import 'package:vall/home/trip/common/component/trip_settings_component.dart';
 import 'package:vall/home/trip/cubit/trip_cubit.dart';
+import 'package:vall/home/trip/misc/component/trip_map_component.dart';
+import 'package:vall/home/trip/misc/component/trip_settings_component.dart';
 
 class TripPage extends StatelessWidget {
   const TripPage({super.key});

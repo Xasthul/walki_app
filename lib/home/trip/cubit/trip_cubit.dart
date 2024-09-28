@@ -6,10 +6,10 @@ import 'package:flutter_polyline_points/flutter_polyline_points.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:vall/app/common/constants/app_constants.dart';
-import 'package:vall/home/places/common/repository/places_repository.dart';
-import 'package:vall/home/trip/common/entity/point_of_interest.dart';
-import 'package:vall/home/trip/common/entity/trip.dart';
-import 'package:vall/home/trip/common/repository/trip_repository.dart';
+import 'package:vall/home/places/misc/repository/places_repository.dart';
+import 'package:vall/home/trip/misc/entity/point_of_interest.dart';
+import 'package:vall/home/trip/misc/entity/trip.dart';
+import 'package:vall/home/trip/misc/repository/trip_repository.dart';
 
 part 'trip_state.dart';
 

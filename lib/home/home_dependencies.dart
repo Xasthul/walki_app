@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:vall/home/cubit/home_cubit.dart';
-import 'package:vall/home/places/common/repository/places_repository.dart';
 import 'package:vall/home/places/cubit/places_cubit.dart';
-import 'package:vall/home/trip/common/repository/trip_repository.dart';
-import 'package:vall/home/trip/common/service/point_of_interest_service.dart';
+import 'package:vall/home/places/misc/repository/places_repository.dart';
 import 'package:vall/home/trip/cubit/trip_cubit.dart';
+import 'package:vall/home/trip/misc/repository/trip_repository.dart';
+import 'package:vall/home/trip/misc/service/point_of_interest_service.dart';
 
 class HomeDependencies extends StatelessWidget {
   const HomeDependencies({
