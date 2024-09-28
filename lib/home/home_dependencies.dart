@@ -8,7 +8,7 @@ import 'package:vall/home/trip/cubit/trip_cubit.dart';
 import 'package:vall/home/trip/misc/mapper/trip_mapper.dart';
 import 'package:vall/home/trip/misc/repository/current_location_repository.dart';
 import 'package:vall/home/trip/misc/repository/trip_repository.dart';
-import 'package:vall/home/trip/misc/service/point_of_interest_service.dart';
+import 'package:vall/home/trip/misc/service/points_of_interest_service.dart';
 
 class HomeDependencies extends StatelessWidget {
   const HomeDependencies({
@@ -21,11 +21,11 @@ class HomeDependencies extends StatelessWidget {
   @override
   Widget build(BuildContext context) => MultiRepositoryProvider(
         providers: [
-          RepositoryProvider(create: (context) => PointOfInterestService()),
+          RepositoryProvider(create: (context) => PointsOfInterestService()),
           RepositoryProvider(create: (context) => TripRepository()),
           RepositoryProvider(
             create: (context) => PlacesRepository(
-              pointOfInterestService: context.read<PointOfInterestService>(),
+              pointsOfInterestService: context.read<PointsOfInterestService>(),
             ),
           ),
           RepositoryProvider(create: (context) => CurrentLocationRepository()),

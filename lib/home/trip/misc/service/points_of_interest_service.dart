@@ -1,6 +1,6 @@
 import 'package:vall/home/trip/misc/entity/point_of_interest.dart';
 
-class PointOfInterestService {
+class PointsOfInterestService {
   // TODO(naz): implement
   Future<List<PointOfInterest>> loadPointsOfInterest({
     required double latitude,
