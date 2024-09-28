@@ -59,7 +59,7 @@ class TripCubit extends Cubit<TripState> {
       final position = await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
       location = LatLng(position.latitude, position.longitude);
     } finally {
-      emit(TripInitial());
+      emit(TripIdle());
     }
   }
 
@@ -128,7 +128,7 @@ class TripCubit extends Cubit<TripState> {
   void clearTrip() {
     emit(TripLoading());
     _tripRepository.clearTrip();
-    emit(TripInitial());
+    emit(TripIdle());
   }
 
   @override
