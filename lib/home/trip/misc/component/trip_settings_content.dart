@@ -1,10 +1,7 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:vall/home/trip/cubit/trip_cubit.dart';
+part of 'trip_settings_component.dart';
 
-class TripSettingsContentComponent extends StatelessWidget {
-  const TripSettingsContentComponent({
-    super.key,
+class _TripSettingsContent extends StatelessWidget {
+  const _TripSettingsContent({
     required VoidCallback collapseSettings,
   }) : _collapseSettings = collapseSettings;
 
@@ -12,7 +9,7 @@ class TripSettingsContentComponent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final cubit = BlocProvider.of<TripCubit>(context);
+    final cubit = context.read<TripCubit>();
     return Column(children: [
       FilledButton(
         onPressed: () {

@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:vall/home/trip/misc/component/trip_settings_content_component.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:vall/home/trip/cubit/trip_cubit.dart';
+
+part 'trip_settings_content.dart';
 
 class TripSettingsComponent extends StatefulWidget {
   const TripSettingsComponent({super.key});
@@ -68,7 +71,7 @@ class _TripSettingsComponentState extends State<TripSettingsComponent> {
                         margin: const EdgeInsets.symmetric(vertical: 12),
                       ),
                     ),
-                    TripSettingsContentComponent(collapseSettings: _collapse),
+                    _TripSettingsContent(collapseSettings: _collapse),
                   ]),
                 ),
               ),
