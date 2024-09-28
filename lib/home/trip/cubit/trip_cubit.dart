@@ -21,20 +21,20 @@ class TripCubit extends Cubit<TripState> {
         _placesRepository = placesRepository,
         _currentLocationRepository = currentLocationRepository,
         _tripMapper = tripMapper,
-        super(TripInitial());
+        super(const TripInitial());
 
   final CurrentLocationRepository _currentLocationRepository;
   final TripRepository _tripRepository;
   final PlacesRepository _placesRepository;
   final TripMapper _tripMapper;
 
-  StreamSubscription<Trip?>? _tripSubscription;
+  StreamSubscription<Trip>? _tripSubscription;
 
   void load() => _setupTripSubscription();
 
-  void _setupTripSubscription() => _tripSubscription = _tripRepository.tripStream.listen((trip) async {
-        if (trip == null) {
-          return emit(TripCreationFailed(foundPlaces: state.foundPlaces));
+  void _setupTripSubscription() => _tripSubscription = _tripRepository.tripStream.listen((trip) {
+        if (trip.places.isEmpty) {
+          return;
         }
         emit(
           TripCreation(
@@ -57,7 +57,7 @@ class TripCubit extends Cubit<TripState> {
       );
     } catch (error) {
       // TODO(naz): handle error?
-      emit(TripInitial());
+      emit(const TripInitial());
     }
   }
 
@@ -78,7 +78,8 @@ class TripCubit extends Cubit<TripState> {
       emit(
         TripCreated(
           polylinePoints: polylineCoordinates,
-          places: state.selectedPlaces,
+          foundPlaces: state.foundPlaces,
+          selectedPlaces: state.selectedPlaces,
         ),
       );
     } catch (error) {
@@ -95,6 +96,9 @@ class TripCubit extends Cubit<TripState> {
       selectedPlaces: state.selectedPlaces,
     ));
     _tripRepository.clearTrip();
+    emit(
+      TripInitial(foundPlaces: state.foundPlaces),
+    );
   }
 
   @override

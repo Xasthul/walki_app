@@ -55,9 +55,8 @@ class _TripMapComponentState extends State<TripMapComponent> {
 
   Set<Marker> _getMarkers(TripState state) => {
         ...switch (state) {
-          TripInitial() => {},
           TripCreated() => _drawMarkers(
-              places: state.places,
+              places: state.selectedPlaces,
               icon: _selectedPlaceMarkerIcon,
             ),
           _ => {

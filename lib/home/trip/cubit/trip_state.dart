@@ -13,7 +13,9 @@ sealed class TripState extends Equatable {
   List<Object?> get props => [foundPlaces, selectedPlaces];
 }
 
-class TripInitial extends TripState {}
+class TripInitial extends TripState {
+  const TripInitial({super.foundPlaces, super.selectedPlaces});
+}
 
 class TripLoading extends TripState {
   const TripLoading({super.foundPlaces, super.selectedPlaces});
@@ -29,19 +31,15 @@ class TripCreation extends TripState {
 
 class TripCreated extends TripState {
   const TripCreated({
+    super.foundPlaces,
+    super.selectedPlaces,
     required this.polylinePoints,
-    required this.places,
   });
 
   final List<LatLng> polylinePoints;
-  final List<LatLng> places;
 
   @override
-  List<Object?> get props => super.props
-    ..addAll([
-      polylinePoints,
-      places,
-    ]);
+  List<Object?> get props => super.props..add(polylinePoints);
 }
 
 class TripCreationFailed extends TripState {
