@@ -46,7 +46,6 @@ class _TripMapComponentState extends State<TripMapComponent> {
           compassEnabled: false,
           myLocationEnabled: true,
           myLocationButtonEnabled: false,
-          minMaxZoomPreference: const MinMaxZoomPreference(15, 17),
         ),
       );
 
