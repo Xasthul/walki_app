@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:vall/home/cubit/home_cubit.dart';
+import 'package:vall/home/cubit/location_permission/location_permission_cubit.dart';
 import 'package:vall/home/places/cubit/places_cubit.dart';
 import 'package:vall/home/places/misc/repository/places_repository.dart';
 import 'package:vall/home/trip/cubit/trip_cubit.dart';
@@ -28,7 +28,9 @@ class HomeDependencies extends StatelessWidget {
         ],
         child: MultiBlocProvider(
           providers: [
-            BlocProvider(create: (context) => HomeCubit()),
+            BlocProvider(
+              create: (context) => LocationPermissionCubit()..load(),
+            ),
             BlocProvider(
               create: (context) => TripCubit(
                 tripRepository: RepositoryProvider.of<TripRepository>(context),

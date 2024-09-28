@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:vall/home/cubit/home_cubit.dart';
+import 'package:vall/home/cubit/location_permission/location_permission_cubit.dart';
 import 'package:vall/home/home_dependencies.dart';
 
 class HomePage extends StatelessWidget {
@@ -14,9 +14,9 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => HomeDependencies(
-        child: BlocBuilder<HomeCubit, HomeState>(
+        child: BlocBuilder<LocationPermissionCubit, LocationPermissionState>(
           builder: (context, state) {
-            if (state is! HomeGetLocationPermissionSuccess) {
+            if (state is! LocationPermissionProvided) {
               return const _HomeLoadingContentComponent();
             }
             return _HomeContentComponent(navigationShell: _navigationShell);
