@@ -51,39 +51,39 @@ class _TripMapComponentState extends State<TripMapComponent> {
 
   Set<Marker> _getMarkers(TripState state) => {
         ...switch (state) {
-          TripPlacesNearbyFound() => state.places.map(
-              (place) => Marker(
-                markerId: MarkerId('$place'),
-                position: place,
-                icon: _foundPlaceMarkerIcon,
-              ),
+          TripPlacesNearbyFound() => _drawMarkers(
+              places: state.places,
+              icon: _foundPlaceMarkerIcon,
             ),
           TripCreation() => {
-              ...state.places.map(
-                (place) => Marker(
-                  markerId: MarkerId('$place'),
-                  position: place,
-                  icon: _foundPlaceMarkerIcon,
-                ),
+              ..._drawMarkers(
+                places: state.places,
+                icon: _foundPlaceMarkerIcon,
               ),
-              ...state.selectedPlaces.map(
-                (place) => Marker(
-                  markerId: MarkerId('$place'),
-                  position: place,
-                  icon: _selectedPlaceMarkerIcon,
-                ),
-              ),
-            },
-          TripCreated() => state.places.map(
-              (place) => Marker(
-                markerId: MarkerId('$place'),
-                position: place,
+              ..._drawMarkers(
+                places: state.places,
                 icon: _selectedPlaceMarkerIcon,
               ),
+            },
+          TripCreated() => _drawMarkers(
+              places: state.places,
+              icon: _selectedPlaceMarkerIcon,
             ),
           _ => {},
         }
       };
+
+  Iterable<Marker> _drawMarkers({
+    required List<LatLng> places,
+    required BitmapDescriptor icon,
+  }) =>
+      places.map(
+        (place) => Marker(
+          markerId: MarkerId('$place'),
+          position: place,
+          icon: _selectedPlaceMarkerIcon,
+        ),
+      );
 
   BitmapDescriptor get _selectedPlaceMarkerIcon => BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueGreen);
 
