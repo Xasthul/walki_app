@@ -4,6 +4,9 @@ import 'package:go_router/go_router.dart';
 import 'package:vall/home/cubit/location_permission/location_permission_cubit.dart';
 import 'package:vall/home/home_dependencies.dart';
 
+part 'misc/component/home_content.dart';
+part 'misc/component/home_loading_content.dart';
+
 class HomePage extends StatelessWidget {
   const HomePage({
     super.key,
@@ -17,45 +20,10 @@ class HomePage extends StatelessWidget {
         child: BlocBuilder<LocationPermissionCubit, LocationPermissionState>(
           builder: (context, state) {
             if (state is! LocationPermissionProvided) {
-              return const _HomeLoadingContentComponent();
+              return const _HomeLoadingContent();
             }
-            return _HomeContentComponent(navigationShell: _navigationShell);
+            return _HomeContent(navigationShell: _navigationShell);
           },
         ),
-      );
-}
-
-class _HomeContentComponent extends StatelessWidget {
-  const _HomeContentComponent({
-    required StatefulNavigationShell navigationShell,
-  }) : _navigationShell = navigationShell;
-
-  final StatefulNavigationShell _navigationShell;
-
-  @override
-  Widget build(BuildContext context) => Scaffold(
-        backgroundColor: Colors.white,
-        body: _navigationShell,
-        bottomNavigationBar: BottomNavigationBar(
-          currentIndex: _navigationShell.currentIndex,
-          items: const [
-            BottomNavigationBarItem(icon: Icon(Icons.map_rounded), label: 'Trip'),
-            BottomNavigationBarItem(icon: Icon(Icons.place_rounded), label: 'Places'),
-          ],
-          onTap: (index) => _navigationShell.goBranch(
-            index,
-            initialLocation: index == _navigationShell.currentIndex,
-          ),
-        ),
-      );
-}
-
-class _HomeLoadingContentComponent extends StatelessWidget {
-  const _HomeLoadingContentComponent();
-
-  @override
-  Widget build(BuildContext context) => const Scaffold(
-        backgroundColor: Colors.white,
-        body: Center(child: CircularProgressIndicator()),
       );
 }
