@@ -19,6 +19,11 @@ class TripInitial extends TripState {
 
 class TripLoading extends TripState {
   const TripLoading({super.foundPlaces, super.selectedPlaces});
+
+  factory TripLoading.withState(TripState state) => TripLoading(
+        foundPlaces: state.foundPlaces,
+        selectedPlaces: state.selectedPlaces,
+      );
 }
 
 class TripPlacesNearbyFound extends TripState {
@@ -36,6 +41,16 @@ class TripCreated extends TripState {
     required this.polylinePoints,
   });
 
+  factory TripCreated.withState(
+    TripState state, {
+    required List<LatLng> polylinePoints,
+  }) =>
+      TripCreated(
+        foundPlaces: state.foundPlaces,
+        selectedPlaces: state.selectedPlaces,
+        polylinePoints: polylinePoints,
+      );
+
   final List<LatLng> polylinePoints;
 
   @override
@@ -44,4 +59,9 @@ class TripCreated extends TripState {
 
 class TripCreationFailed extends TripState {
   const TripCreationFailed({super.foundPlaces, super.selectedPlaces});
+
+  factory TripCreationFailed.withState(TripState state) => TripCreationFailed(
+        foundPlaces: state.foundPlaces,
+        selectedPlaces: state.selectedPlaces,
+      );
 }

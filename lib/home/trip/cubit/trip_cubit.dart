@@ -65,10 +65,7 @@ class TripCubit extends Cubit<TripState> {
     if (state.selectedPlaces.isEmpty) {
       return;
     }
-    emit(TripLoading(
-      foundPlaces: state.foundPlaces,
-      selectedPlaces: state.selectedPlaces,
-    ));
+    emit(TripLoading.withState(state));
     try {
       final LatLng currentLocation = await _currentLocationRepository.getCurrentLocation();
       final List<LatLng> polylineCoordinates = await _tripRepository.getPolylineCoordinates(
@@ -76,25 +73,15 @@ class TripCubit extends Cubit<TripState> {
         currentLocation: currentLocation,
       );
       emit(
-        TripCreated(
-          polylinePoints: polylineCoordinates,
-          foundPlaces: state.foundPlaces,
-          selectedPlaces: state.selectedPlaces,
-        ),
+        TripCreated.withState(state, polylinePoints: polylineCoordinates),
       );
     } catch (error) {
-      emit(TripCreationFailed(
-        foundPlaces: state.foundPlaces,
-        selectedPlaces: state.selectedPlaces,
-      ));
+      emit(TripCreationFailed.withState(state));
     }
   }
 
   void clearTrip() {
-    emit(TripLoading(
-      foundPlaces: state.foundPlaces,
-      selectedPlaces: state.selectedPlaces,
-    ));
+    emit(TripLoading.withState(state));
     _tripRepository.clearTrip();
     emit(
       TripInitial(foundPlaces: state.foundPlaces),
