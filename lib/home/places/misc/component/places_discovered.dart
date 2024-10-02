@@ -13,7 +13,9 @@ class _PlacesDiscovered extends StatelessWidget {
         child: ListView.builder(
           itemCount: _places.length,
           itemBuilder: (context, index) => Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-            Text(_places[index].name),
+            Flexible(
+              child: Text(_places[index].name),
+            ),
             TextButton(
               onPressed: () => context.read<PlacesCubit>().addPlaceToTrip(_places[index]),
               child: const Text('Add to trip'),
