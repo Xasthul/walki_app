@@ -32,7 +32,7 @@ class _TripMapComponentState extends State<TripMapComponent> {
   @override
   Widget build(BuildContext context) => BlocBuilder<TripCubit, TripState>(
         builder: (context, state) => GoogleMap(
-          padding: const EdgeInsets.only(bottom: 72),
+          padding: const EdgeInsets.only(top: 24, bottom: 72),
           initialCameraPosition: CameraPosition(
             target: widget._initialLocation,
             zoom: _initialCameraZoom,
