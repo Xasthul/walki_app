@@ -20,10 +20,10 @@ class PointsOfInterestService {
     required double longitude,
     required double radius,
   }) async {
-    const baseUrl = 'https://places.googleapis.com/v1/places:searchNearby';
+    const url = 'https://places.googleapis.com/v1/places:searchNearby';
     final headers = {'X-Goog-FieldMask': _searchNearbyFieldMask};
     final response = await _client.post(
-      baseUrl,
+      url,
       headers: headers,
       body: SearchNearbyRequest(
         includedTypes: [SearchNearbyPlaceType.touristAttraction],

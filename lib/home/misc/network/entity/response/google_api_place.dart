@@ -9,12 +9,16 @@ class GoogleApiPlace {
   GoogleApiPlace({
     required this.displayName,
     required this.location,
+    required this.editorialSummary,
+    required this.rating,
   });
 
   factory GoogleApiPlace.fromJson(Map<String, dynamic> json) => _$GoogleApiPlaceFromJson(json);
 
   final GoogleApiLocalizedText displayName;
   final GoogleApiLatLng location;
+  final GoogleApiLocalizedText? editorialSummary;
+  final double rating;
 
   Map<String, dynamic> toJson() => _$GoogleApiPlaceToJson(this);
 
@@ -22,5 +26,7 @@ class GoogleApiPlace {
   static List<String> get props => [
         'displayName',
         'location',
+        'editorialSummary',
+        'rating',
       ];
 }

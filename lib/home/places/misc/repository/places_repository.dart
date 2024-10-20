@@ -37,8 +37,8 @@ class PlacesRepository {
 
       _placesController.add(pointsOfInterest);
       return pointsOfInterest;
-    } catch (error) {
-      logger.e('Find places failed', error: error);
+    } catch (error, stackTrace) {
+      logger.e('Find places failed', error: error, stackTrace: stackTrace);
       return [];
     }
   }

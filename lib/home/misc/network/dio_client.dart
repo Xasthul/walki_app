@@ -13,6 +13,24 @@ abstract class _DioClient {
 
   final Dio _dio;
 
+  Map<String, dynamic> _appendHeaders(Map<String, String>? headers) => {
+        ..._dio.options.headers,
+        if (headers != null) ...headers,
+      };
+
+  Future<dynamic> get(
+    String url, {
+    Map<String, dynamic>? params,
+    Map<String, String>? headers,
+  }) async {
+    final response = await _dio.get<dynamic>(
+      url,
+      queryParameters: params,
+      options: Options(headers: _appendHeaders(headers)),
+    );
+    return response.data;
+  }
+
   Future<Map<String, dynamic>> post(
     String url, {
     Map<String, String>? params,
@@ -22,12 +40,7 @@ abstract class _DioClient {
     final response = await _dio.post<dynamic>(
       url,
       queryParameters: params,
-      options: Options(
-        headers: {
-          ..._dio.options.headers,
-          if (headers != null) ...headers,
-        },
-      ),
+      options: Options(headers: _appendHeaders(headers)),
       data: body,
     );
     if (response.data is String || (response.statusCode == 204 && response.data == null)) {

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:vall/home/places/cubit/places_cubit.dart';
 import 'package:vall/home/misc/entity/point_of_interest.dart';
+import 'package:vall/home/places/cubit/places_cubit.dart';
 
 part 'misc/component/places_discovered.dart';
 part 'misc/component/places_not_discovered.dart';
