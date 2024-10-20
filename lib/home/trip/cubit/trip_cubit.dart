@@ -115,10 +115,7 @@ class TripCubit extends Cubit<TripState> {
   void updateSearchRadius(double newRadius) {
     emit(
       state.copyWith(
-        settings: TripSettings(
-          searchRadius: newRadius,
-          shouldShowSearchRadius: state.settings.shouldShowSearchRadius,
-        ),
+        settings: TripSettings(searchRadius: newRadius),
       ),
     );
   }

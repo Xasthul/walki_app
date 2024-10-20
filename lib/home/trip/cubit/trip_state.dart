@@ -7,10 +7,7 @@ sealed class TripState extends Equatable {
     this.selectedPlaces = const [],
   });
 
-  static const _defaultTripSettings = TripSettings(
-    searchRadius: 1000,
-    shouldShowSearchRadius: true,
-  );
+  static const _defaultTripSettings = TripSettings(searchRadius: 750);
 
   final TripSettings settings;
   final List<LatLng> foundPlaces;

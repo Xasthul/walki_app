@@ -49,22 +49,21 @@ class _TripMapComponentState extends State<TripMapComponent> {
               ),
           },
           markers: _getMarkers(state),
-          circles: _getCircles(state.settings.searchRadius),
+          circles: {
+            if (state is! TripCreated)
+              Circle(
+                circleId: _tripCircleId,
+                center: widget._initialLocation,
+                radius: state.settings.searchRadius,
+                fillColor: Colors.blueAccent.withOpacity(0.12),
+                strokeWidth: 2,
+                strokeColor: Colors.blueAccent.withOpacity(0.7),
+              ),
+          },
           compassEnabled: false,
           myLocationEnabled: true,
         ),
       );
-
-  Set<Circle> _getCircles(double radius) => {
-        Circle(
-          circleId: _tripCircleId,
-          center: widget._initialLocation,
-          radius: radius,
-          fillColor: Colors.blueAccent.withOpacity(0.12),
-          strokeWidth: 2,
-          strokeColor: Colors.blueAccent.withOpacity(0.7),
-        ),
-      };
 
   Set<Marker> _getMarkers(TripState state) => {
         ...switch (state) {
