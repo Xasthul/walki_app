@@ -1,5 +1,5 @@
 import 'package:json_annotation/json_annotation.dart';
-import 'package:vall/home/misc/network/request/search_nearby/circle_location_restriction.dart';
+import 'package:vall/home/misc/network/entity/request/search_nearby/circle_location_restriction.dart';
 
 part 'location_restriction.g.dart';
 

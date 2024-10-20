@@ -1,5 +1,5 @@
 import 'package:equatable/equatable.dart';
-import 'package:vall/home/trip/misc/entity/point_of_interest.dart';
+import 'package:vall/home/misc/entity/point_of_interest.dart';
 
 class Trip extends Equatable {
   const Trip({required this.places});

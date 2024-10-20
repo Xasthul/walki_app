@@ -1,6 +1,6 @@
 import 'package:json_annotation/json_annotation.dart';
 import 'package:vall/home/misc/entity/search_nearby_place_type.dart';
-import 'package:vall/home/misc/network/request/search_nearby/location_restriction.dart';
+import 'package:vall/home/misc/network/entity/request/search_nearby/location_restriction.dart';
 
 part 'search_nearby_request.g.dart';
 

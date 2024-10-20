@@ -1,5 +1,5 @@
 import 'package:json_annotation/json_annotation.dart';
-import 'package:vall/home/misc/network/request/search_nearby/circle_center_location_restriction.dart';
+import 'package:vall/home/misc/network/entity/google_api_lat_lng.dart';
 
 part 'circle_location_restriction.g.dart';
 
@@ -12,7 +12,7 @@ class CircleLocationRestriction {
 
   factory CircleLocationRestriction.fromJson(Map<String, dynamic> json) => _$CircleLocationRestrictionFromJson(json);
 
-  final CircleCenterLocationRestriction center;
+  final GoogleApiLatLng center;
   final double radius;
 
   Map<String, dynamic> toJson() => _$CircleLocationRestrictionToJson(this);
