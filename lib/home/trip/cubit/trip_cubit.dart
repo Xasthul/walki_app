@@ -3,8 +3,8 @@ import 'dart:async';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:vall/home/misc/entity/point_of_interest.dart';
 import 'package:vall/home/places/misc/repository/places_repository.dart';
-import 'package:vall/home/trip/misc/entity/trip.dart';
 import 'package:vall/home/trip/misc/mapper/trip_mapper.dart';
 import 'package:vall/home/trip/misc/repository/current_location_repository.dart';
 import 'package:vall/home/trip/misc/repository/trip_repository.dart';
@@ -28,18 +28,18 @@ class TripCubit extends Cubit<TripState> {
   final PlacesRepository _placesRepository;
   final TripMapper _tripMapper;
 
-  StreamSubscription<Trip>? _tripSubscription;
+  StreamSubscription<List<PointOfInterest>>? _tripSubscription;
 
   void load() => _setupTripSubscription();
 
   void _setupTripSubscription() => _tripSubscription = _tripRepository.tripStream.listen((trip) {
-        if (trip.places.isEmpty) {
+        if (trip.isEmpty) {
           return;
         }
         emit(
           TripCreation(
             foundPlaces: state.foundPlaces,
-            selectedPlaces: _tripMapper.mapPointsOfInterestToLatLng(trip.places),
+            selectedPlaces: _tripMapper.mapPointsOfInterestToLatLng(trip),
           ),
         );
       });
