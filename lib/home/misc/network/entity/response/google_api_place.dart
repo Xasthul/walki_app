@@ -18,7 +18,7 @@ class GoogleApiPlace {
   final GoogleApiLocalizedText displayName;
   final GoogleApiLatLng location;
   final GoogleApiLocalizedText? editorialSummary;
-  final double rating;
+  final double? rating;
 
   Map<String, dynamic> toJson() => _$GoogleApiPlaceToJson(this);
 
