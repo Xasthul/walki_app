@@ -7,28 +7,38 @@ class _TripSettingsContent extends StatelessWidget {
 
   final VoidCallback _collapseSettings;
 
+  static const double _minSearchRadius = 500;
+  static const double _maxSearchRadius = 2500;
+
   @override
   Widget build(BuildContext context) {
     final cubit = context.read<TripCubit>();
-    return Column(children: [
-      FilledButton(
-        onPressed: cubit.findPlaces,
-        child: const Text('Find places nearby'),
-      ),
-      Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-        FilledButton(
-          onPressed: () {
-            // TODO(naz): get minutesForTrip from user
-            cubit.createTrip(minutesForTrip: 30);
-            _collapseSettings();
-          },
-          child: const Text('Create trip'),
+    return BlocBuilder<TripCubit, TripState>(builder: (context, state) {
+      return Column(children: [
+        Slider(
+          value: state.settings.searchRadius,
+          min: _minSearchRadius,
+          max: _maxSearchRadius,
+          onChanged: cubit.updateSearchRadius,
         ),
         FilledButton(
-          onPressed: cubit.clearTrip,
-          child: const Text('Clear trip'),
+          onPressed: cubit.findPlaces,
+          child: const Text('Find places nearby'),
         ),
-      ]),
-    ]);
+        Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+          FilledButton(
+            onPressed: () {
+              cubit.createTrip();
+              _collapseSettings();
+            },
+            child: const Text('Create trip'),
+          ),
+          FilledButton(
+            onPressed: cubit.clearTrip,
+            child: const Text('Clear trip'),
+          ),
+        ]),
+      ]);
+    });
   }
 }

@@ -22,6 +22,7 @@ class _TripMapComponentState extends State<TripMapComponent> {
 
   static const double _initialCameraZoom = 14.5;
   static const PolylineId _tripPolylineId = PolylineId('trip');
+  static const CircleId _tripCircleId = CircleId('radius');
 
   @override
   void initState() {
@@ -48,10 +49,22 @@ class _TripMapComponentState extends State<TripMapComponent> {
               ),
           },
           markers: _getMarkers(state),
+          circles: _getCircles(state.settings.searchRadius),
           compassEnabled: false,
           myLocationEnabled: true,
         ),
       );
+
+  Set<Circle> _getCircles(double radius) => {
+        Circle(
+          circleId: _tripCircleId,
+          center: widget._initialLocation,
+          radius: radius,
+          fillColor: Colors.blueAccent.withOpacity(0.12),
+          strokeWidth: 2,
+          strokeColor: Colors.blueAccent.withOpacity(0.7),
+        ),
+      };
 
   Set<Marker> _getMarkers(TripState state) => {
         ...switch (state) {

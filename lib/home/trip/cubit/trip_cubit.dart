@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:vall/home/misc/entity/point_of_interest.dart';
 import 'package:vall/home/places/misc/repository/places_repository.dart';
+import 'package:vall/home/trip/misc/entity/trip_settings.dart';
 import 'package:vall/home/trip/misc/mapper/trip_mapper.dart';
 import 'package:vall/home/trip/misc/repository/current_location_repository.dart';
 import 'package:vall/home/trip/misc/repository/trip_repository.dart';
@@ -34,33 +35,44 @@ class TripCubit extends Cubit<TripState> {
 
   void _setupTripSubscription() => _tripSubscription = _tripRepository.tripStream.listen((trip) => emit(
         TripCreation(
+          settings: state.settings,
           foundPlaces: state.foundPlaces,
           selectedPlaces: _tripMapper.mapPointsOfInterestToLatLng(trip),
         ),
       ));
 
   Future<void> findPlaces() async {
-    emit(const TripLoading());
+    emit(TripLoading(settings: state.settings));
     try {
       _tripRepository.clearTrip();
       final currentLocation = await _currentLocationRepository.getCurrentLocation();
-      final places = await _placesRepository.findPlaces(startingPosition: currentLocation);
+      final places = await _placesRepository.findPlaces(
+        startingPosition: currentLocation,
+        radius: state.settings.searchRadius,
+      );
       emit(
         TripPlacesNearbyFound(
+          settings: state.settings,
           foundPlaces: _tripMapper.mapPointsOfInterestToLatLng(places),
         ),
       );
     } catch (error) {
       // TODO(naz): handle error?
-      emit(const TripInitial());
+      emit(TripInitial(settings: state.settings));
     }
   }
 
-  Future<void> createTrip({required int minutesForTrip}) async {
+  Future<void> createTrip() async {
     if (state.selectedPlaces.isEmpty) {
       return;
     }
-    emit(TripLoading.withState(state));
+    emit(
+      TripLoading(
+        settings: state.settings,
+        foundPlaces: state.foundPlaces,
+        selectedPlaces: state.selectedPlaces,
+      ),
+    );
     try {
       final LatLng currentLocation = await _currentLocationRepository.getCurrentLocation();
       final List<LatLng> polylineCoordinates = await _tripRepository.getPolylineCoordinates(
@@ -68,18 +80,46 @@ class TripCubit extends Cubit<TripState> {
         currentLocation: currentLocation,
       );
       emit(
-        TripCreated.withState(state, polylinePoints: polylineCoordinates),
+        TripCreated(
+          settings: state.settings,
+          foundPlaces: state.foundPlaces,
+          selectedPlaces: state.selectedPlaces,
+          polylinePoints: polylineCoordinates,
+        ),
       );
     } catch (error) {
-      emit(TripCreationFailed.withState(state));
+      emit(
+        TripCreationFailed(
+          settings: state.settings,
+          foundPlaces: state.foundPlaces,
+          selectedPlaces: state.selectedPlaces,
+        ),
+      );
     }
   }
 
   void clearTrip() {
-    emit(TripLoading.withState(state));
+    emit(
+      TripLoading(
+        settings: state.settings,
+        foundPlaces: state.foundPlaces,
+        selectedPlaces: state.selectedPlaces,
+      ),
+    );
     _tripRepository.clearTrip();
     emit(
       TripInitial(foundPlaces: state.foundPlaces),
+    );
+  }
+
+  void updateSearchRadius(double newRadius) {
+    emit(
+      state.copyWith(
+        settings: TripSettings(
+          searchRadius: newRadius,
+          shouldShowSearchRadius: state.settings.shouldShowSearchRadius,
+        ),
+      ),
     );
   }
 

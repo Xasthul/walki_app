@@ -2,66 +2,158 @@ part of 'trip_cubit.dart';
 
 sealed class TripState extends Equatable {
   const TripState({
+    this.settings = _defaultTripSettings,
     this.foundPlaces = const [],
     this.selectedPlaces = const [],
   });
 
+  static const _defaultTripSettings = TripSettings(
+    searchRadius: 1000,
+    shouldShowSearchRadius: true,
+  );
+
+  final TripSettings settings;
   final List<LatLng> foundPlaces;
   final List<LatLng> selectedPlaces;
 
+  TripState copyWith({
+    TripSettings? settings,
+    List<LatLng>? foundPlaces,
+    List<LatLng>? selectedPlaces,
+  });
+
   @override
-  List<Object?> get props => [foundPlaces, selectedPlaces];
+  List<Object?> get props => [
+        settings,
+        foundPlaces,
+        selectedPlaces,
+      ];
 }
 
 class TripInitial extends TripState {
-  const TripInitial({super.foundPlaces, super.selectedPlaces});
+  const TripInitial({
+    super.settings,
+    super.foundPlaces,
+    super.selectedPlaces,
+  });
+
+  @override
+  TripInitial copyWith({
+    TripSettings? settings,
+    List<LatLng>? foundPlaces,
+    List<LatLng>? selectedPlaces,
+  }) =>
+      TripInitial(
+        settings: settings ?? this.settings,
+        foundPlaces: foundPlaces ?? this.foundPlaces,
+        selectedPlaces: selectedPlaces ?? this.selectedPlaces,
+      );
 }
 
 class TripLoading extends TripState {
-  const TripLoading({super.foundPlaces, super.selectedPlaces});
+  const TripLoading({
+    super.settings,
+    super.foundPlaces,
+    super.selectedPlaces,
+  });
 
-  factory TripLoading.withState(TripState state) => TripLoading(
-        foundPlaces: state.foundPlaces,
-        selectedPlaces: state.selectedPlaces,
+  @override
+  TripLoading copyWith({
+    TripSettings? settings,
+    List<LatLng>? foundPlaces,
+    List<LatLng>? selectedPlaces,
+  }) =>
+      TripLoading(
+        settings: settings ?? this.settings,
+        foundPlaces: foundPlaces ?? this.foundPlaces,
+        selectedPlaces: selectedPlaces ?? this.selectedPlaces,
       );
 }
 
 class TripPlacesNearbyFound extends TripState {
-  const TripPlacesNearbyFound({super.foundPlaces});
+  const TripPlacesNearbyFound({
+    super.settings,
+    super.foundPlaces,
+    super.selectedPlaces,
+  });
+
+  @override
+  TripPlacesNearbyFound copyWith({
+    TripSettings? settings,
+    List<LatLng>? foundPlaces,
+    List<LatLng>? selectedPlaces,
+  }) =>
+      TripPlacesNearbyFound(
+        settings: settings ?? this.settings,
+        foundPlaces: foundPlaces ?? this.foundPlaces,
+        selectedPlaces: selectedPlaces ?? this.selectedPlaces,
+      );
 }
 
 class TripCreation extends TripState {
-  const TripCreation({super.foundPlaces, super.selectedPlaces});
+  const TripCreation({
+    super.settings,
+    super.foundPlaces,
+    super.selectedPlaces,
+  });
+
+  @override
+  TripCreation copyWith({
+    TripSettings? settings,
+    List<LatLng>? foundPlaces,
+    List<LatLng>? selectedPlaces,
+  }) =>
+      TripCreation(
+        settings: settings ?? this.settings,
+        foundPlaces: foundPlaces ?? this.foundPlaces,
+        selectedPlaces: selectedPlaces ?? this.selectedPlaces,
+      );
 }
 
 class TripCreated extends TripState {
   const TripCreated({
+    super.settings,
     super.foundPlaces,
     super.selectedPlaces,
     required this.polylinePoints,
   });
 
-  factory TripCreated.withState(
-    TripState state, {
-    required List<LatLng> polylinePoints,
+  final List<LatLng> polylinePoints;
+
+  @override
+  TripCreated copyWith({
+    TripSettings? settings,
+    List<LatLng>? foundPlaces,
+    List<LatLng>? selectedPlaces,
+    List<LatLng>? polylinePoints,
   }) =>
       TripCreated(
-        foundPlaces: state.foundPlaces,
-        selectedPlaces: state.selectedPlaces,
-        polylinePoints: polylinePoints,
+        settings: settings ?? this.settings,
+        foundPlaces: foundPlaces ?? this.foundPlaces,
+        selectedPlaces: selectedPlaces ?? this.selectedPlaces,
+        polylinePoints: polylinePoints ?? this.polylinePoints,
       );
-
-  final List<LatLng> polylinePoints;
 
   @override
   List<Object?> get props => super.props..add(polylinePoints);
 }
 
 class TripCreationFailed extends TripState {
-  const TripCreationFailed({super.foundPlaces, super.selectedPlaces});
+  const TripCreationFailed({
+    super.settings,
+    super.foundPlaces,
+    super.selectedPlaces,
+  });
 
-  factory TripCreationFailed.withState(TripState state) => TripCreationFailed(
-        foundPlaces: state.foundPlaces,
-        selectedPlaces: state.selectedPlaces,
+  @override
+  TripCreationFailed copyWith({
+    TripSettings? settings,
+    List<LatLng>? foundPlaces,
+    List<LatLng>? selectedPlaces,
+  }) =>
+      TripCreationFailed(
+        settings: settings ?? this.settings,
+        foundPlaces: foundPlaces ?? this.foundPlaces,
+        selectedPlaces: selectedPlaces ?? this.selectedPlaces,
       );
 }

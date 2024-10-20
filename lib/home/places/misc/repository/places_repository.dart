@@ -20,14 +20,17 @@ class PlacesRepository {
 
   Stream<List<PointOfInterest>> get placesStream => _placesController.stream;
 
-  Future<List<PointOfInterest>> findPlaces({required LatLng startingPosition}) async {
+  Future<List<PointOfInterest>> findPlaces({
+    required LatLng startingPosition,
+    required double radius,
+  }) async {
     try {
       final googleApiPlaces = await _pointsOfInterestService.loadPointsOfInterest(
         latitude: startingPosition.latitude,
         longitude: startingPosition.longitude,
         // TODO(naz): should be const?
         maxResultCount: 10,
-        radius: 500,
+        radius: radius,
       );
       final pointsOfInterest = googleApiPlaces
           .map(
