@@ -108,7 +108,10 @@ class TripCubit extends Cubit<TripState> {
     );
     _tripRepository.clearTrip();
     emit(
-      TripInitial(foundPlaces: state.foundPlaces),
+      TripInitial(
+        settings: state.settings,
+        foundPlaces: state.foundPlaces,
+      ),
     );
   }
 
