@@ -19,21 +19,36 @@ class PlacesCubit extends Cubit<PlacesState> {
   final PlacesRepository _placesRepository;
   final TripRepository _tripRepository;
   StreamSubscription<List<PointOfInterest>>? _placesSubscription;
+  StreamSubscription<List<PointOfInterest>>? _tripSubscription;
 
-  void load() => _placesSubscription = _placesRepository.places.listen((places) {
+  void load() {
+    _setupPlacesSubscription();
+    _setupTripSubscription();
+  }
+
+  void _setupPlacesSubscription() => _placesSubscription = _placesRepository.placesStream.listen((places) {
         if (places.isEmpty) {
           return emit(PlacesNotDiscovered());
         }
-        emit(PlacesDiscovered(places));
+        emit(PlacesDiscovered(discovered: places));
+      });
+
+  void _setupTripSubscription() => _tripSubscription = _tripRepository.tripStream.listen((trip) {
+        final currentState = state;
+        if (currentState is! PlacesDiscovered) {
+          return;
+        }
+        emit(currentState.copyWith(inTrip: trip));
       });
 
   // TODO(naz): find optimal route method to sort selected places
 
-  void addPlaceToTrip(PointOfInterest place) => _tripRepository.togglePlace(place);
+  void togglePlace(PointOfInterest place) => _tripRepository.togglePlace(place);
 
   @override
   Future<void> close() {
     _placesSubscription?.cancel();
+    _tripSubscription?.cancel();
     return super.close();
   }
 }

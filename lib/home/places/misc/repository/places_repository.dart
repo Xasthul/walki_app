@@ -18,7 +18,7 @@ class PlacesRepository {
 
   final StreamController<List<PointOfInterest>> _placesController = StreamController.broadcast();
 
-  Stream<List<PointOfInterest>> get places => _placesController.stream;
+  Stream<List<PointOfInterest>> get placesStream => _placesController.stream;
 
   Future<List<PointOfInterest>> findPlaces({required LatLng startingPosition}) async {
     try {

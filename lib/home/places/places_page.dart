@@ -4,7 +4,9 @@ import 'package:go_router/go_router.dart';
 import 'package:vall/home/misc/entity/point_of_interest.dart';
 import 'package:vall/home/places/cubit/places_cubit.dart';
 
-part 'misc/component/places_discovered.dart';
+part 'misc/component/discovered/places_discovered.dart';
+part 'misc/component/discovered/places_discovered_tab.dart';
+part 'misc/component/discovered/places_in_trip_tab.dart';
 part 'misc/component/places_not_discovered.dart';
 
 class PlacesPage extends StatelessWidget {
@@ -16,7 +18,10 @@ class PlacesPage extends StatelessWidget {
           child: BlocBuilder<PlacesCubit, PlacesState>(
             builder: (context, state) => switch (state) {
               PlacesNotDiscovered() => const _PlacesNotDiscovered(),
-              PlacesDiscovered() => _PlacesDiscovered(places: state.places),
+              PlacesDiscovered() => _PlacesDiscovered(
+                  discoveredPlaces: state.discovered,
+                  placesInTrip: state.inTrip,
+                ),
             },
           ),
         ),

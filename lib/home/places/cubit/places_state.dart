@@ -10,10 +10,27 @@ sealed class PlacesState extends Equatable {
 class PlacesNotDiscovered extends PlacesState {}
 
 class PlacesDiscovered extends PlacesState {
-  const PlacesDiscovered(this.places);
+  const PlacesDiscovered({
+    this.discovered = const [],
+    this.inTrip = const [],
+  });
 
-  final List<PointOfInterest> places;
+  final List<PointOfInterest> discovered;
+  final List<PointOfInterest> inTrip;
+
+  PlacesDiscovered copyWith({
+    List<PointOfInterest>? discovered,
+    List<PointOfInterest>? inTrip,
+  }) =>
+      PlacesDiscovered(
+        discovered: discovered ?? this.discovered,
+        inTrip: inTrip ?? this.inTrip,
+      );
 
   @override
-  List<Object?> get props => super.props..add(places);
+  List<Object?> get props => super.props
+    ..addAll([
+      discovered,
+      inTrip,
+    ]);
 }
