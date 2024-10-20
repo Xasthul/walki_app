@@ -33,13 +33,24 @@ class TripCubit extends Cubit<TripState> {
 
   void load() => _setupTripSubscription();
 
-  void _setupTripSubscription() => _tripSubscription = _tripRepository.tripStream.listen((trip) => emit(
-        TripCreation(
-          settings: state.settings,
-          foundPlaces: state.foundPlaces,
-          selectedPlaces: _tripMapper.mapPointsOfInterestToLatLng(trip),
-        ),
-      ));
+  void _setupTripSubscription() => _tripSubscription = _tripRepository.tripStream.listen((trip) {
+        if (state is TripLoading) {
+          return emit(
+            TripLoading(
+              settings: state.settings,
+              foundPlaces: state.foundPlaces,
+              selectedPlaces: _tripMapper.mapPointsOfInterestToLatLng(trip),
+            ),
+          );
+        }
+        emit(
+          TripCreation(
+            settings: state.settings,
+            foundPlaces: state.foundPlaces,
+            selectedPlaces: _tripMapper.mapPointsOfInterestToLatLng(trip),
+          ),
+        );
+      });
 
   Future<void> findPlaces() async {
     emit(TripLoading(settings: state.settings));
