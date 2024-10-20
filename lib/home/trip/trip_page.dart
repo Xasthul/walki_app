@@ -6,7 +6,7 @@ import 'package:vall/app/common/component/app_loading_indicator.dart';
 import 'package:vall/home/trip/cubit/initial_location/initial_location_cubit.dart';
 import 'package:vall/home/trip/cubit/trip_cubit.dart';
 import 'package:vall/home/trip/misc/component/trip_map_component.dart';
-import 'package:vall/home/trip/misc/component/trip_settings_component.dart';
+import 'package:vall/home/trip/misc/component/trip_settings/trip_settings_component.dart';
 
 class TripPage extends StatelessWidget {
   const TripPage({super.key});

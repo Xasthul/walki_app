@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:vall/app/common/component/no_over_scroll_behaviour.dart';
 import 'package:vall/home/trip/cubit/trip_cubit.dart';
 
 part 'trip_settings_content.dart';
+
+part 'trip_settings_notch.dart';
 
 class TripSettingsComponent extends StatefulWidget {
   const TripSettingsComponent({super.key});
@@ -55,25 +58,25 @@ class _TripSettingsComponentState extends State<TripSettingsComponent> {
                   topRight: Radius.circular(12),
                 ),
               ),
-              child: SingleChildScrollView(
-                controller: scrollController,
-                child: Padding(
-                  padding: const EdgeInsets.only(right: 16, left: 16),
-                  child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-                    Center(
-                      child: Container(
-                        decoration: const BoxDecoration(
-                          color: Colors.grey,
-                          borderRadius: BorderRadius.all(Radius.circular(10)),
+              child: Column(
+                children: [
+                  const _TripSettingsNotch(),
+                  Expanded(
+                    child: CustomScrollView(
+                      controller: scrollController,
+                      scrollBehavior: NoOverScrollBehavior(),
+                      slivers: [
+                        SliverFillRemaining(
+                          hasScrollBody: false,
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 16),
+                            child: _TripSettingsContent(collapseSettings: _collapse),
+                          ),
                         ),
-                        height: 3,
-                        width: 64,
-                        margin: const EdgeInsets.symmetric(vertical: 12),
-                      ),
+                      ],
                     ),
-                    _TripSettingsContent(collapseSettings: _collapse),
-                  ]),
-                ),
+                  ),
+                ],
               ),
             ),
           );
