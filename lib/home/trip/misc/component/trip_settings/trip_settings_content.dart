@@ -13,8 +13,8 @@ class _TripSettingsContent extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final cubit = context.read<TripCubit>();
-    return BlocBuilder<TripCubit, TripState>(builder: (context, state) {
-      return Column(children: [
+    return BlocBuilder<TripCubit, TripState>(
+      builder: (context, state) => Column(children: [
         Slider(
           value: state.settings.searchRadius,
           min: _minSearchRadius,
@@ -38,7 +38,7 @@ class _TripSettingsContent extends StatelessWidget {
             child: const Text('Clear trip'),
           ),
         ]),
-      ]);
-    });
+      ]),
+    );
   }
 }

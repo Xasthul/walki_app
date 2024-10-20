@@ -5,7 +5,7 @@ import 'package:vall/home/trip/cubit/trip_cubit.dart';
 
 part 'trip_settings_content.dart';
 
-part 'trip_settings_notch.dart';
+part 'trip_settings_notch_delegate.dart';
 
 class TripSettingsComponent extends StatefulWidget {
   const TripSettingsComponent({super.key});
@@ -58,22 +58,19 @@ class _TripSettingsComponentState extends State<TripSettingsComponent> {
                   topRight: Radius.circular(12),
                 ),
               ),
-              child: Column(
-                children: [
-                  const _TripSettingsNotch(),
-                  Expanded(
-                    child: CustomScrollView(
-                      controller: scrollController,
-                      scrollBehavior: NoOverScrollBehavior(),
-                      slivers: [
-                        SliverFillRemaining(
-                          hasScrollBody: false,
-                          child: Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 16),
-                            child: _TripSettingsContent(collapseSettings: _collapse),
-                          ),
-                        ),
-                      ],
+              child: CustomScrollView(
+                controller: scrollController,
+                scrollBehavior: NoOverScrollBehavior(),
+                slivers: [
+                  SliverPersistentHeader(
+                    pinned: true,
+                    delegate: _TripSettingsNotchDelegate(),
+                  ),
+                  SliverFillRemaining(
+                    hasScrollBody: false,
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 16),
+                      child: _TripSettingsContent(collapseSettings: _collapse),
                     ),
                   ),
                 ],
