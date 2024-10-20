@@ -21,7 +21,7 @@ class PointsOfInterestService {
     required double radius,
   }) async {
     const baseUrl = 'https://places.googleapis.com/v1/places:searchNearby';
-    final headers = {'X-Goog-FieldMask': 'places.displayName,places.location'};
+    final headers = {'X-Goog-FieldMask': _searchNearbyFieldMask};
     final response = await _client.post(
       baseUrl,
       headers: headers,
@@ -38,5 +38,13 @@ class PointsOfInterestService {
     );
 
     return SearchNearbyResponse.fromJson(response).places;
+  }
+
+  String get _searchNearbyFieldMask {
+    final List<String> propsWithPrefix = [];
+    for (final property in GoogleApiPlace.props) {
+      propsWithPrefix.add('places.$property');
+    }
+    return propsWithPrefix.join(',');
   }
 }

@@ -18,5 +18,9 @@ class GoogleApiPlace {
 
   Map<String, dynamic> toJson() => _$GoogleApiPlaceToJson(this);
 
-  static String get fieldMask => '';
+  /// Should be one of these: https://developers.google.com/maps/documentation/places/web-service/reference/rest/v1/places#resource:-place
+  static List<String> get props => [
+        'displayName',
+        'location',
+      ];
 }
