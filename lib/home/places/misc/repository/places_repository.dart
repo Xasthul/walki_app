@@ -21,6 +21,9 @@ class PlacesRepository {
       final pointsOfInterest = await _pointsOfInterestService.loadPointsOfInterest(
         latitude: startingPosition.latitude,
         longitude: startingPosition.longitude,
+        // TODO(naz): should be const?
+        maxResultCount: 10,
+        radius: 500,
       );
 
       _placesController.add(pointsOfInterest);
