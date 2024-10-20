@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:vall/home/cubit/location_permission/location_permission_cubit.dart';
+import 'package:vall/home/misc/network/dio_client.dart';
+import 'package:vall/home/misc/network/dio_client_factory.dart';
 import 'package:vall/home/places/cubit/places_cubit.dart';
 import 'package:vall/home/places/misc/repository/places_repository.dart';
 import 'package:vall/home/trip/cubit/initial_location/initial_location_cubit.dart';
@@ -21,7 +23,14 @@ class HomeDependencies extends StatelessWidget {
   @override
   Widget build(BuildContext context) => MultiRepositoryProvider(
         providers: [
-          RepositoryProvider(create: (context) => PointsOfInterestService()),
+          RepositoryProvider(
+            create: (context) => DioClientFactory.createGoogleApiDioClient(),
+          ),
+          RepositoryProvider(
+            create: (context) => PointsOfInterestService(
+              client: context.read<GoogleApiDioClient>(),
+            ),
+          ),
           RepositoryProvider(create: (context) => TripRepository()),
           RepositoryProvider(
             create: (context) => PlacesRepository(
