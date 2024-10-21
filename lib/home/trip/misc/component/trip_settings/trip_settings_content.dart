@@ -13,6 +13,7 @@ class _TripSettingsContent extends StatelessWidget {
     return BlocBuilder<TripCubit, TripState>(
       builder: (context, state) => Column(children: [
         const _TripSettingsSearchRadius(),
+        const _TripSettingsTravelMode(),
         FilledButton(
           onPressed: cubit.findPlaces,
           child: const Text('Find places nearby'),

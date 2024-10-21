@@ -4,8 +4,10 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:vall/home/misc/entity/point_of_interest.dart';
+import 'package:vall/home/misc/logger/logger.dart';
 import 'package:vall/home/places/misc/repository/places_repository.dart';
 import 'package:vall/home/trip/misc/entity/trip_settings.dart';
+import 'package:vall/home/trip/misc/entity/trip_travel_mode.dart';
 import 'package:vall/home/trip/misc/mapper/trip_mapper.dart';
 import 'package:vall/home/trip/misc/repository/current_location_repository.dart';
 import 'package:vall/home/trip/misc/repository/trip_repository.dart';
@@ -98,7 +100,8 @@ class TripCubit extends Cubit<TripState> {
           polylinePoints: polylineCoordinates,
         ),
       );
-    } catch (error) {
+    } catch (error, stackTrace) {
+      logger.e('Trip creation failed', error: error, stackTrace: stackTrace);
       emit(
         TripCreationFailed(
           settings: state.settings,
@@ -126,13 +129,23 @@ class TripCubit extends Cubit<TripState> {
     );
   }
 
-  void updateSearchRadius(double newRadius) {
-    emit(
-      state.copyWith(
-        settings: TripSettings(searchRadius: newRadius),
-      ),
-    );
-  }
+  void updateSearchRadius(double newRadius) => emit(
+        state.copyWith(
+          settings: TripSettings(
+            searchRadius: newRadius,
+            travelMode: state.settings.travelMode,
+          ),
+        ),
+      );
+
+  void updateTravelMode(TripTravelMode travelMode) => emit(
+        state.copyWith(
+          settings: TripSettings(
+            travelMode: travelMode,
+            searchRadius: state.settings.searchRadius,
+          ),
+        ),
+      );
 
   @override
   Future<void> close() {

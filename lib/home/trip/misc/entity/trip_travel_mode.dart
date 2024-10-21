@@ -1,0 +1,4 @@
+enum TripTravelMode {
+  walking,
+  bicycling,
+}

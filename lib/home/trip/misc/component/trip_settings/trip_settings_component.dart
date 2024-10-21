@@ -2,10 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:vall/app/common/component/no_over_scroll_behaviour.dart';
 import 'package:vall/home/trip/cubit/trip_cubit.dart';
+import 'package:vall/home/trip/misc/entity/trip_travel_mode.dart';
 
+part 'travel_mode/trip_settings_travel_mode.dart';
+part 'travel_mode/trip_settings_travel_mode_chip.dart';
 part 'trip_settings_content.dart';
-part 'trip_settings_search_radius.dart';
 part 'trip_settings_notch_delegate.dart';
+part 'trip_settings_search_radius.dart';
 
 class TripSettingsComponent extends StatefulWidget {
   const TripSettingsComponent({super.key});
