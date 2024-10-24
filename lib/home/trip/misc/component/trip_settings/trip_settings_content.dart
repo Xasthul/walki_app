@@ -33,6 +33,10 @@ class _TripSettingsContent extends StatelessWidget {
             child: const Text('Clear trip'),
           ),
         ]),
+        FilledButton(
+          onPressed: state.foundPlaces.isEmpty ? null : cubit.startPlaceSelection,
+          child: const Text('Select place'),
+        ),
       ]),
     );
   }

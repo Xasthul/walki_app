@@ -36,6 +36,7 @@ class TripCubit extends Cubit<TripState> {
   void load() => _setupTripSubscription();
 
   void _setupTripSubscription() => _tripSubscription = _tripRepository.tripStream.listen((trip) {
+        // NOTE: needed for loading to be shown when find places
         if (state is TripLoading) {
           return emit(
             TripLoading(
@@ -144,6 +145,31 @@ class TripCubit extends Cubit<TripState> {
             travelMode: travelMode,
             searchRadius: state.settings.searchRadius,
           ),
+        ),
+      );
+
+  void startPlaceSelection() => emit(
+        TripPlaceSelection(
+          settings: state.settings,
+          selectedPlaces: state.selectedPlaces,
+          foundPlaces: state.foundPlaces,
+        ),
+      );
+
+  void closePlaceSelection() => emit(
+        TripCreation(
+          settings: state.settings,
+          selectedPlaces: state.selectedPlaces,
+          foundPlaces: state.foundPlaces,
+        ),
+      );
+
+  void selectPlace(LatLng place) => _tripRepository.togglePlace(
+        PointOfInterest(
+          // TODO(naz): localized, numbered?
+          name: 'Custom added',
+          latitude: place.latitude,
+          longitude: place.longitude,
         ),
       );
 

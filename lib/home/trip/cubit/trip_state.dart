@@ -157,3 +157,23 @@ class TripCreationFailed extends TripState {
         selectedPlaces: selectedPlaces ?? this.selectedPlaces,
       );
 }
+
+class TripPlaceSelection extends TripState {
+  const TripPlaceSelection({
+    super.settings,
+    super.foundPlaces,
+    super.selectedPlaces,
+  });
+
+  @override
+  TripPlaceSelection copyWith({
+    TripSettings? settings,
+    List<LatLng>? foundPlaces,
+    List<LatLng>? selectedPlaces,
+  }) =>
+      TripPlaceSelection(
+        settings: settings ?? this.settings,
+        foundPlaces: foundPlaces ?? this.foundPlaces,
+        selectedPlaces: selectedPlaces ?? this.selectedPlaces,
+      );
+}

@@ -5,6 +5,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:vall/home/trip/cubit/trip_cubit.dart';
 
+part 'trip_map_place_selection.dart';
+
 class TripMapComponent extends StatefulWidget {
   const TripMapComponent({
     super.key,
@@ -24,45 +26,67 @@ class _TripMapComponentState extends State<TripMapComponent> {
   static const PolylineId _tripPolylineId = PolylineId('trip');
   static const CircleId _tripCircleId = CircleId('radius');
 
+  LatLng? _addPlace;
+
   @override
   void initState() {
     super.initState();
     _controller = Completer<GoogleMapController>();
   }
 
+  void _onCameraMove(CameraPosition position, TripState state) {
+    if (state is! TripPlaceSelection) {
+      return;
+    }
+    _addPlace = position.target;
+  }
+
+  void _onPlaceSelected() {
+    if (_addPlace == null) {
+      return;
+    }
+    context.read<TripCubit>().selectPlace(_addPlace!);
+  }
+
   @override
   Widget build(BuildContext context) => BlocBuilder<TripCubit, TripState>(
-        builder: (context, state) => GoogleMap(
-          padding: const EdgeInsets.only(top: 24, bottom: 72),
-          initialCameraPosition: CameraPosition(
-            target: widget._initialLocation,
-            zoom: _initialCameraZoom,
+        builder: (context, state) => Stack(children: [
+          GoogleMap(
+            padding: state is! TripPlaceSelection //
+                ? const EdgeInsets.only(top: 24, bottom: 72)
+                : EdgeInsets.zero,
+            initialCameraPosition: CameraPosition(
+              target: widget._initialLocation,
+              zoom: _initialCameraZoom,
+            ),
+            onMapCreated: _controller.complete,
+            polylines: {
+              if (state is TripCreated)
+                Polyline(
+                  polylineId: _tripPolylineId,
+                  color: Colors.blueAccent,
+                  points: state.polylinePoints,
+                  width: 8,
+                ),
+            },
+            markers: _getMarkers(state),
+            circles: {
+              if (state is! TripCreated)
+                Circle(
+                  circleId: _tripCircleId,
+                  center: widget._initialLocation,
+                  radius: state.settings.searchRadius,
+                  fillColor: Colors.blueAccent.withOpacity(0.12),
+                  strokeWidth: 2,
+                  strokeColor: Colors.blueAccent.withOpacity(0.7),
+                ),
+            },
+            compassEnabled: false,
+            myLocationEnabled: true,
+            onCameraMove: (position) => _onCameraMove(position, state),
           ),
-          onMapCreated: _controller.complete,
-          polylines: {
-            if (state is TripCreated)
-              Polyline(
-                polylineId: _tripPolylineId,
-                color: Colors.blueAccent,
-                points: state.polylinePoints,
-                width: 8,
-              ),
-          },
-          markers: _getMarkers(state),
-          circles: {
-            if (state is! TripCreated)
-              Circle(
-                circleId: _tripCircleId,
-                center: widget._initialLocation,
-                radius: state.settings.searchRadius,
-                fillColor: Colors.blueAccent.withOpacity(0.12),
-                strokeWidth: 2,
-                strokeColor: Colors.blueAccent.withOpacity(0.7),
-              ),
-          },
-          compassEnabled: false,
-          myLocationEnabled: true,
-        ),
+          if (state is TripPlaceSelection) _TripMapPlaceSelection(onPlaceSelected: _onPlaceSelected),
+        ]),
       );
 
   Set<Marker> _getMarkers(TripState state) => {
@@ -90,6 +114,7 @@ class _TripMapComponentState extends State<TripMapComponent> {
   }) =>
       places.map(
         (place) => Marker(
+          // TODO(naz): use infoWindow for additional details
           markerId: MarkerId('$place'),
           position: place,
           icon: icon,
