@@ -9,7 +9,6 @@ import 'package:vall/home/places/cubit/places_cubit.dart';
 import 'package:vall/home/places/misc/repository/places_repository.dart';
 import 'package:vall/home/trip/cubit/initial_location/initial_location_cubit.dart';
 import 'package:vall/home/trip/cubit/trip_cubit.dart';
-import 'package:vall/home/trip/misc/mapper/trip_mapper.dart';
 import 'package:vall/home/trip/misc/repository/current_location_repository.dart';
 import 'package:vall/home/trip/misc/repository/trip_repository.dart';
 
@@ -41,7 +40,6 @@ class HomeDependencies extends StatelessWidget {
             ),
           ),
           RepositoryProvider(create: (context) => CurrentLocationRepository()),
-          RepositoryProvider(create: (context) => TripMapper()),
         ],
         child: MultiBlocProvider(
           providers: [
@@ -58,7 +56,6 @@ class HomeDependencies extends StatelessWidget {
                 currentLocationRepository: context.read<CurrentLocationRepository>(),
                 tripRepository: context.read<TripRepository>(),
                 placesRepository: context.read<PlacesRepository>(),
-                tripMapper: context.read<TripMapper>(),
               )..load(),
             ),
             BlocProvider(

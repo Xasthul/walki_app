@@ -1,8 +1,8 @@
-import 'package:vall/home/misc/entity/search_nearby_place_type.dart';
 import 'package:vall/home/misc/network/dio_client.dart';
 import 'package:vall/home/misc/network/entity/google_api_lat_lng.dart';
 import 'package:vall/home/misc/network/entity/request/search_nearby/circle_location_restriction.dart';
 import 'package:vall/home/misc/network/entity/request/search_nearby/location_restriction.dart';
+import 'package:vall/home/misc/network/entity/request/search_nearby/search_nearby_place_type.dart';
 import 'package:vall/home/misc/network/entity/request/search_nearby/search_nearby_request.dart';
 import 'package:vall/home/misc/network/entity/response/google_api_place.dart';
 import 'package:vall/home/misc/network/entity/response/search_nearby_response.dart';
@@ -15,6 +15,7 @@ class PointsOfInterestService {
   final GoogleApiDioClient _client;
 
   Future<List<GoogleApiPlace>> loadPointsOfInterest({
+    required SearchNearbyPlaceType placeType,
     required int maxResultCount,
     required double latitude,
     required double longitude,
@@ -26,7 +27,7 @@ class PointsOfInterestService {
       url,
       headers: headers,
       body: SearchNearbyRequest(
-        includedTypes: [SearchNearbyPlaceType.touristAttraction],
+        includedTypes: [placeType],
         maxResultCount: maxResultCount,
         locationRestriction: LocationRestriction(
           circle: CircleLocationRestriction(

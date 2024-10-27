@@ -34,9 +34,19 @@ class _TripSettingsContent extends StatelessWidget {
           ),
         ]),
         FilledButton(
-          onPressed: state.foundPlaces.isEmpty ? null : cubit.startPlaceSelection,
+          onPressed: state.foundPlaces.places.isEmpty ? null : cubit.startPlaceSelection,
           child: const Text('Select place'),
         ),
+        Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+          FilledButton(
+            onPressed: state.foundPlaces.places.isEmpty ? null : cubit.findRestaurants,
+            child: const Text('Find restaurants'),
+          ),
+          const FilledButton(
+            onPressed: null,
+            child: Text('Find cafes'),
+          ),
+        ]),
       ]),
     );
   }

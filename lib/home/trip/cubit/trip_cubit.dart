@@ -3,12 +3,12 @@ import 'dart:async';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:vall/home/misc/entity/found_places.dart';
 import 'package:vall/home/misc/entity/point_of_interest.dart';
 import 'package:vall/home/misc/logger/logger.dart';
 import 'package:vall/home/places/misc/repository/places_repository.dart';
 import 'package:vall/home/trip/misc/entity/trip_settings.dart';
 import 'package:vall/home/trip/misc/entity/trip_travel_mode.dart';
-import 'package:vall/home/trip/misc/mapper/trip_mapper.dart';
 import 'package:vall/home/trip/misc/repository/current_location_repository.dart';
 import 'package:vall/home/trip/misc/repository/trip_repository.dart';
 
@@ -19,17 +19,14 @@ class TripCubit extends Cubit<TripState> {
     required TripRepository tripRepository,
     required PlacesRepository placesRepository,
     required CurrentLocationRepository currentLocationRepository,
-    required TripMapper tripMapper,
   })  : _tripRepository = tripRepository,
         _placesRepository = placesRepository,
         _currentLocationRepository = currentLocationRepository,
-        _tripMapper = tripMapper,
         super(const TripInitial());
 
   final CurrentLocationRepository _currentLocationRepository;
   final TripRepository _tripRepository;
   final PlacesRepository _placesRepository;
-  final TripMapper _tripMapper;
 
   StreamSubscription<List<PointOfInterest>>? _tripSubscription;
 
@@ -42,7 +39,7 @@ class TripCubit extends Cubit<TripState> {
             TripLoading(
               settings: state.settings,
               foundPlaces: state.foundPlaces,
-              selectedPlaces: _tripMapper.mapPointsOfInterestToLatLng(trip),
+              selectedPlaces: trip,
             ),
           );
         }
@@ -50,7 +47,7 @@ class TripCubit extends Cubit<TripState> {
           TripCreation(
             settings: state.settings,
             foundPlaces: state.foundPlaces,
-            selectedPlaces: _tripMapper.mapPointsOfInterestToLatLng(trip),
+            selectedPlaces: trip,
           ),
         );
       });
@@ -67,7 +64,7 @@ class TripCubit extends Cubit<TripState> {
       emit(
         TripPlacesNearbyFound(
           settings: state.settings,
-          foundPlaces: _tripMapper.mapPointsOfInterestToLatLng(places),
+          foundPlaces: FoundPlaces(places: places),
         ),
       );
     } catch (error) {
@@ -172,6 +169,43 @@ class TripCubit extends Cubit<TripState> {
           longitude: place.longitude,
         ),
       );
+
+  Future<void> findRestaurants() async {
+    emit(
+      TripLoading(
+        foundPlaces: state.foundPlaces,
+        selectedPlaces: state.selectedPlaces,
+        settings: state.settings,
+      ),
+    );
+    try {
+      final currentLocation = await _currentLocationRepository.getCurrentLocation();
+      final restaurants = await _placesRepository.findRestaurants(
+        startingPosition: currentLocation,
+        radius: state.settings.searchRadius,
+      );
+      emit(
+        TripCreation(
+          settings: state.settings,
+          foundPlaces: FoundPlaces(
+            places: state.foundPlaces.places,
+            restaurants: restaurants,
+            cafes: state.foundPlaces.cafes,
+          ),
+          selectedPlaces: state.selectedPlaces,
+        ),
+      );
+    } catch (error) {
+      // TODO(naz): handle error?
+      emit(
+        TripInitial(
+          settings: state.settings,
+          foundPlaces: state.foundPlaces,
+          selectedPlaces: state.selectedPlaces,
+        ),
+      );
+    }
+  }
 
   @override
   Future<void> close() {

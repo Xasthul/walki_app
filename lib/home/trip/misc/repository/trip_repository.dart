@@ -27,7 +27,7 @@ class TripRepository {
   }
 
   Future<List<LatLng>> getPolylineCoordinates({
-    required List<LatLng> places,
+    required List<PointOfInterest> places,
     required LatLng currentLocation,
   }) async {
     final polylinePoints = PolylinePoints();

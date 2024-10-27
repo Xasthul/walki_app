@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:vall/home/misc/entity/point_of_interest.dart';
 import 'package:vall/home/trip/cubit/trip_cubit.dart';
 
 part 'trip_map_place_selection.dart';
@@ -97,8 +98,16 @@ class _TripMapComponentState extends State<TripMapComponent> {
             ),
           _ => {
               ..._drawMarkers(
-                places: state.foundPlaces,
+                places: state.foundPlaces.places,
                 icon: _foundPlaceMarkerIcon,
+              ),
+              ..._drawMarkers(
+                places: state.foundPlaces.restaurants,
+                icon: _foundRestaurantMarkerIcon,
+              ),
+              ..._drawMarkers(
+                places: state.foundPlaces.cafes,
+                icon: _foundCafeMarkerIcon,
               ),
               ..._drawMarkers(
                 places: state.selectedPlaces,
@@ -109,19 +118,23 @@ class _TripMapComponentState extends State<TripMapComponent> {
       };
 
   Iterable<Marker> _drawMarkers({
-    required List<LatLng> places,
+    required List<PointOfInterest> places,
     required BitmapDescriptor icon,
   }) =>
       places.map(
         (place) => Marker(
-          // TODO(naz): use infoWindow for additional details
           markerId: MarkerId('$place'),
-          position: place,
+          position: LatLng(place.latitude, place.longitude),
           icon: icon,
+          infoWindow: InfoWindow(title: place.name),
         ),
       );
 
   BitmapDescriptor get _selectedPlaceMarkerIcon => BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueGreen);
 
   BitmapDescriptor get _foundPlaceMarkerIcon => BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueMagenta);
+
+  BitmapDescriptor get _foundRestaurantMarkerIcon => BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueAzure);
+
+  BitmapDescriptor get _foundCafeMarkerIcon => BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueRose);
 }
