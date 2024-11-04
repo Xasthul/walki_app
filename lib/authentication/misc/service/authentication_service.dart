@@ -1,4 +1,5 @@
 import 'package:vall/app/common/constants/app_constants.dart';
+import 'package:vall/authentication/misc/network/access_token_response.dart';
 import 'package:vall/home/misc/network/dio_client.dart';
 
 class AuthenticationService {
@@ -25,18 +26,20 @@ class AuthenticationService {
     );
   }
 
-  Future<void> login({
+  Future<String> login({
     required String email,
     required String password,
   }) async {
     const url = '${AppConstants.serviceBaseUrl}/auth/login';
 
-    await _client.post(
+    final response = await _client.post(
       url,
       body: {
         'email': email,
         'password': password,
       },
     );
+
+    return AccessTokenResponse.fromJson(response).accessToken;
   }
 }

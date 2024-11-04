@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:vall/authentication/misc/repository/authentication_repository.dart';
@@ -13,15 +15,27 @@ class AuthenticationCubit extends Cubit<AuthenticationState> {
 
   final AuthenticationRepository _authenticationRepository;
 
+  StreamSubscription<bool>? _isAuthenticatedSubscription;
+
   Future<void> load() async {
     try {
-      final isAccessTokenStored = await _authenticationRepository.isAccessTokenStored;
-      if (isAccessTokenStored) {
-        return emit(AuthenticationSet());
-      }
+      _isAuthenticatedSubscription = _authenticationRepository.isAuthenticatedStream.listen(_onIsAuthenticatedChanged);
+      _onIsAuthenticatedChanged(await _authenticationRepository.isAuthenticated);
     } catch (error, stackTrace) {
-      logger.e('Failed to load access token from storage', error: error, stackTrace: stackTrace);
+      logger.e('Authentication cubit load failed', error: error, stackTrace: stackTrace);
+    }
+  }
+
+  void _onIsAuthenticatedChanged(bool isAuthenticated) {
+    if (isAuthenticated) {
+      return emit(AuthenticationSet());
     }
     return emit(AuthenticationNotSet());
+  }
+
+  @override
+  Future<void> close() {
+    _isAuthenticatedSubscription?.cancel();
+    return super.close();
   }
 }

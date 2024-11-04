@@ -25,7 +25,7 @@ class AppDependencies extends StatelessWidget {
             create: (context) => DioClientFactory.createAuthorizedDioClient(),
           ),
           RepositoryProvider<SecureStorage>(
-            create: (context) => SecureStorage(),
+            create: (context) => SecureStorage()..load(),
           ),
           RepositoryProvider<AuthenticationService>(
             create: (context) => AuthenticationService(
@@ -36,7 +36,7 @@ class AppDependencies extends StatelessWidget {
             create: (context) => AuthenticationRepository(
               authenticationService: context.read<AuthenticationService>(),
               secureStorage: context.read<SecureStorage>(),
-            ),
+            )..load(),
           ),
         ],
         child: MultiBlocProvider(
