@@ -9,8 +9,7 @@ class _PlacesNotDiscovered extends StatelessWidget {
           const Text('No places found yet'),
           const SizedBox(height: 24),
           FilledButton(
-            // TODO(naz): use types routes
-            onPressed: () => context.go('/trip'),
+            onPressed: context.read<HomeNavigationCubit>().openTripPage,
             child: const Text('Go to places discovery'),
           ),
         ]),
