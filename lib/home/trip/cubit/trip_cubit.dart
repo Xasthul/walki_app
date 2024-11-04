@@ -6,11 +6,11 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:vall/home/misc/entity/found_places.dart';
 import 'package:vall/home/misc/entity/point_of_interest.dart';
 import 'package:vall/home/misc/logger/logger.dart';
-import 'package:vall/home/places/misc/repository/places_repository.dart';
+import 'package:vall/home/misc/repository/places_repository.dart';
 import 'package:vall/home/trip/misc/entity/trip_settings.dart';
 import 'package:vall/home/trip/misc/entity/trip_travel_mode.dart';
-import 'package:vall/home/trip/misc/repository/current_location_repository.dart';
-import 'package:vall/home/trip/misc/repository/trip_repository.dart';
+import 'package:vall/home/misc/repository/current_location_repository.dart';
+import 'package:vall/home/misc/repository/trip_repository.dart';
 
 part 'trip_state.dart';
 

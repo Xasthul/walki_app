@@ -4,13 +4,13 @@ import 'package:vall/home/cubit/location_permission/location_permission_cubit.da
 import 'package:vall/home/misc/mapper/point_of_interest_mapper.dart';
 import 'package:vall/home/misc/network/dio_client.dart';
 import 'package:vall/home/misc/network/dio_client_factory.dart';
-import 'package:vall/home/misc/service/points_of_interest_service.dart';
+import 'package:vall/home/misc/service/google_api_service.dart';
 import 'package:vall/home/places/cubit/places_cubit.dart';
-import 'package:vall/home/places/misc/repository/places_repository.dart';
+import 'package:vall/home/misc/repository/places_repository.dart';
 import 'package:vall/home/trip/cubit/initial_location/initial_location_cubit.dart';
 import 'package:vall/home/trip/cubit/trip_cubit.dart';
-import 'package:vall/home/trip/misc/repository/current_location_repository.dart';
-import 'package:vall/home/trip/misc/repository/trip_repository.dart';
+import 'package:vall/home/misc/repository/current_location_repository.dart';
+import 'package:vall/home/misc/repository/trip_repository.dart';
 
 class HomeDependencies extends StatelessWidget {
   const HomeDependencies({
@@ -27,7 +27,7 @@ class HomeDependencies extends StatelessWidget {
             create: (context) => DioClientFactory.createGoogleApiDioClient(),
           ),
           RepositoryProvider(
-            create: (context) => PointsOfInterestService(
+            create: (context) => GoogleApiService(
               client: context.read<GoogleApiDioClient>(),
             ),
           ),
@@ -35,7 +35,7 @@ class HomeDependencies extends StatelessWidget {
           RepositoryProvider(create: (context) => PointOfInterestMapper()),
           RepositoryProvider(
             create: (context) => PlacesRepository(
-              pointsOfInterestService: context.read<PointsOfInterestService>(),
+              googleApiService: context.read<GoogleApiService>(),
               pointOfInterestMapper: context.read<PointOfInterestMapper>(),
             ),
           ),

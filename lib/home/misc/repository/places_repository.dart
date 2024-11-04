@@ -5,16 +5,16 @@ import 'package:vall/home/misc/entity/point_of_interest.dart';
 import 'package:vall/home/misc/logger/logger.dart';
 import 'package:vall/home/misc/mapper/point_of_interest_mapper.dart';
 import 'package:vall/home/misc/network/entity/request/search_nearby/search_nearby_place_type.dart';
-import 'package:vall/home/misc/service/points_of_interest_service.dart';
+import 'package:vall/home/misc/service/google_api_service.dart';
 
 class PlacesRepository {
   PlacesRepository({
-    required PointsOfInterestService pointsOfInterestService,
+    required GoogleApiService googleApiService,
     required PointOfInterestMapper pointOfInterestMapper,
-  })  : _pointsOfInterestService = pointsOfInterestService,
+  })  : _googleApiService = googleApiService,
         _pointOfInterestMapper = pointOfInterestMapper;
 
-  final PointsOfInterestService _pointsOfInterestService;
+  final GoogleApiService _googleApiService;
   final PointOfInterestMapper _pointOfInterestMapper;
 
   final StreamController<List<PointOfInterest>> _placesController = StreamController.broadcast();
@@ -89,7 +89,7 @@ class PlacesRepository {
     required LatLng startingPosition,
     required double radius,
   }) async {
-    final googleApiPlaces = await _pointsOfInterestService.loadPointsOfInterest(
+    final googleApiPlaces = await _googleApiService.searchPlacesNearby(
       placeType: placeType,
       latitude: startingPosition.latitude,
       longitude: startingPosition.longitude,

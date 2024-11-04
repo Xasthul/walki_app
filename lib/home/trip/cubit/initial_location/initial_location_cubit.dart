@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:vall/home/trip/misc/repository/current_location_repository.dart';
+import 'package:vall/home/misc/repository/current_location_repository.dart';
 
 part 'initial_location_state.dart';
 

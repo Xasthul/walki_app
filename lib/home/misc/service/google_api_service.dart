@@ -7,14 +7,14 @@ import 'package:vall/home/misc/network/entity/request/search_nearby/search_nearb
 import 'package:vall/home/misc/network/entity/response/google_api_place.dart';
 import 'package:vall/home/misc/network/entity/response/search_nearby_response.dart';
 
-class PointsOfInterestService {
-  PointsOfInterestService({
+class GoogleApiService {
+  GoogleApiService({
     required GoogleApiDioClient client,
   }) : _client = client;
 
   final GoogleApiDioClient _client;
 
-  Future<List<GoogleApiPlace>> loadPointsOfInterest({
+  Future<List<GoogleApiPlace>> searchPlacesNearby({
     required SearchNearbyPlaceType placeType,
     required int maxResultCount,
     required double latitude,
