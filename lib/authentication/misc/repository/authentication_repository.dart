@@ -53,6 +53,8 @@ class AuthenticationRepository {
     await _secureStorage.saveAccessToken(accessToken);
   }
 
+  Future<void> logOut() async => _secureStorage.removeAccessToken();
+
   void dispose() {
     _accessTokenSubscription?.cancel();
   }

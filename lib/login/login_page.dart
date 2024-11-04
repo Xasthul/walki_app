@@ -7,13 +7,20 @@ class LoginPage extends StatelessWidget {
   const LoginPage({super.key});
 
   @override
-  Widget build(BuildContext context) => LoginDependencies(
-        child: Scaffold(
-          body: Center(
-            child: FilledButton(
-              onPressed: context.read<LoginCubit>().login,
-              child: const Text('Login'),
-            ),
+  Widget build(BuildContext context) => const LoginDependencies(
+        child: _LoginPageBase(),
+      );
+}
+
+class _LoginPageBase extends StatelessWidget {
+  const _LoginPageBase();
+
+  @override
+  Widget build(BuildContext context) => Scaffold(
+        body: Center(
+          child: FilledButton(
+            onPressed: context.read<LoginCubit>().login,
+            child: const Text('Login'),
           ),
         ),
       );

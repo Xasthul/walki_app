@@ -6,6 +6,7 @@ class _HomeContent extends StatelessWidget {
   static const List<Widget> _pages = [
     TripPage(),
     PlacesPage(),
+    ProfilePage(),
   ];
 
   @override
@@ -20,6 +21,7 @@ class _HomeContent extends StatelessWidget {
               items: const [
                 BottomNavigationBarItem(icon: Icon(Icons.map_rounded), label: 'Trip'),
                 BottomNavigationBarItem(icon: Icon(Icons.place_rounded), label: 'Places'),
+                BottomNavigationBarItem(icon: Icon(Icons.person_rounded), label: 'Profile'),
               ],
               onTap: context.read<HomeNavigationCubit>().updateCurrentIndex,
             ),

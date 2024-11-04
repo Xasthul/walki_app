@@ -24,4 +24,9 @@ class SecureStorage {
         key: _accessTokenKey,
         value: accessToken,
       );
+
+  Future<void> removeAccessToken() => _storage.write(
+        key: _accessTokenKey,
+        value: null,
+      );
 }
