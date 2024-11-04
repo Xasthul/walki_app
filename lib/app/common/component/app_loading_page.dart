@@ -1,7 +1,7 @@
-part of '../../home_page.dart';
+import 'package:flutter/material.dart';
 
-class _HomeLoadingContent extends StatelessWidget {
-  const _HomeLoadingContent();
+class AppLoadingPage extends StatelessWidget {
+  const AppLoadingPage({super.key});
 
   @override
   Widget build(BuildContext context) => const Scaffold(

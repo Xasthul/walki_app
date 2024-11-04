@@ -1,11 +1,15 @@
 import 'package:dio/dio.dart';
 
+class GenericDioClient extends _DioClient {
+  GenericDioClient({required super.dio});
+}
+
 class GoogleApiDioClient extends _DioClient {
   GoogleApiDioClient({required super.dio});
 }
 
-class GenericDioClient extends _DioClient {
-  GenericDioClient({required super.dio});
+class AuthorizedDioClient extends _DioClient {
+  AuthorizedDioClient({required super.dio});
 }
 
 abstract class _DioClient {
