@@ -2,10 +2,10 @@ part of '../../../places_page.dart';
 
 class _PlacesInTripTab extends StatelessWidget {
   const _PlacesInTripTab({
-    required List<PointOfInterest> placesInTrip,
+    required TripPlaces placesInTrip,
   }) : _placesInTrip = placesInTrip;
 
-  final List<PointOfInterest> _placesInTrip;
+  final TripPlaces _placesInTrip;
 
   @override
   Widget build(BuildContext context) {
@@ -16,18 +16,36 @@ class _PlacesInTripTab extends StatelessWidget {
     }
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16),
-      child: ListView.builder(
-        itemCount: _placesInTrip.length,
-        itemBuilder: (context, index) => Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-          Flexible(
-            child: Text(_placesInTrip[index].name),
+      child: CustomScrollView(slivers: [
+        SliverList.builder(
+          itemCount: _placesInTrip.discoveredPlaces.length,
+          itemBuilder: (context, index) => _buildItem(
+            place: _placesInTrip.discoveredPlaces[index],
+            onRemove: context.read<PlacesCubit>().toggleDiscoveredPlace,
           ),
-          TextButton(
-            onPressed: () => context.read<PlacesCubit>().togglePlace(_placesInTrip[index]),
-            child: const Text('Remove'),
+        ),
+        SliverList.builder(
+          itemCount: _placesInTrip.customPlaces.length,
+          itemBuilder: (context, index) => _buildItem(
+            place: _placesInTrip.customPlaces[index],
+            onRemove: context.read<PlacesCubit>().toggleCustomPlace,
           ),
-        ]),
-      ),
+        ),
+      ]),
     );
   }
+
+  Widget _buildItem({
+    required PointOfInterest place,
+    required Function(PointOfInterest) onRemove,
+  }) =>
+      Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+        Flexible(
+          child: Text(place.name),
+        ),
+        TextButton(
+          onPressed: () => onRemove(place),
+          child: const Text('Remove'),
+        ),
+      ]);
 }

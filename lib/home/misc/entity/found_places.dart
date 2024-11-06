@@ -3,9 +3,9 @@ import 'package:vall/home/misc/entity/point_of_interest.dart';
 
 class FoundPlaces extends Equatable {
   const FoundPlaces({
-    this.places = const [],
-    this.restaurants = const [],
-    this.cafes = const [],
+    required this.places,
+    required this.restaurants,
+    required this.cafes,
   });
 
   final List<PointOfInterest> places;

@@ -90,32 +90,35 @@ class _TripMapComponentState extends State<TripMapComponent> {
         ]),
       );
 
-  Set<Marker> _getMarkers(TripState state) => {
-        ...switch (state) {
-          TripCreated() => _drawMarkers(
-              places: state.selectedPlaces,
+  Set<Marker> _getMarkers(TripState state) {
+    final tripPlaces = [...state.tripPlaces.discoveredPlaces, ...state.tripPlaces.customPlaces];
+    return {
+      ...switch (state) {
+        TripCreated() => _drawMarkers(
+            places: tripPlaces,
+            icon: _selectedPlaceMarkerIcon,
+          ),
+        _ => {
+            ..._drawMarkers(
+              places: state.foundPlaces.places,
+              icon: _foundPlaceMarkerIcon,
+            ),
+            ..._drawMarkers(
+              places: state.foundPlaces.restaurants,
+              icon: _foundRestaurantMarkerIcon,
+            ),
+            ..._drawMarkers(
+              places: state.foundPlaces.cafes,
+              icon: _foundCafeMarkerIcon,
+            ),
+            ..._drawMarkers(
+              places: tripPlaces,
               icon: _selectedPlaceMarkerIcon,
             ),
-          _ => {
-              ..._drawMarkers(
-                places: state.foundPlaces.places,
-                icon: _foundPlaceMarkerIcon,
-              ),
-              ..._drawMarkers(
-                places: state.foundPlaces.restaurants,
-                icon: _foundRestaurantMarkerIcon,
-              ),
-              ..._drawMarkers(
-                places: state.foundPlaces.cafes,
-                icon: _foundCafeMarkerIcon,
-              ),
-              ..._drawMarkers(
-                places: state.selectedPlaces,
-                icon: _selectedPlaceMarkerIcon,
-              ),
-            },
-        }
-      };
+          },
+      }
+    };
+  }
 
   Iterable<Marker> _drawMarkers({
     required List<PointOfInterest> places,

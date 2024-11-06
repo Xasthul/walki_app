@@ -3,8 +3,15 @@ part of 'trip_cubit.dart';
 sealed class TripState extends Equatable {
   const TripState({
     this.settings = _defaultTripSettings,
-    this.foundPlaces = const FoundPlaces(),
-    this.selectedPlaces = const [],
+    this.foundPlaces = const FoundPlaces(
+      places: [],
+      restaurants: [],
+      cafes: [],
+    ),
+    this.tripPlaces = const TripPlaces(
+      discoveredPlaces: [],
+      customPlaces: [],
+    ),
   });
 
   static const _defaultTripSettings = TripSettings(
@@ -14,19 +21,19 @@ sealed class TripState extends Equatable {
 
   final TripSettings settings;
   final FoundPlaces foundPlaces;
-  final List<PointOfInterest> selectedPlaces;
+  final TripPlaces tripPlaces;
 
   TripState copyWith({
     TripSettings? settings,
     FoundPlaces? foundPlaces,
-    List<PointOfInterest>? selectedPlaces,
+    TripPlaces? tripPlaces,
   });
 
   @override
   List<Object?> get props => [
         settings,
         foundPlaces,
-        selectedPlaces,
+        tripPlaces,
       ];
 }
 
@@ -34,19 +41,19 @@ class TripInitial extends TripState {
   const TripInitial({
     super.settings,
     super.foundPlaces,
-    super.selectedPlaces,
+    super.tripPlaces,
   });
 
   @override
   TripInitial copyWith({
     TripSettings? settings,
     FoundPlaces? foundPlaces,
-    List<PointOfInterest>? selectedPlaces,
+    TripPlaces? tripPlaces,
   }) =>
       TripInitial(
         settings: settings ?? this.settings,
         foundPlaces: foundPlaces ?? this.foundPlaces,
-        selectedPlaces: selectedPlaces ?? this.selectedPlaces,
+        tripPlaces: tripPlaces ?? this.tripPlaces,
       );
 }
 
@@ -54,19 +61,19 @@ class TripLoading extends TripState {
   const TripLoading({
     super.settings,
     super.foundPlaces,
-    super.selectedPlaces,
+    super.tripPlaces,
   });
 
   @override
   TripLoading copyWith({
     TripSettings? settings,
     FoundPlaces? foundPlaces,
-    List<PointOfInterest>? selectedPlaces,
+    TripPlaces? tripPlaces,
   }) =>
       TripLoading(
         settings: settings ?? this.settings,
         foundPlaces: foundPlaces ?? this.foundPlaces,
-        selectedPlaces: selectedPlaces ?? this.selectedPlaces,
+        tripPlaces: tripPlaces ?? this.tripPlaces,
       );
 }
 
@@ -74,19 +81,19 @@ class TripPlacesNearbyFound extends TripState {
   const TripPlacesNearbyFound({
     super.settings,
     super.foundPlaces,
-    super.selectedPlaces,
+    super.tripPlaces,
   });
 
   @override
   TripPlacesNearbyFound copyWith({
     TripSettings? settings,
     FoundPlaces? foundPlaces,
-    List<PointOfInterest>? selectedPlaces,
+    TripPlaces? tripPlaces,
   }) =>
       TripPlacesNearbyFound(
         settings: settings ?? this.settings,
         foundPlaces: foundPlaces ?? this.foundPlaces,
-        selectedPlaces: selectedPlaces ?? this.selectedPlaces,
+        tripPlaces: tripPlaces ?? this.tripPlaces,
       );
 }
 
@@ -94,19 +101,19 @@ class TripCreation extends TripState {
   const TripCreation({
     super.settings,
     super.foundPlaces,
-    super.selectedPlaces,
+    super.tripPlaces,
   });
 
   @override
   TripCreation copyWith({
     TripSettings? settings,
     FoundPlaces? foundPlaces,
-    List<PointOfInterest>? selectedPlaces,
+    TripPlaces? tripPlaces,
   }) =>
       TripCreation(
         settings: settings ?? this.settings,
         foundPlaces: foundPlaces ?? this.foundPlaces,
-        selectedPlaces: selectedPlaces ?? this.selectedPlaces,
+        tripPlaces: tripPlaces ?? this.tripPlaces,
       );
 }
 
@@ -114,7 +121,7 @@ class TripCreated extends TripState {
   const TripCreated({
     super.settings,
     super.foundPlaces,
-    super.selectedPlaces,
+    super.tripPlaces,
     required this.polylinePoints,
   });
 
@@ -124,13 +131,13 @@ class TripCreated extends TripState {
   TripCreated copyWith({
     TripSettings? settings,
     FoundPlaces? foundPlaces,
-    List<PointOfInterest>? selectedPlaces,
+    TripPlaces? tripPlaces,
     List<LatLng>? polylinePoints,
   }) =>
       TripCreated(
         settings: settings ?? this.settings,
         foundPlaces: foundPlaces ?? this.foundPlaces,
-        selectedPlaces: selectedPlaces ?? this.selectedPlaces,
+        tripPlaces: tripPlaces ?? this.tripPlaces,
         polylinePoints: polylinePoints ?? this.polylinePoints,
       );
 
@@ -142,19 +149,19 @@ class TripCreationFailed extends TripState {
   const TripCreationFailed({
     super.settings,
     super.foundPlaces,
-    super.selectedPlaces,
+    super.tripPlaces,
   });
 
   @override
   TripCreationFailed copyWith({
     TripSettings? settings,
     FoundPlaces? foundPlaces,
-    List<PointOfInterest>? selectedPlaces,
+    TripPlaces? tripPlaces,
   }) =>
       TripCreationFailed(
         settings: settings ?? this.settings,
         foundPlaces: foundPlaces ?? this.foundPlaces,
-        selectedPlaces: selectedPlaces ?? this.selectedPlaces,
+        tripPlaces: tripPlaces ?? this.tripPlaces,
       );
 }
 
@@ -162,18 +169,18 @@ class TripPlaceSelection extends TripState {
   const TripPlaceSelection({
     super.settings,
     super.foundPlaces,
-    super.selectedPlaces,
+    super.tripPlaces,
   });
 
   @override
   TripPlaceSelection copyWith({
     TripSettings? settings,
     FoundPlaces? foundPlaces,
-    List<PointOfInterest>? selectedPlaces,
+    TripPlaces? tripPlaces,
   }) =>
       TripPlaceSelection(
         settings: settings ?? this.settings,
         foundPlaces: foundPlaces ?? this.foundPlaces,
-        selectedPlaces: selectedPlaces ?? this.selectedPlaces,
+        tripPlaces: tripPlaces ?? this.tripPlaces,
       );
 }

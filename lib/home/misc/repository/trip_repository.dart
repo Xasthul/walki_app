@@ -4,25 +4,49 @@ import 'package:flutter_polyline_points/flutter_polyline_points.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:vall/app/common/constants/app_constants.dart';
 import 'package:vall/home/misc/entity/point_of_interest.dart';
+import 'package:vall/home/trip/misc/entity/trip_places.dart';
 
 class TripRepository {
-  final StreamController<List<PointOfInterest>> _tripController = StreamController.broadcast();
+  final StreamController<TripPlaces> _tripController = StreamController.broadcast();
 
-  Stream<List<PointOfInterest>> get tripStream => _tripController.stream;
+  Stream<TripPlaces> get tripStream => _tripController.stream;
 
-  List<PointOfInterest> _trip = [];
+  TripPlaces _trip = const TripPlaces(
+    discoveredPlaces: [],
+    customPlaces: [],
+  );
 
-  void togglePlace(PointOfInterest place) {
-    if (_trip.contains(place)) {
-      _trip = [..._trip]..remove(place);
+  void toggleDiscoveredPlace(PointOfInterest place) {
+    if (_trip.discoveredPlaces.contains(place)) {
+      _trip = _trip.copyWith(
+        discoveredPlaces: [..._trip.discoveredPlaces]..remove(place),
+      );
     } else {
-      _trip = [..._trip, place];
+      _trip = _trip.copyWith(
+        discoveredPlaces: [..._trip.discoveredPlaces, place],
+      );
+    }
+    _tripController.add(_trip);
+  }
+
+  void toggleCustomPlace(PointOfInterest place) {
+    if (_trip.customPlaces.contains(place)) {
+      _trip = _trip.copyWith(
+        customPlaces: [..._trip.customPlaces]..remove(place),
+      );
+    } else {
+      _trip = _trip.copyWith(
+        customPlaces: [..._trip.customPlaces, place],
+      );
     }
     _tripController.add(_trip);
   }
 
   void clearTrip() {
-    _trip = [];
+    _trip = const TripPlaces(
+      discoveredPlaces: [],
+      customPlaces: [],
+    );
     _tripController.add(_trip);
   }
 

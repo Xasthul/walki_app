@@ -20,7 +20,7 @@ class _PlacesDiscoveredTab extends StatelessWidget {
               child: Text(_discoveredPlaces[index].name),
             ),
             TextButton(
-              onPressed: () => context.read<PlacesCubit>().togglePlace(_discoveredPlaces[index]),
+              onPressed: () => context.read<PlacesCubit>().toggleDiscoveredPlace(_discoveredPlaces[index]),
               child: _placesInTrip.contains(_discoveredPlaces[index]) //
                   ? const Text('Remove')
                   : const Text('Add'),

@@ -20,7 +20,7 @@ class _TripSettingsContent extends StatelessWidget {
         ),
         Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
           FilledButton(
-            onPressed: state.selectedPlaces.isEmpty
+            onPressed: state.tripPlaces.isEmpty
                 ? null
                 : () {
                     cubit.createTrip();

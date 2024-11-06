@@ -5,7 +5,7 @@ class _PlacesDiscovered extends StatefulWidget {
     required List<PointOfInterest> discoveredPlaces,
     required List<PointOfInterest> discoveredRestaurants,
     required List<PointOfInterest> discoveredCafes,
-    required List<PointOfInterest> placesInTrip,
+    required TripPlaces placesInTrip,
   })  : _discoveredPlaces = discoveredPlaces,
         _discoveredRestaurants = discoveredRestaurants,
         _discoveredCafes = discoveredCafes,
@@ -14,7 +14,7 @@ class _PlacesDiscovered extends StatefulWidget {
   final List<PointOfInterest> _discoveredPlaces;
   final List<PointOfInterest> _discoveredRestaurants;
   final List<PointOfInterest> _discoveredCafes;
-  final List<PointOfInterest> _placesInTrip;
+  final TripPlaces _placesInTrip;
 
   @override
   State<_PlacesDiscovered> createState() => _PlacesDiscoveredState();
@@ -51,13 +51,13 @@ class _PlacesDiscoveredState extends State<_PlacesDiscovered> with SingleTickerP
               children: [
                 _PlacesDiscoveredTab(
                   discoveredPlaces: widget._discoveredPlaces,
-                  placesInTrip: widget._placesInTrip,
+                  placesInTrip: widget._placesInTrip.discoveredPlaces,
                 ),
                 if (_shouldShowOthersTab)
                   _PlacesDiscoveredOthersTab(
                     discoveredRestaurants: widget._discoveredRestaurants,
                     discoveredCafes: widget._discoveredCafes,
-                    placesInTrip: widget._placesInTrip,
+                    placesInTrip: widget._placesInTrip.discoveredPlaces,
                   ),
                 _PlacesInTripTab(placesInTrip: widget._placesInTrip),
               ],

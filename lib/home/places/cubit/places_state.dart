@@ -11,16 +11,16 @@ class PlacesNotDiscovered extends PlacesState {}
 
 class PlacesDiscovered extends PlacesState {
   const PlacesDiscovered({
-    this.discovered = const FoundPlaces(),
-    this.inTrip = const [],
+    required this.discovered,
+    required this.inTrip,
   });
 
   final FoundPlaces discovered;
-  final List<PointOfInterest> inTrip;
+  final TripPlaces inTrip;
 
   PlacesDiscovered copyWith({
     FoundPlaces? discovered,
-    List<PointOfInterest>? inTrip,
+    TripPlaces? inTrip,
   }) =>
       PlacesDiscovered(
         discovered: discovered ?? this.discovered,

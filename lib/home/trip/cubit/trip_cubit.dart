@@ -9,6 +9,7 @@ import 'package:vall/home/misc/logger/logger.dart';
 import 'package:vall/home/misc/repository/current_location_repository.dart';
 import 'package:vall/home/misc/repository/places_repository.dart';
 import 'package:vall/home/misc/repository/trip_repository.dart';
+import 'package:vall/home/trip/misc/entity/trip_places.dart';
 import 'package:vall/home/trip/misc/entity/trip_settings.dart';
 import 'package:vall/home/trip/misc/entity/trip_travel_mode.dart';
 
@@ -28,7 +29,7 @@ class TripCubit extends Cubit<TripState> {
   final TripRepository _tripRepository;
   final PlacesRepository _placesRepository;
 
-  StreamSubscription<List<PointOfInterest>>? _tripSubscription;
+  StreamSubscription<TripPlaces>? _tripSubscription;
 
   void load() => _setupTripSubscription();
 
@@ -39,7 +40,7 @@ class TripCubit extends Cubit<TripState> {
             TripLoading(
               settings: state.settings,
               foundPlaces: state.foundPlaces,
-              selectedPlaces: trip,
+              tripPlaces: trip,
             ),
           );
         }
@@ -47,7 +48,7 @@ class TripCubit extends Cubit<TripState> {
           TripCreation(
             settings: state.settings,
             foundPlaces: state.foundPlaces,
-            selectedPlaces: trip,
+            tripPlaces: trip,
           ),
         );
       });
@@ -64,7 +65,11 @@ class TripCubit extends Cubit<TripState> {
       emit(
         TripPlacesNearbyFound(
           settings: state.settings,
-          foundPlaces: FoundPlaces(places: places),
+          foundPlaces: FoundPlaces(
+            places: places,
+            restaurants: const [],
+            cafes: const [],
+          ),
         ),
       );
     } catch (error) {
@@ -74,27 +79,27 @@ class TripCubit extends Cubit<TripState> {
   }
 
   Future<void> createTrip() async {
-    if (state.selectedPlaces.isEmpty) {
+    if (state.tripPlaces.isEmpty) {
       return;
     }
     emit(
       TripLoading(
         settings: state.settings,
         foundPlaces: state.foundPlaces,
-        selectedPlaces: state.selectedPlaces,
+        tripPlaces: state.tripPlaces,
       ),
     );
     try {
       final LatLng currentLocation = await _currentLocationRepository.getCurrentLocation();
       final List<LatLng> polylineCoordinates = await _tripRepository.getPolylineCoordinates(
-        places: state.selectedPlaces,
+        places: [...state.tripPlaces.discoveredPlaces, ...state.tripPlaces.customPlaces],
         currentLocation: currentLocation,
       );
       emit(
         TripCreated(
           settings: state.settings,
           foundPlaces: state.foundPlaces,
-          selectedPlaces: state.selectedPlaces,
+          tripPlaces: state.tripPlaces,
           polylinePoints: polylineCoordinates,
         ),
       );
@@ -104,7 +109,7 @@ class TripCubit extends Cubit<TripState> {
         TripCreationFailed(
           settings: state.settings,
           foundPlaces: state.foundPlaces,
-          selectedPlaces: state.selectedPlaces,
+          tripPlaces: state.tripPlaces,
         ),
       );
     }
@@ -115,7 +120,7 @@ class TripCubit extends Cubit<TripState> {
       TripLoading(
         settings: state.settings,
         foundPlaces: state.foundPlaces,
-        selectedPlaces: state.selectedPlaces,
+        tripPlaces: state.tripPlaces,
       ),
     );
     _tripRepository.clearTrip();
@@ -148,7 +153,7 @@ class TripCubit extends Cubit<TripState> {
   void startPlaceSelection() => emit(
         TripPlaceSelection(
           settings: state.settings,
-          selectedPlaces: state.selectedPlaces,
+          tripPlaces: state.tripPlaces,
           foundPlaces: state.foundPlaces,
         ),
       );
@@ -156,15 +161,15 @@ class TripCubit extends Cubit<TripState> {
   void closePlaceSelection() => emit(
         TripCreation(
           settings: state.settings,
-          selectedPlaces: state.selectedPlaces,
+          tripPlaces: state.tripPlaces,
           foundPlaces: state.foundPlaces,
         ),
       );
 
-  void selectPlace(LatLng place) => _tripRepository.togglePlace(
+  void selectPlace(LatLng place) => _tripRepository.toggleCustomPlace(
         PointOfInterest(
           // TODO(naz): localized, numbered?
-          name: 'Custom added',
+          name: 'Your place #${state.tripPlaces.customPlaces.length + 1}',
           latitude: place.latitude,
           longitude: place.longitude,
         ),
@@ -186,7 +191,7 @@ class TripCubit extends Cubit<TripState> {
             restaurants: restaurants,
             cafes: state.foundPlaces.cafes,
           ),
-          selectedPlaces: state.selectedPlaces,
+          tripPlaces: state.tripPlaces,
         ),
       );
     } catch (error) {
@@ -211,7 +216,7 @@ class TripCubit extends Cubit<TripState> {
             restaurants: state.foundPlaces.restaurants,
             cafes: cafes,
           ),
-          selectedPlaces: state.selectedPlaces,
+          tripPlaces: state.tripPlaces,
         ),
       );
     } catch (error) {
@@ -224,14 +229,14 @@ class TripCubit extends Cubit<TripState> {
         TripInitial(
           settings: state.settings,
           foundPlaces: state.foundPlaces,
-          selectedPlaces: state.selectedPlaces,
+          tripPlaces: state.tripPlaces,
         ),
       );
 
   void _emitLoadingWithCurrentState() => emit(
         TripLoading(
           foundPlaces: state.foundPlaces,
-          selectedPlaces: state.selectedPlaces,
+          tripPlaces: state.tripPlaces,
           settings: state.settings,
         ),
       );

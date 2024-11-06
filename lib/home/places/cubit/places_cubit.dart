@@ -6,6 +6,7 @@ import 'package:vall/home/misc/entity/found_places.dart';
 import 'package:vall/home/misc/entity/point_of_interest.dart';
 import 'package:vall/home/misc/repository/places_repository.dart';
 import 'package:vall/home/misc/repository/trip_repository.dart';
+import 'package:vall/home/trip/misc/entity/trip_places.dart';
 
 part 'places_state.dart';
 
@@ -23,7 +24,7 @@ class PlacesCubit extends Cubit<PlacesState> {
   StreamSubscription<List<PointOfInterest>>? _placesSubscription;
   StreamSubscription<List<PointOfInterest>>? _restaurantsSubscription;
   StreamSubscription<List<PointOfInterest>>? _cafesSubscription;
-  StreamSubscription<List<PointOfInterest>>? _tripSubscription;
+  StreamSubscription<TripPlaces>? _tripSubscription;
 
   void load() {
     _setupPlacesSubscription();
@@ -38,7 +39,12 @@ class PlacesCubit extends Cubit<PlacesState> {
         }
         emit(
           PlacesDiscovered(
-            discovered: FoundPlaces(places: places),
+            discovered: FoundPlaces(
+              places: places,
+              restaurants: const [],
+              cafes: const [],
+            ),
+            inTrip: const TripPlaces(discoveredPlaces: [], customPlaces: []),
           ),
         );
       });
@@ -86,7 +92,9 @@ class PlacesCubit extends Cubit<PlacesState> {
 
   // TODO(naz): find optimal route method to sort selected places
 
-  void togglePlace(PointOfInterest place) => _tripRepository.togglePlace(place);
+  void toggleDiscoveredPlace(PointOfInterest place) => _tripRepository.toggleDiscoveredPlace(place);
+
+  void toggleCustomPlace(PointOfInterest place) => _tripRepository.toggleCustomPlace(place);
 
   @override
   Future<void> close() {

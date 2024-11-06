@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:vall/home/cubit/home_navigation/home_navigation_cubit.dart';
 import 'package:vall/home/misc/entity/point_of_interest.dart';
 import 'package:vall/home/places/cubit/places_cubit.dart';
+import 'package:vall/home/trip/misc/entity/trip_places.dart';
 
 part 'misc/component/discovered/places_discovered.dart';
 part 'misc/component/discovered/places_discovered_others_tab.dart';
