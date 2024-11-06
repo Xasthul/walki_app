@@ -23,9 +23,9 @@ class PlacesRepository {
 
   Stream<List<PointOfInterest>> get placesStream => _placesController.stream;
 
-  Stream<List<PointOfInterest>> get restaurantsStream => _placesController.stream;
+  Stream<List<PointOfInterest>> get restaurantsStream => _restaurantsController.stream;
 
-  Stream<List<PointOfInterest>> get cafesStream => _placesController.stream;
+  Stream<List<PointOfInterest>> get cafesStream => _cafesController.stream;
 
   Future<List<PointOfInterest>> findPlaces({
     required LatLng startingPosition,

@@ -6,11 +6,11 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:vall/home/misc/entity/found_places.dart';
 import 'package:vall/home/misc/entity/point_of_interest.dart';
 import 'package:vall/home/misc/logger/logger.dart';
+import 'package:vall/home/misc/repository/current_location_repository.dart';
 import 'package:vall/home/misc/repository/places_repository.dart';
+import 'package:vall/home/misc/repository/trip_repository.dart';
 import 'package:vall/home/trip/misc/entity/trip_settings.dart';
 import 'package:vall/home/trip/misc/entity/trip_travel_mode.dart';
-import 'package:vall/home/misc/repository/current_location_repository.dart';
-import 'package:vall/home/misc/repository/trip_repository.dart';
 
 part 'trip_state.dart';
 
@@ -171,13 +171,7 @@ class TripCubit extends Cubit<TripState> {
       );
 
   Future<void> findRestaurants() async {
-    emit(
-      TripLoading(
-        foundPlaces: state.foundPlaces,
-        selectedPlaces: state.selectedPlaces,
-        settings: state.settings,
-      ),
-    );
+    _emitLoadingWithCurrentState();
     try {
       final currentLocation = await _currentLocationRepository.getCurrentLocation();
       final restaurants = await _placesRepository.findRestaurants(
@@ -197,15 +191,50 @@ class TripCubit extends Cubit<TripState> {
       );
     } catch (error) {
       // TODO(naz): handle error?
+      _emitInitialWithCurrentState();
+    }
+  }
+
+  Future<void> findCafes() async {
+    _emitLoadingWithCurrentState();
+    try {
+      final currentLocation = await _currentLocationRepository.getCurrentLocation();
+      final cafes = await _placesRepository.findCafes(
+        startingPosition: currentLocation,
+        radius: state.settings.searchRadius,
+      );
       emit(
+        TripCreation(
+          settings: state.settings,
+          foundPlaces: FoundPlaces(
+            places: state.foundPlaces.places,
+            restaurants: state.foundPlaces.restaurants,
+            cafes: cafes,
+          ),
+          selectedPlaces: state.selectedPlaces,
+        ),
+      );
+    } catch (error) {
+      // TODO(naz): handle error?
+      _emitInitialWithCurrentState();
+    }
+  }
+
+  void _emitInitialWithCurrentState() => emit(
         TripInitial(
           settings: state.settings,
           foundPlaces: state.foundPlaces,
           selectedPlaces: state.selectedPlaces,
         ),
       );
-    }
-  }
+
+  void _emitLoadingWithCurrentState() => emit(
+        TripLoading(
+          foundPlaces: state.foundPlaces,
+          selectedPlaces: state.selectedPlaces,
+          settings: state.settings,
+        ),
+      );
 
   @override
   Future<void> close() {

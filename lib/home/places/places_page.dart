@@ -5,6 +5,7 @@ import 'package:vall/home/misc/entity/point_of_interest.dart';
 import 'package:vall/home/places/cubit/places_cubit.dart';
 
 part 'misc/component/discovered/places_discovered.dart';
+part 'misc/component/discovered/places_discovered_others_tab.dart';
 part 'misc/component/discovered/places_discovered_tab.dart';
 part 'misc/component/discovered/places_in_trip_tab.dart';
 part 'misc/component/places_not_discovered.dart';
@@ -19,7 +20,9 @@ class PlacesPage extends StatelessWidget {
             builder: (context, state) => switch (state) {
               PlacesNotDiscovered() => const _PlacesNotDiscovered(),
               PlacesDiscovered() => _PlacesDiscovered(
-                  discoveredPlaces: state.discovered,
+                  discoveredPlaces: state.discovered.places,
+                  discoveredRestaurants: state.discovered.restaurants,
+                  discoveredCafes: state.discovered.cafes,
                   placesInTrip: state.inTrip,
                 ),
             },
