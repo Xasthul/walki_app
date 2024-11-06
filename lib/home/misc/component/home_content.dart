@@ -15,7 +15,10 @@ class _HomeContent extends StatelessWidget {
           final currentIndex = state.currentIndex;
           return Scaffold(
             backgroundColor: Colors.white,
-            body: _pages[currentIndex],
+            body: IndexedStack(
+              index: state.currentIndex,
+              children: _pages,
+            ),
             bottomNavigationBar: BottomNavigationBar(
               currentIndex: currentIndex,
               items: const [

@@ -65,7 +65,6 @@ class HomeDependencies extends StatelessWidget {
               )..load(),
             ),
             BlocProvider(
-              lazy: false,
               create: (context) => PlacesCubit(
                 placesRepository: context.read<PlacesRepository>(),
                 tripRepository: context.read<TripRepository>(),
