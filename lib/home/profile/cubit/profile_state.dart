@@ -1,12 +1,18 @@
 part of 'profile_cubit.dart';
 
 sealed class ProfileState extends Equatable {
-  const ProfileState();
+  const ProfileState({this.user});
+
+  final User? user;
 
   @override
-  List<Object?> get props => [];
+  List<Object?> get props => [user];
 }
 
-class ProfileInitial extends ProfileState {}
+class ProfileIdle extends ProfileState {
+  const ProfileIdle({super.user});
+}
 
-class ProfileLoading extends ProfileState {}
+class ProfileLoading extends ProfileState {
+  const ProfileLoading({super.user});
+}

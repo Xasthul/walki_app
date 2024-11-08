@@ -1,6 +1,6 @@
 import 'package:vall/app/common/constants/app_constants.dart';
+import 'package:vall/app/common/network/dio_client.dart';
 import 'package:vall/authentication/misc/network/access_token_response.dart';
-import 'package:vall/home/misc/network/dio_client.dart';
 
 class AuthenticationService {
   AuthenticationService({

@@ -1,4 +1,4 @@
-import 'package:vall/home/misc/network/dio_client.dart';
+import 'package:vall/app/common/network/dio_client.dart';
 import 'package:vall/home/misc/network/entity/google_api_lat_lng.dart';
 import 'package:vall/home/misc/network/entity/request/search_nearby/circle_location_restriction.dart';
 import 'package:vall/home/misc/network/entity/request/search_nearby/location_restriction.dart';

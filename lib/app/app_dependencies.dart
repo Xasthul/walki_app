@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:vall/app/common/network/dio_client.dart';
+import 'package:vall/app/common/network/dio_client_factory.dart';
 import 'package:vall/app/common/use_case/secure_storage.dart';
 import 'package:vall/authentication/cubit/authentication_cubit.dart';
 import 'package:vall/authentication/misc/repository/authentication_repository.dart';
 import 'package:vall/authentication/misc/service/authentication_service.dart';
-import 'package:vall/home/misc/network/dio_client.dart';
-import 'package:vall/home/misc/network/dio_client_factory.dart';
 
 class AppDependencies extends StatelessWidget {
   const AppDependencies({
@@ -21,9 +21,6 @@ class AppDependencies extends StatelessWidget {
           RepositoryProvider<GenericDioClient>(
             create: (context) => DioClientFactory.createGenericDioClient(),
           ),
-          RepositoryProvider<AuthorizedDioClient>(
-            create: (context) => DioClientFactory.createAuthorizedDioClient(),
-          ),
           RepositoryProvider<SecureStorage>(
             create: (context) => SecureStorage()..load(),
           ),
@@ -37,6 +34,12 @@ class AppDependencies extends StatelessWidget {
               authenticationService: context.read<AuthenticationService>(),
               secureStorage: context.read<SecureStorage>(),
             )..load(),
+          ),
+          RepositoryProvider<AuthorizedDioClient>(
+            create: (context) => DioClientFactory.createAuthorizedDioClient(
+              secureStorage: context.read<SecureStorage>(),
+              authenticationRepository: context.read<AuthenticationRepository>(),
+            ),
           ),
         ],
         child: MultiBlocProvider(

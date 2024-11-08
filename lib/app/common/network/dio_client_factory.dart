@@ -1,6 +1,9 @@
 import 'package:dio/dio.dart';
 import 'package:vall/app/common/constants/app_constants.dart';
-import 'package:vall/home/misc/network/dio_client.dart';
+import 'package:vall/app/common/network/dio_client.dart';
+import 'package:vall/app/common/network/interseptor/authorization_interceptor.dart';
+import 'package:vall/app/common/use_case/secure_storage.dart';
+import 'package:vall/authentication/misc/repository/authentication_repository.dart';
 
 class DioClientFactory {
   static GenericDioClient createGenericDioClient() {
@@ -20,13 +23,20 @@ class DioClientFactory {
     return GoogleApiDioClient(dio: dio);
   }
 
-  static AuthorizedDioClient createAuthorizedDioClient() {
-    final headers = {
-      'Bearer': '',
-      'Content-Type': 'application/json',
-    };
+  static AuthorizedDioClient createAuthorizedDioClient({
+    required SecureStorage secureStorage,
+    required AuthenticationRepository authenticationRepository,
+  }) {
+    final headers = {'Content-Type': 'application/json'};
     final dio = Dio(BaseOptions(headers: headers));
     dio.interceptors.add(LogInterceptor());
+    dio.interceptors.add(
+      AuthorizationInterceptor(
+        dio: dio,
+        secureStorage: secureStorage,
+        authenticationRepository: authenticationRepository,
+      ),
+    );
     return AuthorizedDioClient(dio: dio);
   }
 }
