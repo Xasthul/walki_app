@@ -13,7 +13,9 @@ import 'package:vall/home/misc/service/google_api_service.dart';
 import 'package:vall/home/places/cubit/places_cubit.dart';
 import 'package:vall/home/profile/cubit/profile_cubit.dart';
 import 'package:vall/home/profile/utils/network/user_service.dart';
+import 'package:vall/home/profile/utils/network/visited_places_service.dart';
 import 'package:vall/home/profile/utils/repository/user_repository.dart';
+import 'package:vall/home/profile/utils/repository/visited_places_repository.dart';
 import 'package:vall/home/trip/cubit/initial_location/initial_location_cubit.dart';
 import 'package:vall/home/trip/cubit/trip_cubit.dart';
 
@@ -28,64 +30,75 @@ class HomeDependencies extends StatelessWidget {
   @override
   Widget build(BuildContext context) => MultiRepositoryProvider(
         providers: [
-          RepositoryProvider(
+          RepositoryProvider<GoogleApiDioClient>(
             create: (context) => DioClientFactory.createGoogleApiDioClient(),
           ),
-          RepositoryProvider(
+          RepositoryProvider<GoogleApiService>(
             create: (context) => GoogleApiService(
               client: context.read<GoogleApiDioClient>(),
             ),
           ),
-          RepositoryProvider(
+          RepositoryProvider<UserService>(
             create: (context) => UserService(
               client: context.read<AuthorizedDioClient>(),
             ),
           ),
-          RepositoryProvider(create: (context) => TripRepository()),
-          RepositoryProvider(create: (context) => PointOfInterestMapper()),
-          RepositoryProvider(
+          RepositoryProvider<VisitedPlacesService>(
+            create: (context) => VisitedPlacesService(
+              client: context.read<AuthorizedDioClient>(),
+            ),
+          ),
+          RepositoryProvider<TripRepository>(create: (context) => TripRepository()),
+          RepositoryProvider<PointOfInterestMapper>(create: (context) => PointOfInterestMapper()),
+          RepositoryProvider<PlacesRepository>(
             create: (context) => PlacesRepository(
               googleApiService: context.read<GoogleApiService>(),
               pointOfInterestMapper: context.read<PointOfInterestMapper>(),
             ),
           ),
-          RepositoryProvider(create: (context) => CurrentLocationRepository()),
-          RepositoryProvider(
+          RepositoryProvider<CurrentLocationRepository>(create: (context) => CurrentLocationRepository()),
+          RepositoryProvider<UserRepository>(
             create: (context) => UserRepository(
               userService: context.read<UserService>(),
+            ),
+          ),
+          RepositoryProvider<VisitedPlacesRepository>(
+            create: (context) => VisitedPlacesRepository(
+              visitedPlacesService: context.read<VisitedPlacesService>(),
             ),
           ),
         ],
         child: MultiBlocProvider(
           providers: [
-            BlocProvider(
+            BlocProvider<HomeNavigationCubit>(
               create: (context) => HomeNavigationCubit(),
             ),
-            BlocProvider(
+            BlocProvider<LocationPermissionCubit>(
               create: (context) => LocationPermissionCubit()..load(),
             ),
-            BlocProvider(
+            BlocProvider<InitialLocationCubit>(
               create: (context) => InitialLocationCubit(
                 currentLocationRepository: context.read<CurrentLocationRepository>(),
               )..load(),
             ),
-            BlocProvider(
+            BlocProvider<TripCubit>(
               create: (context) => TripCubit(
                 currentLocationRepository: context.read<CurrentLocationRepository>(),
                 tripRepository: context.read<TripRepository>(),
                 placesRepository: context.read<PlacesRepository>(),
               )..load(),
             ),
-            BlocProvider(
+            BlocProvider<PlacesCubit>(
               create: (context) => PlacesCubit(
                 placesRepository: context.read<PlacesRepository>(),
                 tripRepository: context.read<TripRepository>(),
               )..load(),
             ),
-            BlocProvider(
+            BlocProvider<ProfileCubit>(
               create: (context) => ProfileCubit(
                 authenticationRepository: context.read<AuthenticationRepository>(),
                 userRepository: context.read<UserRepository>(),
+                visitedPlacesRepository: context.read<VisitedPlacesRepository>(),
               )..load(),
             ),
           ],

@@ -11,11 +11,13 @@ class _ProfileContent extends StatelessWidget {
             padding: const EdgeInsets.all(8),
             child: const _ProfileSettingsButton(),
           ),
-          if (state.user != null)
+          if (state.user != null) ...[
             Padding(
-              padding: const EdgeInsets.only(top: 16),
+              padding: const EdgeInsets.only(top: 16, bottom: 36, right: 16, left: 16),
               child: _ProfileUserSection(user: state.user!),
             ),
+          ],
+          _ProfileVisitedPlacesSection(visitedPlaces: state.visitedPlaces),
         ]),
       );
 }
