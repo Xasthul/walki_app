@@ -1,7 +1,7 @@
 import 'package:dio/dio.dart';
+import 'package:vall/app/common/logger/logger.dart';
 import 'package:vall/app/common/use_case/secure_storage.dart';
 import 'package:vall/authentication/misc/repository/authentication_repository.dart';
-import 'package:vall/home/misc/logger/logger.dart';
 
 class AuthorizationInterceptor extends InterceptorsWrapper {
   AuthorizationInterceptor({

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:vall/app/common/component/app_loading_indicator.dart';
 import 'package:vall/home/misc/entity/point_of_interest.dart';
+import 'package:vall/home/misc/navigator/home_navigator.dart';
 import 'package:vall/home/profile/cubit/profile_cubit.dart';
 import 'package:vall/home/profile/utils/entity/user.dart';
 

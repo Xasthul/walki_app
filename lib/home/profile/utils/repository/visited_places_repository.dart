@@ -1,5 +1,5 @@
 import 'package:vall/home/misc/entity/point_of_interest.dart';
-import 'package:vall/home/profile/utils/network/visited_places_service.dart';
+import 'package:vall/home/profile/utils/service/visited_places_service.dart';
 
 class VisitedPlacesRepository {
   VisitedPlacesRepository({

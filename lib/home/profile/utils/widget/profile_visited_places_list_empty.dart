@@ -8,7 +8,7 @@ class _ProfileVisitedPlacesListEmpty extends StatelessWidget {
         child: Padding(
           padding: EdgeInsets.symmetric(horizontal: 16),
           child: Center(
-            child: Text('You have not yet visited any places '),
+            child: Text('You have not visited any places yet'),
           ),
         ),
       );

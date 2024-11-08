@@ -5,7 +5,7 @@ class _ProfileSettingsButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => IconButton(
-        onPressed: () {},
+        onPressed: HomeNavigator.of(context).navigateToProfileSettings,
         icon: const Icon(Icons.settings_rounded),
       );
 }
