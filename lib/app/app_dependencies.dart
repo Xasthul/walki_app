@@ -33,7 +33,7 @@ class AppDependencies extends StatelessWidget {
             create: (context) => AuthenticationRepository(
               authenticationService: context.read<AuthenticationService>(),
               secureStorage: context.read<SecureStorage>(),
-            )..load(),
+            ),
           ),
           RepositoryProvider<AuthorizedDioClient>(
             create: (context) => DioClientFactory.createAuthorizedDioClient(

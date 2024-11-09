@@ -13,23 +13,18 @@ class AuthenticationRepository {
   final AuthenticationService _authenticationService;
   final SecureStorage _secureStorage;
 
-  final StreamController<bool> _isAuthenticatedController = StreamController.broadcast();
-  StreamSubscription<String?>? _accessTokenSubscription;
-
-  Stream<bool> get isAuthenticatedStream => _isAuthenticatedController.stream;
-
-  void load() {
-    _accessTokenSubscription = _secureStorage.accessTokenStream.listen(_updateIsAuthenticated);
-  }
-
-  void _updateIsAuthenticated(String? accessToken) {
-    final isAuthenticated = _isAuthenticated(accessToken);
-    _isAuthenticatedController.add(isAuthenticated);
-  }
+  static bool _isAuthenticated(String? accessToken) => accessToken != null;
 
   Future<bool> get isAuthenticated async => _isAuthenticated(await _secureStorage.accessToken);
 
-  bool _isAuthenticated(String? accessToken) => accessToken != null;
+  Stream<bool> get isAuthenticatedStream => _secureStorage.accessTokenStream.transform(_accessTokenTransformer);
+
+  final _accessTokenTransformer = StreamTransformer<String?, bool>.fromHandlers(
+    handleData: (accessToken, sink) {
+      final isAuthenticated = _isAuthenticated(accessToken);
+      sink.add(isAuthenticated);
+    },
+  );
 
   Future<void> register({
     required String email,
@@ -54,8 +49,4 @@ class AuthenticationRepository {
   }
 
   Future<void> logOut() async => _secureStorage.removeAccessToken();
-
-  void dispose() {
-    _accessTokenSubscription?.cancel();
-  }
 }
