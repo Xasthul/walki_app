@@ -1,45 +1,22 @@
 part of 'login_cubit.dart';
 
 class LoginState extends Equatable {
-  const LoginState({
-    required this.email,
-    required this.password,
-  });
-
-  final String email;
-  final String password;
-
-  LoginState copyWith({
-    String? email,
-    String? password,
-  }) =>
-      LoginState(
-        email: email ?? this.email,
-        password: password ?? this.password,
-      );
+  const LoginState();
 
   @override
-  List<Object?> get props => [email, password];
+  List<Object?> get props => [];
 }
 
 class LoginInitial extends LoginState {
-  const LoginInitial() : super(email: '', password: '');
+  const LoginInitial();
 }
 
 class LoginLoading extends LoginState {
-  LoginLoading(LoginState currentState)
-      : super(
-          email: currentState.email,
-          password: currentState.password,
-        );
+  const LoginLoading();
 }
 
 class LoginFailed extends LoginState {
-  LoginFailed(LoginState currentState, {required this.errorMessage})
-      : super(
-          email: currentState.email,
-          password: currentState.password,
-        );
+  const LoginFailed({required this.errorMessage});
 
   final String errorMessage;
 

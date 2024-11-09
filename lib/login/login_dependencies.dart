@@ -3,6 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:vall/authentication/misc/repository/authentication_repository.dart';
 import 'package:vall/login/create_account/cubit/create_account_cubit.dart';
 import 'package:vall/login/cubit/login_cubit.dart';
+import 'package:vall/login/cubit/validation/login_validation_cubit.dart';
+import 'package:vall/login/misc/validator/login_validator.dart';
 
 class LoginDependencies extends StatelessWidget {
   const LoginDependencies({
@@ -13,19 +15,31 @@ class LoginDependencies extends StatelessWidget {
   final Widget _child;
 
   @override
-  Widget build(BuildContext context) => MultiBlocProvider(
+  Widget build(BuildContext context) => MultiRepositoryProvider(
         providers: [
-          BlocProvider<LoginCubit>(
-            create: (context) => LoginCubit(
-              authenticationRepository: context.read<AuthenticationRepository>(),
-            ),
-          ),
-          BlocProvider<CreateAccountCubit>(
-            create: (context) => CreateAccountCubit(
-              authenticationRepository: context.read<AuthenticationRepository>(),
-            ),
+          RepositoryProvider<LoginValidator>(
+            create: (context) => LoginValidator(),
           ),
         ],
-        child: _child,
+        child: MultiBlocProvider(
+          providers: [
+            BlocProvider<LoginCubit>(
+              create: (context) => LoginCubit(
+                authenticationRepository: context.read<AuthenticationRepository>(),
+              ),
+            ),
+            BlocProvider<LoginValidationCubit>(
+              create: (context) => LoginValidationCubit(
+                loginValidator: context.read<LoginValidator>(),
+              ),
+            ),
+            BlocProvider<CreateAccountCubit>(
+              create: (context) => CreateAccountCubit(
+                authenticationRepository: context.read<AuthenticationRepository>(),
+              ),
+            ),
+          ],
+          child: _child,
+        ),
       );
 }
