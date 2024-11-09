@@ -52,4 +52,22 @@ abstract class _DioClient {
     }
     return response.data as Map<String, dynamic>;
   }
+
+  Future<Map<String, dynamic>> delete(
+    String url, {
+    Map<String, String>? params,
+    Map<String, String>? headers,
+    dynamic body,
+  }) async {
+    final response = await _dio.delete<dynamic>(
+      url,
+      queryParameters: params,
+      options: Options(headers: headers),
+      data: body,
+    );
+    if (response.data is String || (response.statusCode == 204 && response.data == null)) {
+      return <String, dynamic>{};
+    }
+    return response.data as Map<String, dynamic>;
+  }
 }

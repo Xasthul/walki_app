@@ -43,4 +43,13 @@ class ProfileCubit extends Cubit<ProfileState> {
       logger.e('Log out failed', error: error, stackTrace: stackTrace);
     }
   }
+
+  Future<void> deleteAccount() async {
+    try {
+      await _userRepository.deleteAccount();
+      await _authenticationRepository.logOut();
+    } catch (error, stackTrace) {
+      logger.e('Delete account failed', error: error, stackTrace: stackTrace);
+    }
+  }
 }

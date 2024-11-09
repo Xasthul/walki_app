@@ -15,4 +15,6 @@ class UserRepository {
       name: response.name,
     );
   }
+
+  Future<void> deleteAccount() async => _userService.deleteAccount();
 }

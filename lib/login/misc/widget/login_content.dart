@@ -38,6 +38,10 @@ class _LoginContent extends StatelessWidget {
                   ),
                 ],
               ),
+              FilledButton(
+                onPressed: () => context.read<LoginCubit>().login(email: 'email@email.com', password: 'password'),
+                child: const Text('temp'),
+              ),
             ],
           ),
         ),

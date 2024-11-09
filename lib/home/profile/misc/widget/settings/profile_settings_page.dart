@@ -26,6 +26,11 @@ class ProfileSettingsPage extends StatelessWidget {
                     onPressed: context.read<ProfileCubit>().logOut,
                     child: const Text('Logout'),
                   ),
+                  const SizedBox(height: 24),
+                  FilledButton(
+                    onPressed: context.read<ProfileCubit>().deleteAccount,
+                    child: const Text('Delete account'),
+                  ),
                 ],
               ),
             ),

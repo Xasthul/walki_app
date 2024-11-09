@@ -14,4 +14,9 @@ class UserService {
     final response = await _client.get(url);
     return UserResponse.fromJson(response as Map<String, dynamic>);
   }
+
+  Future<void> deleteAccount() async {
+    const url = '${AppConstants.serviceBaseUrl}/users';
+    await _client.delete(url);
+  }
 }
