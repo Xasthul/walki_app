@@ -9,21 +9,27 @@ class LoginCubit extends Cubit<LoginState> {
   LoginCubit({
     required AuthenticationRepository authenticationRepository,
   })  : _authenticationRepository = authenticationRepository,
-        super(LoginInitial());
+        super(const LoginInitial());
 
   final AuthenticationRepository _authenticationRepository;
 
   Future<void> login() async {
-    const email = 'email@email.com';
-    const password = 'password';
-
+    emit(LoginLoading(state));
     try {
       await _authenticationRepository.login(
-        email: email,
-        password: password,
+        email: state.email,
+        password: state.password,
       );
     } catch (error, stackTrace) {
+      emit(LoginFailed(
+        state,
+        errorMessage: 'Login failed',
+      ));
       logger.e('Login failed', error: error, stackTrace: stackTrace);
     }
   }
+
+  void onEmailChanged(String email) => emit(state.copyWith(email: email));
+
+  void onPasswordChanged(String password) => emit(state.copyWith(password: password));
 }

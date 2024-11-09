@@ -1,6 +1,6 @@
 import 'package:vall/app/common/constants/app_constants.dart';
 import 'package:vall/app/common/network/dio_client.dart';
-import 'package:vall/home/profile/utils/network/response/visited_place_response.dart';
+import 'package:vall/home/profile/misc/network/response/visited_place_response.dart';
 
 class VisitedPlacesService {
   VisitedPlacesService({

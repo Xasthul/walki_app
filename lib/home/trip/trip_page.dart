@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:vall/app/common/component/app_loading_indicator.dart';
+import 'package:vall/app/common/widget/app_loading_indicator.dart';
 import 'package:vall/home/trip/cubit/initial_location/initial_location_cubit.dart';
 import 'package:vall/home/trip/cubit/trip_cubit.dart';
 import 'package:vall/home/trip/misc/component/trip_map/trip_map_component.dart';

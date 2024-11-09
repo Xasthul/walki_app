@@ -3,9 +3,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:vall/app/common/logger/logger.dart';
 import 'package:vall/authentication/misc/repository/authentication_repository.dart';
 import 'package:vall/home/misc/entity/point_of_interest.dart';
-import 'package:vall/home/profile/utils/entity/user.dart';
-import 'package:vall/home/profile/utils/repository/user_repository.dart';
-import 'package:vall/home/profile/utils/repository/visited_places_repository.dart';
+import 'package:vall/home/profile/misc/entity/user.dart';
+import 'package:vall/home/profile/misc/repository/user_repository.dart';
+import 'package:vall/home/profile/misc/repository/visited_places_repository.dart';
 
 part 'profile_state.dart';
 

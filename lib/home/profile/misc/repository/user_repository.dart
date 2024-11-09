@@ -1,5 +1,5 @@
-import 'package:vall/home/profile/utils/entity/user.dart';
-import 'package:vall/home/profile/utils/service/user_service.dart';
+import 'package:vall/home/profile/misc/entity/user.dart';
+import 'package:vall/home/profile/misc/service/user_service.dart';
 
 class UserRepository {
   UserRepository({

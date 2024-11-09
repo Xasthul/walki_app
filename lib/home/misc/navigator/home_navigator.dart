@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:vall/home/profile/utils/widget/settings/profile_settings_page.dart';
+import 'package:vall/home/profile/misc/widget/settings/profile_settings_page.dart';
 
 class HomeNavigator extends InheritedWidget {
   factory HomeNavigator({required Widget child}) {

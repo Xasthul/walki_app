@@ -1,6 +1,6 @@
 import 'package:vall/app/common/constants/app_constants.dart';
 import 'package:vall/app/common/network/dio_client.dart';
-import 'package:vall/home/profile/utils/network/response/user_response.dart';
+import 'package:vall/home/profile/misc/network/response/user_response.dart';
 
 class UserService {
   UserService({

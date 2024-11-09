@@ -12,10 +12,10 @@ import 'package:vall/home/misc/repository/trip_repository.dart';
 import 'package:vall/home/misc/service/google_api_service.dart';
 import 'package:vall/home/places/cubit/places_cubit.dart';
 import 'package:vall/home/profile/cubit/profile_cubit.dart';
-import 'package:vall/home/profile/utils/service/user_service.dart';
-import 'package:vall/home/profile/utils/service/visited_places_service.dart';
-import 'package:vall/home/profile/utils/repository/user_repository.dart';
-import 'package:vall/home/profile/utils/repository/visited_places_repository.dart';
+import 'package:vall/home/profile/misc/repository/user_repository.dart';
+import 'package:vall/home/profile/misc/repository/visited_places_repository.dart';
+import 'package:vall/home/profile/misc/service/user_service.dart';
+import 'package:vall/home/profile/misc/service/visited_places_service.dart';
 import 'package:vall/home/trip/cubit/initial_location/initial_location_cubit.dart';
 import 'package:vall/home/trip/cubit/trip_cubit.dart';
 
