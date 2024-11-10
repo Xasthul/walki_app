@@ -90,8 +90,6 @@ class PlacesCubit extends Cubit<PlacesState> {
         );
       });
 
-  // TODO(naz): find optimal route method to sort selected places
-
   void toggleDiscoveredPlace(PointOfInterest place) => _tripRepository.toggleDiscoveredPlace(place);
 
   void toggleCustomPlace(PointOfInterest place) => _tripRepository.toggleCustomPlace(place);

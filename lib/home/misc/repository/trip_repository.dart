@@ -70,6 +70,7 @@ class TripRepository {
         destination: PointLatLng(places.last.latitude, places.last.longitude),
         wayPoints: wayPoints,
         mode: TravelMode.walking,
+        optimizeWaypoints: true,
       ),
       googleApiKey: AppConstants.googleApiKey,
     );
