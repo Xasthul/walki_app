@@ -29,7 +29,7 @@ class _TripSettingsContent extends StatelessWidget {
             child: const Text('Create trip'),
           ),
           FilledButton(
-            onPressed: cubit.clearTrip,
+            onPressed: state.tripPlaces.isEmpty ? null : cubit.clearTrip,
             child: const Text('Clear trip'),
           ),
         ]),

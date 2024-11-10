@@ -20,7 +20,7 @@ class _PlacesDiscovered extends StatefulWidget {
   State<_PlacesDiscovered> createState() => _PlacesDiscoveredState();
 }
 
-class _PlacesDiscoveredState extends State<_PlacesDiscovered> with SingleTickerProviderStateMixin {
+class _PlacesDiscoveredState extends State<_PlacesDiscovered> with TickerProviderStateMixin {
   late TabController _tabController;
 
   bool get _shouldShowOthersTab => widget._discoveredRestaurants.isNotEmpty || widget._discoveredCafes.isNotEmpty;
@@ -31,7 +31,32 @@ class _PlacesDiscoveredState extends State<_PlacesDiscovered> with SingleTickerP
   void initState() {
     super.initState();
     _tabController = TabController(length: _numberOfTabs, vsync: this);
-    _tabController.addListener(() => setState(() {}));
+  }
+
+  @override
+  void didUpdateWidget(covariant _PlacesDiscovered oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (_numberOfTabs != _tabController.length) {
+      _tabController.dispose();
+      _tabController = TabController(
+        length: _numberOfTabs,
+        initialIndex: _getInitialIndexAfterTabNumberChange(_tabController.index),
+        vsync: this,
+      );
+    }
+  }
+
+  int _getInitialIndexAfterTabNumberChange(int oldIndex) {
+    if (oldIndex == 0) {
+      return 0;
+    }
+    if (_tabController.length < _numberOfTabs) {
+      return 2;
+    }
+    if (oldIndex == 1) {
+      return 0;
+    }
+    return 1;
   }
 
   @override
