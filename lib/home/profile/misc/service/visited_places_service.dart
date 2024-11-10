@@ -27,7 +27,7 @@ class VisitedPlacesService {
   }) async =>
       _client.post(
         '$_baseUrl/add',
-        params: {
+        body: {
           'name': name,
           'latitude': latitude,
           'longitude': longitude,

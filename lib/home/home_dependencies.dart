@@ -18,8 +18,8 @@ import 'package:vall/home/profile/misc/service/user_service.dart';
 import 'package:vall/home/profile/misc/service/visited_places_service.dart';
 import 'package:vall/home/trip/cubit/initial_location/initial_location_cubit.dart';
 import 'package:vall/home/trip/cubit/trip_cubit.dart';
-import 'package:vall/home/trip/cubit/visit_place/trip_visit_place_cubit.dart';
-import 'package:vall/home/trip/misc/repository/trip_visit_place_repository.dart';
+import 'package:vall/home/trip/visit_place/cubit/trip_visit_place_cubit.dart';
+import 'package:vall/home/trip/visit_place/misc/repository/trip_visit_place_repository.dart';
 
 class HomeDependencies extends StatelessWidget {
   const HomeDependencies({

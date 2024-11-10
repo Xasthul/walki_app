@@ -7,7 +7,7 @@ import 'package:vall/app/common/logger/logger.dart';
 import 'package:vall/home/misc/entity/point_of_interest.dart';
 import 'package:vall/home/misc/repository/current_location_repository.dart';
 import 'package:vall/home/profile/misc/repository/visited_places_repository.dart';
-import 'package:vall/home/trip/misc/repository/trip_visit_place_repository.dart';
+import 'package:vall/home/trip/visit_place/misc/repository/trip_visit_place_repository.dart';
 
 part 'trip_visit_place_state.dart';
 

@@ -75,6 +75,7 @@ class _TripMapComponentState extends State<TripMapComponent> {
               if (state is! TripCreated)
                 Circle(
                   circleId: _tripCircleId,
+                  // TODO(naz): should move with user
                   center: widget._initialLocation,
                   radius: state.settings.searchRadius,
                   fillColor: Colors.blueAccent.withOpacity(0.12),
