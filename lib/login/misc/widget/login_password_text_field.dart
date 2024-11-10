@@ -19,11 +19,12 @@ class _LoginPasswordTextFieldState extends State<_LoginPasswordTextField> {
           }
           return null;
         },
-        builder: (context, emailError) => AppTextField(
+        builder: (context, passwordError) => AppTextField(
           controller: _controller,
           hint: 'Enter your password',
           onChanged: context.read<LoginValidationCubit>().onPasswordChanged,
-          errorText: _getErrorText(emailError),
+          errorText: _getErrorText(passwordError),
+          obscureText: true,
         ),
       );
 

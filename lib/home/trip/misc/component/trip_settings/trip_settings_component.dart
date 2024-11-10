@@ -25,7 +25,7 @@ class _TripSettingsComponentState extends State<TripSettingsComponent> {
   final _sheet = GlobalKey();
   late DraggableScrollableController _controller;
 
-  static const double _expandedSize = 0.5;
+  static const double _expandedSize = 0.65;
 
   @override
   void initState() {

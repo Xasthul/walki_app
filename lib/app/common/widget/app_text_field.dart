@@ -7,15 +7,18 @@ class AppTextField extends StatelessWidget {
     required String hint,
     String? errorText,
     Function(String)? onChanged,
+    bool obscureText = false,
   })  : _controller = controller,
         _hint = hint,
         _errorText = errorText,
-        _onChanged = onChanged;
+        _onChanged = onChanged,
+        _obscureText = obscureText;
 
   final TextEditingController _controller;
   final String _hint;
   final String? _errorText;
   final Function(String)? _onChanged;
+  final bool _obscureText;
 
   @override
   Widget build(BuildContext context) => TextField(
@@ -30,6 +33,7 @@ class AppTextField extends StatelessWidget {
         // style: AppTextTheme.of(context).body1Regular,
         autocorrect: false,
         onChanged: _onChanged,
+        obscureText: _obscureText,
       );
 
   InputBorder _buildBorder(Color color) => OutlineInputBorder(

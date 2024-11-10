@@ -13,18 +13,26 @@ class CreateAccountCubit extends Cubit<CreateAccountState> {
 
   final AuthenticationRepository _authenticationRepository;
 
-  Future<void> createAccount() async {
-    const email = 'email@email.com';
-    const name = 'name';
-    const password = 'password';
-
+  Future<void> createAccount({
+    required String name,
+    required String email,
+    required String password,
+  }) async {
+    emit(CreateAccountLoading());
     try {
       await _authenticationRepository.register(
         email: email,
         name: name,
         password: password,
       );
+      emit(
+        CreateAccountSucceeded(
+          email: email,
+          password: password,
+        ),
+      );
     } catch (error, stackTrace) {
+      emit(const CreateAccountFailed(errorMessage: 'Failed to create account'));
       logger.e('Failed to create account', error: error, stackTrace: stackTrace);
     }
   }
