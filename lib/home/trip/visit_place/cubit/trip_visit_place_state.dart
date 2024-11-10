@@ -28,3 +28,7 @@ class TripVisitPlaceReached extends TripVisitPlaceState {
   @override
   List<Object?> get props => super.props..add(place);
 }
+
+class TripVisitPlaceMarked extends TripVisitPlaceState {
+  const TripVisitPlaceMarked({required super.visitedPlaces});
+}

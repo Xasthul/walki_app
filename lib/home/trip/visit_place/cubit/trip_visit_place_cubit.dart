@@ -60,6 +60,7 @@ class TripVisitPlaceCubit extends Cubit<TripVisitPlaceState> {
   Future<void> markPlaceAsVisited(PointOfInterest place) async {
     try {
       await _visitedPlacesRepository.visitPlace(place);
+      emit(TripVisitPlaceMarked(visitedPlaces: [...state.visitedPlaces, place]));
     } catch (error, stackTrace) {
       logger.e('Visit place failed', error: error, stackTrace: stackTrace);
     }
