@@ -38,7 +38,7 @@ class GoogleApiService {
       ).toJson(),
     );
 
-    return SearchNearbyResponse.fromJson(response).places;
+    return SearchNearbyResponse.fromJson(response).places ?? [];
   }
 
   String get _searchNearbyFieldMask {

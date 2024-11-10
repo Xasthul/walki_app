@@ -9,7 +9,7 @@ class SearchNearbyResponse {
 
   factory SearchNearbyResponse.fromJson(Map<String, dynamic> json) => _$SearchNearbyResponseFromJson(json);
 
-  final List<GoogleApiPlace> places;
+  final List<GoogleApiPlace>? places;
 
   Map<String, dynamic> toJson() => _$SearchNearbyResponseToJson(this);
 }
