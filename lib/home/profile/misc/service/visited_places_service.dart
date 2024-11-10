@@ -9,13 +9,28 @@ class VisitedPlacesService {
 
   final AuthorizedDioClient _client;
 
+  static const _baseUrl = '${AppConstants.serviceBaseUrl}/visitedPlaces';
+
   Future<List<VisitedPlaceResponse>> getVisitedPlaces({required String fromDate}) async {
-    const url = '${AppConstants.serviceBaseUrl}/visitedPlaces';
     final response = await _client.get(
-      url,
+      _baseUrl,
       params: {'fromDate': fromDate},
     );
     final items = (response as Map<String, dynamic>)['items'] as List<dynamic>;
     return items.map((item) => VisitedPlaceResponse.fromJson(item as Map<String, dynamic>)).toList();
   }
+
+  Future<void> visitPlace({
+    required String name,
+    required double latitude,
+    required double longitude,
+  }) async =>
+      _client.post(
+        '$_baseUrl/add',
+        params: {
+          'name': name,
+          'latitude': latitude,
+          'longitude': longitude,
+        },
+      );
 }

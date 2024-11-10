@@ -8,7 +8,7 @@ class VisitedPlacesRepository {
 
   final VisitedPlacesService _visitedPlacesService;
 
-  Future<List<PointOfInterest>> loadVisitedPlacesData() async {
+  Future<List<PointOfInterest>> loadVisitedPlaces() async {
     final response = await _visitedPlacesService.getVisitedPlaces(
       fromDate: DateTime.now().toUtc().toIso8601String(),
     );
@@ -22,4 +22,10 @@ class VisitedPlacesRepository {
         )
         .toList();
   }
+
+  Future<void> visitPlace(PointOfInterest place) async => _visitedPlacesService.visitPlace(
+        name: place.name,
+        latitude: place.latitude,
+        longitude: place.longitude,
+      );
 }

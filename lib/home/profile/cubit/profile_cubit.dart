@@ -28,7 +28,7 @@ class ProfileCubit extends Cubit<ProfileState> {
     try {
       // TODO(naz): if one of these fails we get no info at all
       final user = await _userRepository.loadUserData();
-      final visitedPlaces = await _visitedPlacesRepository.loadVisitedPlacesData();
+      final visitedPlaces = await _visitedPlacesRepository.loadVisitedPlaces();
       emit(ProfileIdle(user: user, visitedPlaces: visitedPlaces));
     } catch (error, stackTrace) {
       logger.e('Load user data failed', error: error, stackTrace: stackTrace);

@@ -37,7 +37,7 @@ abstract class _DioClient {
 
   Future<Map<String, dynamic>> post(
     String url, {
-    Map<String, String>? params,
+    Map<String, dynamic>? params,
     Map<String, String>? headers,
     dynamic body,
   }) async {
