@@ -43,9 +43,9 @@ class _PlacesInTripTab extends StatelessWidget {
         Flexible(
           child: Text(place.name),
         ),
-        TextButton(
+        AppTextButton(
           onPressed: () => onRemove(place),
-          child: const Text('Remove'),
+          label: 'Remove',
         ),
       ]);
 }

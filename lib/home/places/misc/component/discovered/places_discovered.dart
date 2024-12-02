@@ -63,6 +63,10 @@ class _PlacesDiscoveredState extends State<_PlacesDiscovered> with TickerProvide
   Widget build(BuildContext context) => Column(
         children: [
           TabBar(
+            dividerColor: Colors.grey[400],
+            indicatorColor: AppColors.primary700,
+            labelColor: AppColors.primary700,
+            overlayColor: const WidgetStatePropertyAll(AppColors.primary100),
             controller: _tabController,
             tabs: [
               const Tab(text: 'Discovered'),
