@@ -9,7 +9,7 @@ class VisitedPlacesService {
 
   final AuthorizedDioClient _client;
 
-  static const _baseUrl = '${AppConstants.serviceBaseUrl}/visitedPlaces';
+  static const _baseUrl = '${AppConstants.serviceBaseUrl}/visited-places';
 
   Future<List<VisitedPlaceResponse>> getVisitedPlaces({required String fromDate}) async {
     final response = await _client.get(

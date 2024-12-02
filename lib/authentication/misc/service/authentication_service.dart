@@ -14,7 +14,7 @@ class AuthenticationService {
     required String name,
     required String password,
   }) async {
-    const url = '${AppConstants.serviceBaseUrl}/auth/signup';
+    const url = '${AppConstants.serviceBaseUrl}/auth/sign-up';
 
     await _client.post(
       url,
