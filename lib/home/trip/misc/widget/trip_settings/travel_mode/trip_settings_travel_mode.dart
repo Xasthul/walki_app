@@ -12,6 +12,7 @@ class _TripSettingsTravelMode extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           const Text('Travel mode'),
+          const SizedBox(height: 4),
           Row(
             children: [
               _TripSettingsTravelModeChip(

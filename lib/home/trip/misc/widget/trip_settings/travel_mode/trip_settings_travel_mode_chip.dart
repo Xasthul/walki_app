@@ -21,6 +21,11 @@ class _TripSettingsTravelModeChip extends StatelessWidget {
         label: Text(_label),
         selected: _travelMode == _selectedTravelMode,
         onSelected: (_) => _onSelected(_travelMode),
-        showCheckmark: false,
+        color: WidgetStateProperty.resolveWith((state) {
+          if (state.contains(WidgetState.selected)) {
+            return AppColors.primary200;
+          }
+          return AppColors.primary100;
+        }),
       );
 }

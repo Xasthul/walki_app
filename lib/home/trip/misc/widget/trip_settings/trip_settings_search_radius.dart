@@ -19,6 +19,8 @@ class _TripSettingsSearchRadius extends StatelessWidget {
               min: _minSearchRadius,
               max: _maxSearchRadius,
               onChanged: context.read<TripCubit>().updateSearchRadius,
+              activeColor: AppColors.primary300,
+              inactiveColor: AppColors.primary100,
             ),
           ],
         ),
