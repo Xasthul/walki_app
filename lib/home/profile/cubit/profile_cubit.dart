@@ -1,6 +1,6 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:vall/app/common/logger/logger.dart';
+import 'package:vall/app/common/utils/logger.dart';
 import 'package:vall/authentication/misc/repository/authentication_repository.dart';
 import 'package:vall/home/misc/entity/point_of_interest.dart';
 import 'package:vall/home/profile/misc/entity/user.dart';

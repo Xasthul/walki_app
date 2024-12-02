@@ -2,9 +2,9 @@ import 'dart:async';
 
 import 'package:dio/dio.dart';
 import 'package:vall/app/common/constants/app_constants.dart';
-import 'package:vall/app/common/logger/logger.dart';
 import 'package:vall/app/common/network/entity/refresh_token_response.dart';
 import 'package:vall/app/common/use_case/secure_storage.dart';
+import 'package:vall/app/common/utils/logger.dart';
 import 'package:vall/authentication/misc/repository/authentication_repository.dart';
 
 class AuthorizationInterceptor extends InterceptorsWrapper {

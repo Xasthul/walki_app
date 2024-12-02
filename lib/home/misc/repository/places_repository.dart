@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:vall/app/common/logger/logger.dart';
+import 'package:vall/app/common/utils/logger.dart';
 import 'package:vall/home/misc/entity/point_of_interest.dart';
 import 'package:vall/home/misc/mapper/point_of_interest_mapper.dart';
 import 'package:vall/home/misc/network/entity/request/search_nearby/search_nearby_place_type.dart';

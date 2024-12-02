@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:vall/app/common/logger/logger.dart';
+import 'package:vall/app/common/utils/logger.dart';
 import 'package:vall/authentication/misc/repository/authentication_repository.dart';
 
 part 'authentication_state.dart';
