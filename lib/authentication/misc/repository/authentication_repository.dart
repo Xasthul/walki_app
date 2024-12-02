@@ -41,12 +41,13 @@ class AuthenticationRepository {
     required String email,
     required String password,
   }) async {
-    final accessToken = await _authenticationService.login(
+    final loginResponse = await _authenticationService.login(
       email: email,
       password: password,
     );
-    await _secureStorage.saveAccessToken(accessToken);
+    await _secureStorage.saveAccessToken(loginResponse.accessToken);
+    await _secureStorage.saveRefreshToken(loginResponse.refreshToken);
   }
 
-  Future<void> logOut() async => _secureStorage.removeAccessToken();
+  Future<void> logOut() async => _secureStorage.clearTokens();
 }

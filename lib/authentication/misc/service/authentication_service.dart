@@ -1,6 +1,6 @@
 import 'package:vall/app/common/constants/app_constants.dart';
 import 'package:vall/app/common/network/dio_client.dart';
-import 'package:vall/authentication/misc/network/access_token_response.dart';
+import 'package:vall/authentication/misc/network/login_response.dart';
 
 class AuthenticationService {
   AuthenticationService({
@@ -26,7 +26,7 @@ class AuthenticationService {
     );
   }
 
-  Future<String> login({
+  Future<LoginResponse> login({
     required String email,
     required String password,
   }) async {
@@ -40,6 +40,6 @@ class AuthenticationService {
       },
     );
 
-    return AccessTokenResponse.fromJson(response).accessToken;
+    return LoginResponse.fromJson(response);
   }
 }
