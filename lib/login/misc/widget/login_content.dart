@@ -24,17 +24,17 @@ class _LoginContent extends StatelessWidget {
               const SizedBox(height: 24),
               const _LoginPasswordTextField(),
               const SizedBox(height: 24),
-              FilledButton(
+              AppFilledButton(
                 onPressed: context.read<LoginValidationCubit>().validate,
-                child: const Text('Login'),
+                label: 'Login',
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   const Text("Don't have an account yet?"),
-                  TextButton(
+                  AppTextButton(
                     onPressed: LoginNavigator.of(context).navigateToCreateAccount,
-                    child: const Text('Create it here'),
+                    label: 'Create it here',
                   ),
                 ],
               ),

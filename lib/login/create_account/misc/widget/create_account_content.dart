@@ -27,9 +27,9 @@ class _CreateAccountContent extends StatelessWidget {
               const SizedBox(height: 24),
               const _CreateAccountConfirmPasswordTextField(),
               const SizedBox(height: 24),
-              FilledButton(
+              AppFilledButton(
                 onPressed: context.read<CreateAccountValidationCubit>().validate,
-                child: const Text('CreateAccount'),
+                label: 'Submit',
               ),
             ],
           ),
