@@ -13,7 +13,7 @@ class _ProfileContent extends StatelessWidget {
           ),
           if (state.user != null) ...[
             Padding(
-              padding: const EdgeInsets.only(top: 16, bottom: 36, right: 16, left: 16),
+              padding: const EdgeInsets.only(top: 12, bottom: 36, right: 16, left: 16),
               child: _ProfileUserSection(user: state.user!),
             ),
           ],

@@ -9,8 +9,9 @@ class VisitedPlacesRepository {
   final VisitedPlacesService _visitedPlacesService;
 
   Future<List<PointOfInterest>> loadVisitedPlaces() async {
+    final now = DateTime.now();
     final response = await _visitedPlacesService.getVisitedPlaces(
-      fromDate: DateTime.now().toUtc().toIso8601String(),
+      fromDate: DateTime(now.year).toUtc().toIso8601String(),
     );
     return response
         .map(

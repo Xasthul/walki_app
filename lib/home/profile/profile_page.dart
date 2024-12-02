@@ -7,15 +7,10 @@ import 'package:vall/home/profile/cubit/profile_cubit.dart';
 import 'package:vall/home/profile/misc/entity/user.dart';
 
 part 'misc/widget/profile_content.dart';
-
 part 'misc/widget/profile_settings_button.dart';
-
 part 'misc/widget/profile_user_section.dart';
-
 part 'misc/widget/profile_visited_places_list_empty.dart';
-
 part 'misc/widget/profile_visited_places_list_item.dart';
-
 part 'misc/widget/profile_visited_places_section.dart';
 
 class ProfilePage extends StatelessWidget {

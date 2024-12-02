@@ -18,11 +18,20 @@ class _ProfileVisitedPlacesSection extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text('You have visited ${_visitedPlaces.length} places: '),
+            Text(
+              'You have visited ${_visitedPlaces.length} places: ',
+              style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
+            ),
+            const SizedBox(height: 16),
             Expanded(
-              child: ListView.builder(
+              child: ListView.separated(
+                physics: const BouncingScrollPhysics(),
                 itemCount: _visitedPlaces.length,
-                itemBuilder: (context, index) => _ProfileVisitedPlacesListItem(place: _visitedPlaces[index]),
+                itemBuilder: (context, index) => _ProfileVisitedPlacesListItem(
+                  place: _visitedPlaces[index],
+                  index: index,
+                ),
+                separatorBuilder: (context, index) => const SizedBox(height: 8),
               ),
             ),
           ],
