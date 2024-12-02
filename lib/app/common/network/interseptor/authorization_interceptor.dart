@@ -20,7 +20,7 @@ class AuthorizationInterceptor extends InterceptorsWrapper {
   final SecureStorage _secureStorage;
   final AuthenticationRepository _authenticationRepository;
 
-  Completer<void>? _refreshTokensCompleter;
+  Completer<bool>? _refreshTokensCompleter;
 
   @override
   Future<void> onRequest(RequestOptions options, RequestInterceptorHandler handler) async {
@@ -35,8 +35,12 @@ class AuthorizationInterceptor extends InterceptorsWrapper {
   Future<void> onError(DioException err, ErrorInterceptorHandler handler) async {
     try {
       if (err.response?.statusCode == 401) {
+        // NOTE: do not process requests after logged out
         if (_refreshTokensCompleter != null) {
-          await _refreshTokensCompleter!.future;
+          final refreshedSuccessfully = await _refreshTokensCompleter!.future;
+          if (!refreshedSuccessfully) {
+            return;
+          }
         } else {
           await _refreshTokens();
         }
@@ -59,15 +63,31 @@ class AuthorizationInterceptor extends InterceptorsWrapper {
     _refreshTokensCompleter = Completer();
     const url = '${AppConstants.serviceBaseUrl}/auth/refresh-token';
     final refreshToken = await _secureStorage.refreshToken;
-    final response = await _dio.post(
-      url,
-      data: {'refreshToken': refreshToken},
-    );
+
+    Response<dynamic> response;
+    try {
+      response = await Dio().post(
+        url,
+        data: {'refreshToken': refreshToken},
+      );
+    } catch (error) {
+      _refreshTokensFailed();
+      rethrow;
+    }
+
     final tokens = RefreshTokenResponse.fromJson(response.data as Map<String, dynamic>);
     await _secureStorage.saveAccessToken(tokens.accessToken);
     await _secureStorage.saveRefreshToken(tokens.refreshToken);
+    _refreshedTokensSuccessfully();
+  }
 
-    _refreshTokensCompleter?.complete();
+  void _refreshedTokensSuccessfully() {
+    _refreshTokensCompleter?.complete(true);
+    _refreshTokensCompleter = null;
+  }
+
+  void _refreshTokensFailed() {
+    _refreshTokensCompleter?.complete(false);
     _refreshTokensCompleter = null;
   }
 }
