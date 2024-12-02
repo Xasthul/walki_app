@@ -14,25 +14,25 @@ class _PlacesInTripTab extends StatelessWidget {
         child: Text('No places added to trip yet'),
       );
     }
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 16),
-      child: CustomScrollView(slivers: [
-        SliverList.builder(
-          itemCount: _placesInTrip.discoveredPlaces.length,
-          itemBuilder: (context, index) => _buildItem(
-            place: _placesInTrip.discoveredPlaces[index],
-            onRemove: context.read<PlacesCubit>().toggleDiscoveredPlace,
-          ),
+    return CustomScrollView(slivers: [
+      const SliverToBoxAdapter(
+        child: SizedBox(height: 12),
+      ),
+      SliverList.builder(
+        itemCount: _placesInTrip.discoveredPlaces.length,
+        itemBuilder: (context, index) => _buildItem(
+          place: _placesInTrip.discoveredPlaces[index],
+          onRemove: context.read<PlacesCubit>().toggleDiscoveredPlace,
         ),
-        SliverList.builder(
-          itemCount: _placesInTrip.customPlaces.length,
-          itemBuilder: (context, index) => _buildItem(
-            place: _placesInTrip.customPlaces[index],
-            onRemove: context.read<PlacesCubit>().toggleCustomPlace,
-          ),
+      ),
+      SliverList.builder(
+        itemCount: _placesInTrip.customPlaces.length,
+        itemBuilder: (context, index) => _buildItem(
+          place: _placesInTrip.customPlaces[index],
+          onRemove: context.read<PlacesCubit>().toggleCustomPlace,
         ),
-      ]),
-    );
+      ),
+    ]);
   }
 
   Widget _buildItem({

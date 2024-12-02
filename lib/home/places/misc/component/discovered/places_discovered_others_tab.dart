@@ -14,49 +14,49 @@ class _PlacesDiscoveredOthersTab extends StatelessWidget {
   final List<PointOfInterest> _placesInTrip;
 
   @override
-  Widget build(BuildContext context) => Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 16),
-        child: CustomScrollView(slivers: [
-          if (_discoveredRestaurants.isNotEmpty) ...[
-            SliverToBoxAdapter(
-              child: _buildSectionTitle('Restaurants'),
-            ),
-            SliverList.builder(
-              itemCount: _discoveredRestaurants.length,
-              itemBuilder: (context, index) => Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-                Flexible(
-                  child: Text(_discoveredRestaurants[index].name),
-                ),
-                TextButton(
-                  onPressed: () => context.read<PlacesCubit>().toggleDiscoveredPlace(_discoveredRestaurants[index]),
-                  child: _placesInTrip.contains(_discoveredRestaurants[index]) //
-                      ? const Text('Remove')
-                      : const Text('Add'),
-                ),
-              ]),
-            ),
-          ],
-          if (_discoveredCafes.isNotEmpty) ...[
-            SliverToBoxAdapter(
-              child: _buildSectionTitle('Cafes'),
-            ),
-            SliverList.builder(
-              itemCount: _discoveredCafes.length,
-              itemBuilder: (context, index) => Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-                Flexible(
-                  child: Text(_discoveredCafes[index].name),
-                ),
-                TextButton(
-                  onPressed: () => context.read<PlacesCubit>().toggleDiscoveredPlace(_discoveredCafes[index]),
-                  child: _placesInTrip.contains(_discoveredCafes[index]) //
-                      ? const Text('Remove')
-                      : const Text('Add'),
-                ),
-              ]),
-            ),
-          ],
-        ]),
-      );
+  Widget build(BuildContext context) => CustomScrollView(slivers: [
+        const SliverToBoxAdapter(
+          child: SizedBox(height: 12),
+        ),
+        if (_discoveredRestaurants.isNotEmpty) ...[
+          SliverToBoxAdapter(
+            child: _buildSectionTitle('Restaurants'),
+          ),
+          SliverList.builder(
+            itemCount: _discoveredRestaurants.length,
+            itemBuilder: (context, index) => Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+              Flexible(
+                child: Text(_discoveredRestaurants[index].name),
+              ),
+              TextButton(
+                onPressed: () => context.read<PlacesCubit>().toggleDiscoveredPlace(_discoveredRestaurants[index]),
+                child: _placesInTrip.contains(_discoveredRestaurants[index]) //
+                    ? const Text('Remove')
+                    : const Text('Add'),
+              ),
+            ]),
+          ),
+        ],
+        if (_discoveredCafes.isNotEmpty) ...[
+          SliverToBoxAdapter(
+            child: _buildSectionTitle('Cafes'),
+          ),
+          SliverList.builder(
+            itemCount: _discoveredCafes.length,
+            itemBuilder: (context, index) => Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+              Flexible(
+                child: Text(_discoveredCafes[index].name),
+              ),
+              TextButton(
+                onPressed: () => context.read<PlacesCubit>().toggleDiscoveredPlace(_discoveredCafes[index]),
+                child: _placesInTrip.contains(_discoveredCafes[index]) //
+                    ? const Text('Remove')
+                    : const Text('Add'),
+              ),
+            ]),
+          ),
+        ],
+      ]);
 
   Widget _buildSectionTitle(String label) => Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
         const SizedBox(height: 16),

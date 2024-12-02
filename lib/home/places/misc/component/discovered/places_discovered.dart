@@ -71,21 +71,24 @@ class _PlacesDiscoveredState extends State<_PlacesDiscovered> with TickerProvide
             ],
           ),
           Expanded(
-            child: TabBarView(
-              controller: _tabController,
-              children: [
-                _PlacesDiscoveredTab(
-                  discoveredPlaces: widget._discoveredPlaces,
-                  placesInTrip: widget._placesInTrip.discoveredPlaces,
-                ),
-                if (_shouldShowOthersTab)
-                  _PlacesDiscoveredOthersTab(
-                    discoveredRestaurants: widget._discoveredRestaurants,
-                    discoveredCafes: widget._discoveredCafes,
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16),
+              child: TabBarView(
+                controller: _tabController,
+                children: [
+                  _PlacesDiscoveredTab(
+                    discoveredPlaces: widget._discoveredPlaces,
                     placesInTrip: widget._placesInTrip.discoveredPlaces,
                   ),
-                _PlacesInTripTab(placesInTrip: widget._placesInTrip),
-              ],
+                  if (_shouldShowOthersTab)
+                    _PlacesDiscoveredOthersTab(
+                      discoveredRestaurants: widget._discoveredRestaurants,
+                      discoveredCafes: widget._discoveredCafes,
+                      placesInTrip: widget._placesInTrip.discoveredPlaces,
+                    ),
+                  _PlacesInTripTab(placesInTrip: widget._placesInTrip),
+                ],
+              ),
             ),
           ),
         ],
