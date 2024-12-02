@@ -6,11 +6,17 @@ class _PlacesNotDiscovered extends StatelessWidget {
   @override
   Widget build(BuildContext context) => Center(
         child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
-          const Text('No places found yet'),
-          const SizedBox(height: 24),
-          FilledButton(
+          const Text(
+            'No places found yet',
+            style: TextStyle(
+              fontSize: 20,
+              fontWeight: FontWeight.w500,
+            ),
+          ),
+          const SizedBox(height: 20),
+          AppFilledButton(
             onPressed: context.read<HomeNavigationCubit>().openTripPage,
-            child: const Text('Go to places discovery'),
+            label: 'Go to places discovery',
           ),
         ]),
       );

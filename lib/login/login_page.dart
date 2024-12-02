@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:vall/app/common/widget/app_loading_indicator.dart';
+import 'package:vall/app/common/widget/app_loading_cover.dart';
 import 'package:vall/app/common/widget/app_snack_bar.dart';
 import 'package:vall/app/common/widget/app_text_field.dart';
 import 'package:vall/app/common/widget/keyboard_dismisser.dart';
@@ -40,7 +40,7 @@ class _LoginPageBase extends StatelessWidget {
               },
               builder: (context, state) => Stack(children: [
                 const _LoginContent(),
-                if (state is LoginLoading) const AppLoadingIndicator(),
+                if (state is LoginLoading) const AppLoadingCover(),
               ]),
             ),
           ),

@@ -12,7 +12,6 @@ class _HomeContent extends StatelessWidget {
   @override
   Widget build(BuildContext context) => BlocBuilder<HomeNavigationCubit, HomeNavigationState>(
         builder: (context, state) => Scaffold(
-          backgroundColor: Colors.white,
           body: IndexedStack(
             index: state.currentIndex,
             children: _pages,

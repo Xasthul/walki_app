@@ -6,10 +6,13 @@ class AppFilledButton extends StatelessWidget {
     super.key,
     required VoidCallback? onPressed,
     required String label,
+    Color? backgroundColor,
   })  : _onPressed = onPressed,
-        _label = label;
+        _label = label,
+        _backgroundColor = backgroundColor;
 
   final VoidCallback? _onPressed;
+  final Color? _backgroundColor;
   final String _label;
 
   @override
@@ -20,7 +23,7 @@ class AppFilledButton extends StatelessWidget {
             if (state.contains(WidgetState.disabled)) {
               return Colors.grey[300];
             }
-            return AppColors.primary200;
+            return _backgroundColor ?? AppColors.primary200;
           }),
           shape: WidgetStatePropertyAll(
             RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),

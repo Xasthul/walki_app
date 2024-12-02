@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:vall/app/common/widget/app_loading_indicator.dart';
+import 'package:vall/app/common/widget/app_loading_cover.dart';
 import 'package:vall/app/common/widget/app_snack_bar.dart';
 import 'package:vall/app/common/widget/app_text_field.dart';
 import 'package:vall/app/common/widget/keyboard_dismisser.dart';
@@ -46,7 +46,7 @@ class CreateAccountPage extends StatelessWidget {
               },
               builder: (context, state) => Stack(children: [
                 const _CreateAccountContent(),
-                if (state is CreateAccountLoading) const AppLoadingIndicator(),
+                if (state is CreateAccountLoading) const AppLoadingCover(),
               ]),
             ),
           ),

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:vall/app/common/theme/app_colors.dart';
+import 'package:vall/app/common/widget/app_filled_button.dart';
 import 'package:vall/home/misc/navigator/home_navigator.dart';
 import 'package:vall/home/profile/cubit/profile_cubit.dart';
 
@@ -18,20 +20,23 @@ class ProfileSettingsPage extends StatelessWidget {
         body: SafeArea(
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16),
-            child: Center(
-              child: Column(
-                children: [
-                  const SizedBox(height: 48),
-                  FilledButton(
-                    onPressed: context.read<ProfileCubit>().logOut,
-                    child: const Text('Logout'),
-                  ),
-                  const SizedBox(height: 24),
-                  FilledButton(
-                    onPressed: context.read<ProfileCubit>().deleteAccount,
-                    child: const Text('Delete account'),
-                  ),
-                ],
+            child: Expanded(
+              child: Center(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    AppFilledButton(
+                      onPressed: context.read<ProfileCubit>().logOut,
+                      label: 'Logout',
+                    ),
+                    const SizedBox(height: 16),
+                    AppFilledButton(
+                      onPressed: context.read<ProfileCubit>().deleteAccount,
+                      label: 'Delete account',
+                      backgroundColor: AppColors.error300,
+                    ),
+                  ],
+                ),
               ),
             ),
           ),
