@@ -8,10 +8,11 @@ class AppRegExp {
   static final emailValidationRegExp = RegExp(r'^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$');
 
   /// (?=.*[a-zA-Z]) positive lookahead to ensure that the string contains at least one letter.
-  /// (?=.*[\d!@#$%^&*()_=]) positive lookahead to ensure that the string contains at least one number or special character.
+  /// (?=.*\d) positive lookahead to ensure that the string contains at least one number.
+  /// (?=.*[!@#$%^&*()_=]) positive lookahead to ensure that the string contains at least one special character.
   /// (?!.*[\r\n]) negative lookahead to ensure that the string does not contain any new lines (\r or \n).
   /// (?=.{8,30}$) positive lookahead to ensure that the string has a length between 8 and 30 characters.
   /// [a-zA-Z\d!@#$%^&*()_=]+ matches any combination of letters, digits, or the allowed special characters.
   static final passwordValidationRegExp =
-      RegExp(r'^(?=.*[a-zA-Z])(?=.*[\d!?@#$%^&*()_=])(?!.*[\r\n])(?=.{8,30}$)[a-zA-Z\d!?@#$%^&*()_=]+$');
+      RegExp(r'^(?=.*[a-zA-Z])(?=.*\d)(?=.*[!?@#$%^&*()_=])(?!.*[\r\n])(?=.{8,30}$)[a-zA-Z\d!?@#$%^&*()_=]+$');
 }
