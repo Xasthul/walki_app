@@ -30,7 +30,7 @@ class _CreateAccountConfirmPasswordTextFieldState extends State<_CreateAccountCo
 
   String? _getErrorText(CreateAccountConfirmPasswordValidationError? error) => switch (error) {
         CreateAccountConfirmPasswordValidationError.empty => 'Confirm password field cannot be empty',
-        CreateAccountConfirmPasswordValidationError.invalid => 'Passwords does not match',
+        CreateAccountConfirmPasswordValidationError.invalid => 'Passwords do not match',
         _ => null,
       };
 }
