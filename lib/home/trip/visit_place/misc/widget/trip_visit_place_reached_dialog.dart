@@ -13,22 +13,41 @@ class _TripVisitPlaceReachedDialog extends StatelessWidget {
           'Congratulations!',
           textAlign: TextAlign.center,
         ),
-        content: Text(
-          "You've reached:\n\"${_place.name}\"!",
-          textAlign: TextAlign.center,
+        content: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            const Text(
+              'You have reached:',
+              style: TextStyle(
+                fontSize: 16
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(top: 8),
+              child: Text(
+                _place.name,
+                style: const TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ),
+          ],
         ),
         actions: [
-          FilledButton(
+          AppFilledButton(
             onPressed: () {
               Navigator.of(context).pop();
               context.read<TripVisitPlaceCubit>().markPlaceAsVisited(_place);
             },
-            child: const Text(
-              'Mark as visited',
-            ),
+            label: 'Mark as visited',
           ),
         ],
         alignment: Alignment.center,
         actionsAlignment: MainAxisAlignment.center,
+        shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.all(Radius.circular(8)),
+        ),
+        backgroundColor: AppColors.white,
       );
 }
