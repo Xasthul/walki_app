@@ -11,6 +11,7 @@ class _LoginContent extends StatelessWidget {
                   email: state.email,
                   password: state.password,
                 );
+            context.read<LoginValidationCubit>().resetValidationResult();
           }
         },
         child: Padding(
@@ -21,9 +22,9 @@ class _LoginContent extends StatelessWidget {
               const Text('Login', style: TextStyle(fontSize: 36)),
               const SizedBox(height: 36),
               const _LoginEmailTextField(),
-              const SizedBox(height: 24),
+              const SizedBox(height: 16),
               const _LoginPasswordTextField(),
-              const SizedBox(height: 24),
+              const SizedBox(height: 32),
               AppFilledButton(
                 onPressed: context.read<LoginValidationCubit>().validate,
                 label: 'Login',

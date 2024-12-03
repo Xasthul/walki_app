@@ -24,7 +24,7 @@ class LoginCubit extends Cubit<LoginState> {
         password: password,
       );
     } catch (error, stackTrace) {
-      emit(const LoginFailed(errorMessage: 'Login failed'));
+      emit(const LoginFailed(errorMessage: 'Something went wrong'));
       logger.e('Login failed', error: error, stackTrace: stackTrace);
     }
   }

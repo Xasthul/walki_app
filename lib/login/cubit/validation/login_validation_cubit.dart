@@ -30,4 +30,9 @@ class LoginValidationCubit extends Cubit<LoginValidationState> {
     }
     emit(LoginValidationSucceeded(state));
   }
+
+  void resetValidationResult() => emit(LoginValidationUpdated(
+        email: state.email,
+        password: state.password,
+      ));
 }
