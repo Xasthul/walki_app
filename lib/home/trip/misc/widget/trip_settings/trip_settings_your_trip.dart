@@ -31,6 +31,7 @@ class _TripSettingsYourTrip extends StatelessWidget {
             AppFilledButton(
               onPressed: tripPlaces.isEmpty ? null : cubit.clearTrip,
               label: 'Clear',
+              backgroundColor: AppColors.error300,
             ),
           ]),
         ],
