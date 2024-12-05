@@ -19,6 +19,7 @@ class VisitedPlacesRepository {
             name: item.name,
             latitude: item.latitude,
             longitude: item.longitude,
+            photoUrl: '',
           ),
         )
         .toList();

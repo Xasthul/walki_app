@@ -172,6 +172,7 @@ class TripCubit extends Cubit<TripState> {
           name: 'Your place #${state.tripPlaces.customPlaces.length + 1}',
           latitude: place.latitude,
           longitude: place.longitude,
+          photoUrl: '',
         ),
       );
 

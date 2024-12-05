@@ -14,16 +14,10 @@ class _PlacesDiscoveredTab extends StatelessWidget {
   Widget build(BuildContext context) => ListView.builder(
         padding: const EdgeInsets.only(top: 12),
         itemCount: _discoveredPlaces.length,
-        itemBuilder: (context, index) => Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-          Flexible(
-            child: Text(_discoveredPlaces[index].name),
-          ),
-          AppTextButton(
-            onPressed: () => context.read<PlacesCubit>().toggleDiscoveredPlace(_discoveredPlaces[index]),
-            label: _placesInTrip.contains(_discoveredPlaces[index]) //
-                ? 'Remove'
-                : 'Add',
-          ),
-        ]),
+        itemBuilder: (context, index) => _PlacesListItem(
+          place: _discoveredPlaces[index],
+          togglePlace: context.read<PlacesCubit>().toggleDiscoveredPlace,
+          isInTrip: _placesInTrip.contains(_discoveredPlaces[index]),
+        ),
       );
 }

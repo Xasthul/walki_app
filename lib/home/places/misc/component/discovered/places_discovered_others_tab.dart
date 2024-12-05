@@ -24,17 +24,11 @@ class _PlacesDiscoveredOthersTab extends StatelessWidget {
           ),
           SliverList.builder(
             itemCount: _discoveredRestaurants.length,
-            itemBuilder: (context, index) => Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-              Flexible(
-                child: Text(_discoveredRestaurants[index].name),
-              ),
-              AppTextButton(
-                onPressed: () => context.read<PlacesCubit>().toggleDiscoveredPlace(_discoveredRestaurants[index]),
-                label: _placesInTrip.contains(_discoveredRestaurants[index]) //
-                    ? 'Remove'
-                    : 'Add',
-              ),
-            ]),
+            itemBuilder: (context, index) => _PlacesListItem(
+              place: _discoveredRestaurants[index],
+              togglePlace: context.read<PlacesCubit>().toggleDiscoveredPlace,
+              isInTrip: _placesInTrip.contains(_discoveredRestaurants[index]),
+            ),
           ),
         ],
         if (_discoveredCafes.isNotEmpty) ...[
@@ -43,17 +37,11 @@ class _PlacesDiscoveredOthersTab extends StatelessWidget {
           ),
           SliverList.builder(
             itemCount: _discoveredCafes.length,
-            itemBuilder: (context, index) => Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-              Flexible(
-                child: Text(_discoveredCafes[index].name),
-              ),
-              AppTextButton(
-                onPressed: () => context.read<PlacesCubit>().toggleDiscoveredPlace(_discoveredCafes[index]),
-                label: _placesInTrip.contains(_discoveredCafes[index]) //
-                    ? 'Remove'
-                    : 'Add',
-              ),
-            ]),
+            itemBuilder: (context, index) => _PlacesListItem(
+              place: _discoveredCafes[index],
+              togglePlace: context.read<PlacesCubit>().toggleDiscoveredPlace,
+              isInTrip: _placesInTrip.contains(_discoveredCafes[index]),
+            ),
           ),
         ],
       ]);

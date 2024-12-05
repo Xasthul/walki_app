@@ -20,32 +20,20 @@ class _PlacesInTripTab extends StatelessWidget {
       ),
       SliverList.builder(
         itemCount: _placesInTrip.discoveredPlaces.length,
-        itemBuilder: (context, index) => _buildItem(
+        itemBuilder: (context, index) => _PlacesListItem(
           place: _placesInTrip.discoveredPlaces[index],
-          onRemove: context.read<PlacesCubit>().toggleDiscoveredPlace,
+          togglePlace: context.read<PlacesCubit>().toggleDiscoveredPlace,
+          isInTrip: true,
         ),
       ),
       SliverList.builder(
         itemCount: _placesInTrip.customPlaces.length,
-        itemBuilder: (context, index) => _buildItem(
+        itemBuilder: (context, index) => _PlacesListItem(
           place: _placesInTrip.customPlaces[index],
-          onRemove: context.read<PlacesCubit>().toggleCustomPlace,
+          togglePlace: context.read<PlacesCubit>().toggleCustomPlace,
+          isInTrip: true,
         ),
       ),
     ]);
   }
-
-  Widget _buildItem({
-    required PointOfInterest place,
-    required Function(PointOfInterest) onRemove,
-  }) =>
-      Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-        Flexible(
-          child: Text(place.name),
-        ),
-        AppTextButton(
-          onPressed: () => onRemove(place),
-          label: 'Remove',
-        ),
-      ]);
 }

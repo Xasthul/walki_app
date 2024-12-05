@@ -1,7 +1,9 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:vall/app/common/theme/app_colors.dart';
 import 'package:vall/app/common/widget/app_filled_button.dart';
+import 'package:vall/app/common/widget/app_loading_indicator.dart';
 import 'package:vall/app/common/widget/app_text_button.dart';
 import 'package:vall/home/cubit/home_navigation/home_navigation_cubit.dart';
 import 'package:vall/home/misc/entity/point_of_interest.dart';
@@ -9,13 +11,10 @@ import 'package:vall/home/places/cubit/places_cubit.dart';
 import 'package:vall/home/trip/misc/entity/trip_places.dart';
 
 part 'misc/component/discovered/places_discovered.dart';
-
 part 'misc/component/discovered/places_discovered_others_tab.dart';
-
 part 'misc/component/discovered/places_discovered_tab.dart';
-
 part 'misc/component/discovered/places_in_trip_tab.dart';
-
+part 'misc/component/discovered/places_list_item.dart';
 part 'misc/component/places_not_discovered.dart';
 
 class PlacesPage extends StatelessWidget {
