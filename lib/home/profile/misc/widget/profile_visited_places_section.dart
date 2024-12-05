@@ -2,10 +2,10 @@ part of '../../profile_page.dart';
 
 class _ProfileVisitedPlacesSection extends StatelessWidget {
   const _ProfileVisitedPlacesSection({
-    required List<PointOfInterest> visitedPlaces,
+    required List<VisitedPlace> visitedPlaces,
   }) : _visitedPlaces = visitedPlaces;
 
-  final List<PointOfInterest> _visitedPlaces;
+  final List<VisitedPlace> _visitedPlaces;
 
   @override
   Widget build(BuildContext context) {

@@ -2,10 +2,10 @@ part of '../../../places_page.dart';
 
 class _PlacesInTripTab extends StatelessWidget {
   const _PlacesInTripTab({
-    required TripPlaces placesInTrip,
+    required List<Place> placesInTrip,
   }) : _placesInTrip = placesInTrip;
 
-  final TripPlaces _placesInTrip;
+  final List<Place> _placesInTrip;
 
   @override
   Widget build(BuildContext context) {
@@ -19,18 +19,18 @@ class _PlacesInTripTab extends StatelessWidget {
         child: SizedBox(height: 12),
       ),
       SliverList.builder(
-        itemCount: _placesInTrip.discoveredPlaces.length,
+        itemCount: _placesInTrip.length,
         itemBuilder: (context, index) => _PlacesListItem(
-          place: _placesInTrip.discoveredPlaces[index],
-          togglePlace: context.read<PlacesCubit>().toggleDiscoveredPlace,
+          place: _placesInTrip[index],
+          togglePlace: context.read<PlacesCubit>().togglePlace,
           isInTrip: true,
         ),
       ),
       SliverList.builder(
-        itemCount: _placesInTrip.customPlaces.length,
+        itemCount: _placesInTrip.length,
         itemBuilder: (context, index) => _PlacesListItem(
-          place: _placesInTrip.customPlaces[index],
-          togglePlace: context.read<PlacesCubit>().toggleCustomPlace,
+          place: _placesInTrip[index],
+          togglePlace: context.read<PlacesCubit>().togglePlace,
           isInTrip: true,
         ),
       ),

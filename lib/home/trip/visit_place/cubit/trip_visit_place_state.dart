@@ -3,7 +3,7 @@ part of 'trip_visit_place_cubit.dart';
 sealed class TripVisitPlaceState extends Equatable {
   const TripVisitPlaceState({required this.visitedPlaces});
 
-  final List<PointOfInterest> visitedPlaces;
+  final List<VisitedPlace> visitedPlaces;
 
   @override
   List<Object?> get props => [visitedPlaces];
@@ -23,7 +23,7 @@ class TripVisitPlaceReached extends TripVisitPlaceState {
     required super.visitedPlaces,
   });
 
-  final PointOfInterest place;
+  final Place place;
 
   @override
   List<Object?> get props => super.props..add(place);

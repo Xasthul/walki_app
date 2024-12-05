@@ -2,19 +2,19 @@ part of '../../../places_page.dart';
 
 class _PlacesDiscovered extends StatefulWidget {
   const _PlacesDiscovered({
-    required List<PointOfInterest> discoveredPlaces,
-    required List<PointOfInterest> discoveredRestaurants,
-    required List<PointOfInterest> discoveredCafes,
-    required TripPlaces placesInTrip,
+    required List<GooglePlace> discoveredPlaces,
+    required List<GooglePlace> discoveredRestaurants,
+    required List<GooglePlace> discoveredCafes,
+    required List<Place> placesInTrip,
   })  : _discoveredPlaces = discoveredPlaces,
         _discoveredRestaurants = discoveredRestaurants,
         _discoveredCafes = discoveredCafes,
         _placesInTrip = placesInTrip;
 
-  final List<PointOfInterest> _discoveredPlaces;
-  final List<PointOfInterest> _discoveredRestaurants;
-  final List<PointOfInterest> _discoveredCafes;
-  final TripPlaces _placesInTrip;
+  final List<GooglePlace> _discoveredPlaces;
+  final List<GooglePlace> _discoveredRestaurants;
+  final List<GooglePlace> _discoveredCafes;
+  final List<Place> _placesInTrip;
 
   @override
   State<_PlacesDiscovered> createState() => _PlacesDiscoveredState();
@@ -82,13 +82,13 @@ class _PlacesDiscoveredState extends State<_PlacesDiscovered> with TickerProvide
                 children: [
                   _PlacesDiscoveredTab(
                     discoveredPlaces: widget._discoveredPlaces,
-                    placesInTrip: widget._placesInTrip.discoveredPlaces,
+                    placesInTrip: widget._placesInTrip,
                   ),
                   if (_shouldShowOthersTab)
                     _PlacesDiscoveredOthersTab(
                       discoveredRestaurants: widget._discoveredRestaurants,
                       discoveredCafes: widget._discoveredCafes,
-                      placesInTrip: widget._placesInTrip.discoveredPlaces,
+                      placesInTrip: widget._placesInTrip,
                     ),
                   _PlacesInTripTab(placesInTrip: widget._placesInTrip),
                 ],

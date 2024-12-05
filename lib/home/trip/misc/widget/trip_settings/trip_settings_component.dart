@@ -4,8 +4,8 @@ import 'package:vall/app/common/theme/app_colors.dart';
 import 'package:vall/app/common/widget/app_filled_button.dart';
 import 'package:vall/app/common/widget/no_over_scroll_behaviour.dart';
 import 'package:vall/home/misc/entity/found_places.dart';
+import 'package:vall/home/misc/entity/place.dart';
 import 'package:vall/home/trip/cubit/trip_cubit.dart';
-import 'package:vall/home/trip/misc/entity/trip_places.dart';
 import 'package:vall/home/trip/misc/entity/trip_travel_mode.dart';
 
 part 'travel_mode/trip_settings_travel_mode.dart';

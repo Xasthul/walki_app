@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:vall/home/misc/entity/point_of_interest.dart';
+import 'package:vall/home/misc/entity/place.dart';
 import 'package:vall/home/trip/cubit/trip_cubit.dart';
 
 part 'trip_map_place_selection.dart';
@@ -92,7 +92,7 @@ class _TripMapComponentState extends State<TripMapComponent> {
       );
 
   Set<Marker> _getMarkers(TripState state) {
-    final tripPlaces = [...state.tripPlaces.discoveredPlaces, ...state.tripPlaces.customPlaces];
+    final tripPlaces = state.tripPlaces;
     return {
       ...switch (state) {
         TripCreated() => _drawMarkers(
@@ -122,7 +122,7 @@ class _TripMapComponentState extends State<TripMapComponent> {
   }
 
   Iterable<Marker> _drawMarkers({
-    required List<PointOfInterest> places,
+    required List<Place> places,
     required BitmapDescriptor icon,
   }) =>
       places.map(

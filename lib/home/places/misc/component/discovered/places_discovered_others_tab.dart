@@ -2,16 +2,16 @@ part of '../../../places_page.dart';
 
 class _PlacesDiscoveredOthersTab extends StatelessWidget {
   const _PlacesDiscoveredOthersTab({
-    required List<PointOfInterest> discoveredRestaurants,
-    required List<PointOfInterest> discoveredCafes,
-    required List<PointOfInterest> placesInTrip,
+    required List<GooglePlace> discoveredRestaurants,
+    required List<GooglePlace> discoveredCafes,
+    required List<Place> placesInTrip,
   })  : _discoveredRestaurants = discoveredRestaurants,
         _discoveredCafes = discoveredCafes,
         _placesInTrip = placesInTrip;
 
-  final List<PointOfInterest> _discoveredRestaurants;
-  final List<PointOfInterest> _discoveredCafes;
-  final List<PointOfInterest> _placesInTrip;
+  final List<GooglePlace> _discoveredRestaurants;
+  final List<GooglePlace> _discoveredCafes;
+  final List<Place> _placesInTrip;
 
   @override
   Widget build(BuildContext context) => CustomScrollView(slivers: [
@@ -26,7 +26,7 @@ class _PlacesDiscoveredOthersTab extends StatelessWidget {
             itemCount: _discoveredRestaurants.length,
             itemBuilder: (context, index) => _PlacesListItem(
               place: _discoveredRestaurants[index],
-              togglePlace: context.read<PlacesCubit>().toggleDiscoveredPlace,
+              togglePlace: context.read<PlacesCubit>().togglePlace,
               isInTrip: _placesInTrip.contains(_discoveredRestaurants[index]),
             ),
           ),
@@ -39,7 +39,7 @@ class _PlacesDiscoveredOthersTab extends StatelessWidget {
             itemCount: _discoveredCafes.length,
             itemBuilder: (context, index) => _PlacesListItem(
               place: _discoveredCafes[index],
-              togglePlace: context.read<PlacesCubit>().toggleDiscoveredPlace,
+              togglePlace: context.read<PlacesCubit>().togglePlace,
               isInTrip: _placesInTrip.contains(_discoveredCafes[index]),
             ),
           ),

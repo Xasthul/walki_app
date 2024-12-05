@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:vall/app/common/utils/logger.dart';
-import 'package:vall/home/misc/entity/point_of_interest.dart';
+import 'package:vall/home/misc/entity/place.dart';
 import 'package:vall/home/misc/mapper/point_of_interest_mapper.dart';
 import 'package:vall/home/misc/network/entity/request/search_nearby/search_nearby_place_type.dart';
 import 'package:vall/home/misc/service/google_api_service.dart';
@@ -17,17 +17,17 @@ class PlacesRepository {
   final GoogleApiService _googleApiService;
   final PointOfInterestMapper _pointOfInterestMapper;
 
-  final StreamController<List<PointOfInterest>> _placesController = StreamController.broadcast();
-  final StreamController<List<PointOfInterest>> _restaurantsController = StreamController.broadcast();
-  final StreamController<List<PointOfInterest>> _cafesController = StreamController.broadcast();
+  final StreamController<List<GooglePlace>> _placesController = StreamController.broadcast();
+  final StreamController<List<GooglePlace>> _restaurantsController = StreamController.broadcast();
+  final StreamController<List<GooglePlace>> _cafesController = StreamController.broadcast();
 
-  Stream<List<PointOfInterest>> get placesStream => _placesController.stream;
+  Stream<List<GooglePlace>> get placesStream => _placesController.stream;
 
-  Stream<List<PointOfInterest>> get restaurantsStream => _restaurantsController.stream;
+  Stream<List<GooglePlace>> get restaurantsStream => _restaurantsController.stream;
 
-  Stream<List<PointOfInterest>> get cafesStream => _cafesController.stream;
+  Stream<List<GooglePlace>> get cafesStream => _cafesController.stream;
 
-  Future<List<PointOfInterest>> findPlaces({
+  Future<List<GooglePlace>> findPlaces({
     required LatLng startingPosition,
     required double radius,
   }) async {
@@ -46,7 +46,7 @@ class PlacesRepository {
     }
   }
 
-  Future<List<PointOfInterest>> findRestaurants({
+  Future<List<GooglePlace>> findRestaurants({
     required LatLng startingPosition,
     required double radius,
   }) async {
@@ -65,7 +65,7 @@ class PlacesRepository {
     }
   }
 
-  Future<List<PointOfInterest>> findCafes({
+  Future<List<GooglePlace>> findCafes({
     required LatLng startingPosition,
     required double radius,
   }) async {
@@ -84,7 +84,7 @@ class PlacesRepository {
     }
   }
 
-  Future<List<PointOfInterest>> _loadPlaces({
+  Future<List<GooglePlace>> _loadPlaces({
     required SearchNearbyPlaceType placeType,
     required LatLng startingPosition,
     required double radius,

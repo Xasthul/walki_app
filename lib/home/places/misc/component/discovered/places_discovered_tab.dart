@@ -2,13 +2,13 @@ part of '../../../places_page.dart';
 
 class _PlacesDiscoveredTab extends StatelessWidget {
   const _PlacesDiscoveredTab({
-    required List<PointOfInterest> discoveredPlaces,
-    required List<PointOfInterest> placesInTrip,
+    required List<GooglePlace> discoveredPlaces,
+    required List<Place> placesInTrip,
   })  : _discoveredPlaces = discoveredPlaces,
         _placesInTrip = placesInTrip;
 
-  final List<PointOfInterest> _discoveredPlaces;
-  final List<PointOfInterest> _placesInTrip;
+  final List<GooglePlace> _discoveredPlaces;
+  final List<Place> _placesInTrip;
 
   @override
   Widget build(BuildContext context) => ListView.builder(
@@ -16,7 +16,7 @@ class _PlacesDiscoveredTab extends StatelessWidget {
         itemCount: _discoveredPlaces.length,
         itemBuilder: (context, index) => _PlacesListItem(
           place: _discoveredPlaces[index],
-          togglePlace: context.read<PlacesCubit>().toggleDiscoveredPlace,
+          togglePlace: context.read<PlacesCubit>().togglePlace,
           isInTrip: _placesInTrip.contains(_discoveredPlaces[index]),
         ),
       );

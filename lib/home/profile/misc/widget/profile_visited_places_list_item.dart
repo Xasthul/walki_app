@@ -2,12 +2,12 @@ part of '../../profile_page.dart';
 
 class _ProfileVisitedPlacesListItem extends StatelessWidget {
   const _ProfileVisitedPlacesListItem({
-    required PointOfInterest place,
+    required VisitedPlace place,
     required int index,
   })  : _place = place,
         _index = index;
 
-  final PointOfInterest _place;
+  final VisitedPlace _place;
   final int _index;
 
   @override

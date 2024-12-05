@@ -4,7 +4,7 @@ sealed class ProfileState extends Equatable {
   const ProfileState({this.user, required this.visitedPlaces});
 
   final User? user;
-  final List<PointOfInterest> visitedPlaces;
+  final List<VisitedPlace> visitedPlaces;
 
   @override
   List<Object?> get props => [user, visitedPlaces];

@@ -10,7 +10,7 @@ class _TripSettingsYourTrip extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final cubit = context.read<TripCubit>();
-    return BlocSelector<TripCubit, TripState, TripPlaces>(
+    return BlocSelector<TripCubit, TripState, List<Place>>(
       selector: (state) => state.tripPlaces,
       builder: (context, tripPlaces) => Column(
         crossAxisAlignment: CrossAxisAlignment.start,

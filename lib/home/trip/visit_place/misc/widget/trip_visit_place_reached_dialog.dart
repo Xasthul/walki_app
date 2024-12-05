@@ -2,10 +2,10 @@ part of '../../trip_visit_place_listener.dart';
 
 class _TripVisitPlaceReachedDialog extends StatelessWidget {
   const _TripVisitPlaceReachedDialog({
-    required PointOfInterest place,
+    required Place place,
   }) : _place = place;
 
-  final PointOfInterest _place;
+  final Place _place;
 
   @override
   Widget build(BuildContext context) => AlertDialog(

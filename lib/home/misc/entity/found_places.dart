@@ -1,5 +1,5 @@
 import 'package:equatable/equatable.dart';
-import 'package:vall/home/misc/entity/point_of_interest.dart';
+import 'package:vall/home/misc/entity/place.dart';
 
 class FoundPlaces extends Equatable {
   const FoundPlaces({
@@ -8,9 +8,9 @@ class FoundPlaces extends Equatable {
     required this.cafes,
   });
 
-  final List<PointOfInterest> places;
-  final List<PointOfInterest> restaurants;
-  final List<PointOfInterest> cafes;
+  final List<GooglePlace> places;
+  final List<GooglePlace> restaurants;
+  final List<GooglePlace> cafes;
 
   @override
   List<Object?> get props => [

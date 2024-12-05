@@ -3,10 +3,9 @@ import 'dart:async';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:vall/home/misc/entity/found_places.dart';
-import 'package:vall/home/misc/entity/point_of_interest.dart';
+import 'package:vall/home/misc/entity/place.dart';
 import 'package:vall/home/misc/repository/places_repository.dart';
 import 'package:vall/home/misc/repository/trip_repository.dart';
-import 'package:vall/home/trip/misc/entity/trip_places.dart';
 
 part 'places_state.dart';
 
@@ -21,10 +20,10 @@ class PlacesCubit extends Cubit<PlacesState> {
   final PlacesRepository _placesRepository;
   final TripRepository _tripRepository;
 
-  StreamSubscription<List<PointOfInterest>>? _placesSubscription;
-  StreamSubscription<List<PointOfInterest>>? _restaurantsSubscription;
-  StreamSubscription<List<PointOfInterest>>? _cafesSubscription;
-  StreamSubscription<TripPlaces>? _tripSubscription;
+  StreamSubscription<List<Place>>? _placesSubscription;
+  StreamSubscription<List<Place>>? _restaurantsSubscription;
+  StreamSubscription<List<Place>>? _cafesSubscription;
+  StreamSubscription<List<Place>>? _tripSubscription;
 
   void load() {
     _setupPlacesSubscription();
@@ -44,7 +43,7 @@ class PlacesCubit extends Cubit<PlacesState> {
               restaurants: const [],
               cafes: const [],
             ),
-            inTrip: const TripPlaces(discoveredPlaces: [], customPlaces: []),
+            inTrip: const [],
           ),
         );
       });
@@ -90,9 +89,7 @@ class PlacesCubit extends Cubit<PlacesState> {
         );
       });
 
-  void toggleDiscoveredPlace(PointOfInterest place) => _tripRepository.toggleDiscoveredPlace(place);
-
-  void toggleCustomPlace(PointOfInterest place) => _tripRepository.toggleCustomPlace(place);
+  void togglePlace(Place place) => _tripRepository.togglePlace(place);
 
   @override
   Future<void> close() {

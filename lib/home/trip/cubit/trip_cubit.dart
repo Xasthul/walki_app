@@ -5,11 +5,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:vall/app/common/utils/logger.dart';
 import 'package:vall/home/misc/entity/found_places.dart';
-import 'package:vall/home/misc/entity/point_of_interest.dart';
+import 'package:vall/home/misc/entity/place.dart';
 import 'package:vall/home/misc/repository/current_location_repository.dart';
 import 'package:vall/home/misc/repository/places_repository.dart';
 import 'package:vall/home/misc/repository/trip_repository.dart';
-import 'package:vall/home/trip/misc/entity/trip_places.dart';
 import 'package:vall/home/trip/misc/entity/trip_settings.dart';
 import 'package:vall/home/trip/misc/entity/trip_travel_mode.dart';
 
@@ -29,7 +28,7 @@ class TripCubit extends Cubit<TripState> {
   final TripRepository _tripRepository;
   final PlacesRepository _placesRepository;
 
-  StreamSubscription<TripPlaces>? _tripSubscription;
+  StreamSubscription<List<Place>>? _tripSubscription;
 
   void load() => _setupTripSubscription();
 
@@ -92,7 +91,7 @@ class TripCubit extends Cubit<TripState> {
     try {
       final LatLng currentLocation = await _currentLocationRepository.getCurrentLocation();
       final List<LatLng> polylineCoordinates = await _tripRepository.getPolylineCoordinates(
-        places: [...state.tripPlaces.discoveredPlaces, ...state.tripPlaces.customPlaces],
+        places: state.tripPlaces,
         currentLocation: currentLocation,
       );
       emit(
@@ -166,13 +165,12 @@ class TripCubit extends Cubit<TripState> {
         ),
       );
 
-  void selectPlace(LatLng place) => _tripRepository.toggleCustomPlace(
-        PointOfInterest(
+  void selectPlace(LatLng place) => _tripRepository.togglePlace(
+        CustomPlace(
           // TODO(naz): localized, numbered?
-          name: 'Your place #${state.tripPlaces.customPlaces.length + 1}',
+          name: 'Your place #${state.tripPlaces.length + 1}',
           latitude: place.latitude,
           longitude: place.longitude,
-          photoUrl: '',
         ),
       );
 

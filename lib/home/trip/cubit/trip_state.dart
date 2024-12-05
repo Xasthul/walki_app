@@ -8,10 +8,7 @@ sealed class TripState extends Equatable {
       restaurants: [],
       cafes: [],
     ),
-    this.tripPlaces = const TripPlaces(
-      discoveredPlaces: [],
-      customPlaces: [],
-    ),
+    this.tripPlaces = const [],
   });
 
   static const _defaultTripSettings = TripSettings(
@@ -21,12 +18,12 @@ sealed class TripState extends Equatable {
 
   final TripSettings settings;
   final FoundPlaces foundPlaces;
-  final TripPlaces tripPlaces;
+  final List<Place> tripPlaces;
 
   TripState copyWith({
     TripSettings? settings,
     FoundPlaces? foundPlaces,
-    TripPlaces? tripPlaces,
+    List<Place>? tripPlaces,
   });
 
   @override
@@ -48,7 +45,7 @@ class TripInitial extends TripState {
   TripInitial copyWith({
     TripSettings? settings,
     FoundPlaces? foundPlaces,
-    TripPlaces? tripPlaces,
+    List<Place>? tripPlaces,
   }) =>
       TripInitial(
         settings: settings ?? this.settings,
@@ -68,7 +65,7 @@ class TripLoading extends TripState {
   TripLoading copyWith({
     TripSettings? settings,
     FoundPlaces? foundPlaces,
-    TripPlaces? tripPlaces,
+    List<Place>? tripPlaces,
   }) =>
       TripLoading(
         settings: settings ?? this.settings,
@@ -88,7 +85,7 @@ class TripPlacesNearbyFound extends TripState {
   TripPlacesNearbyFound copyWith({
     TripSettings? settings,
     FoundPlaces? foundPlaces,
-    TripPlaces? tripPlaces,
+    List<Place>? tripPlaces,
   }) =>
       TripPlacesNearbyFound(
         settings: settings ?? this.settings,
@@ -108,7 +105,7 @@ class TripCreation extends TripState {
   TripCreation copyWith({
     TripSettings? settings,
     FoundPlaces? foundPlaces,
-    TripPlaces? tripPlaces,
+    List<Place>? tripPlaces,
   }) =>
       TripCreation(
         settings: settings ?? this.settings,
@@ -131,7 +128,7 @@ class TripCreated extends TripState {
   TripCreated copyWith({
     TripSettings? settings,
     FoundPlaces? foundPlaces,
-    TripPlaces? tripPlaces,
+    List<Place>? tripPlaces,
     List<LatLng>? polylinePoints,
   }) =>
       TripCreated(
@@ -156,7 +153,7 @@ class TripCreationFailed extends TripState {
   TripCreationFailed copyWith({
     TripSettings? settings,
     FoundPlaces? foundPlaces,
-    TripPlaces? tripPlaces,
+    List<Place>? tripPlaces,
   }) =>
       TripCreationFailed(
         settings: settings ?? this.settings,
@@ -176,7 +173,7 @@ class TripPlaceSelection extends TripState {
   TripPlaceSelection copyWith({
     TripSettings? settings,
     FoundPlaces? foundPlaces,
-    TripPlaces? tripPlaces,
+    List<Place>? tripPlaces,
   }) =>
       TripPlaceSelection(
         settings: settings ?? this.settings,

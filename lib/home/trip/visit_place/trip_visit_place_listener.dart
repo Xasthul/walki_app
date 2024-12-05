@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:vall/app/common/theme/app_colors.dart';
 import 'package:vall/app/common/widget/app_filled_button.dart';
-import 'package:vall/home/misc/entity/point_of_interest.dart';
+import 'package:vall/home/misc/entity/place.dart';
 import 'package:vall/home/trip/cubit/trip_cubit.dart';
 import 'package:vall/home/trip/visit_place/cubit/trip_visit_place_cubit.dart';
 
@@ -23,7 +23,7 @@ class TripVisitPlaceListener extends StatelessWidget {
     return BlocListener<TripCubit, TripState>(
       listenWhen: (previousState, newState) => previousState is! TripCreated && newState is TripCreated,
       listener: (context, state) {
-        tripVisitPlaceCubit.onTripCreated(places: state.tripPlaces.discoveredPlaces);
+        tripVisitPlaceCubit.onTripCreated(places: state.tripPlaces);
       },
       // stop checking for places nearby
       child: BlocListener<TripCubit, TripState>(
@@ -43,7 +43,7 @@ class TripVisitPlaceListener extends StatelessWidget {
     );
   }
 
-  void _showPlaceReachedDialog(BuildContext context, PointOfInterest place) => showDialog(
+  void _showPlaceReachedDialog(BuildContext context, Place place) => showDialog(
         context: context,
         useRootNavigator: false,
         barrierDismissible: false,

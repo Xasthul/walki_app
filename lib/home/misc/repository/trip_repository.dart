@@ -3,55 +3,31 @@ import 'dart:async';
 import 'package:flutter_polyline_points/flutter_polyline_points.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:vall/app/common/constants/app_constants.dart';
-import 'package:vall/home/misc/entity/point_of_interest.dart';
-import 'package:vall/home/trip/misc/entity/trip_places.dart';
+import 'package:vall/home/misc/entity/place.dart';
 
 class TripRepository {
-  final StreamController<TripPlaces> _tripController = StreamController.broadcast();
+  final StreamController<List<Place>> _tripController = StreamController.broadcast();
 
-  Stream<TripPlaces> get tripStream => _tripController.stream;
+  Stream<List<Place>> get tripStream => _tripController.stream;
 
-  TripPlaces _trip = const TripPlaces(
-    discoveredPlaces: [],
-    customPlaces: [],
-  );
+  List<Place> _trip = [];
 
-  void toggleDiscoveredPlace(PointOfInterest place) {
-    if (_trip.discoveredPlaces.contains(place)) {
-      _trip = _trip.copyWith(
-        discoveredPlaces: [..._trip.discoveredPlaces]..remove(place),
-      );
+  void togglePlace(Place place) {
+    if (_trip.contains(place)) {
+      _trip = [..._trip]..remove(place);
     } else {
-      _trip = _trip.copyWith(
-        discoveredPlaces: [..._trip.discoveredPlaces, place],
-      );
-    }
-    _tripController.add(_trip);
-  }
-
-  void toggleCustomPlace(PointOfInterest place) {
-    if (_trip.customPlaces.contains(place)) {
-      _trip = _trip.copyWith(
-        customPlaces: [..._trip.customPlaces]..remove(place),
-      );
-    } else {
-      _trip = _trip.copyWith(
-        customPlaces: [..._trip.customPlaces, place],
-      );
+      _trip = [..._trip, place];
     }
     _tripController.add(_trip);
   }
 
   void clearTrip() {
-    _trip = const TripPlaces(
-      discoveredPlaces: [],
-      customPlaces: [],
-    );
+    _trip = [];
     _tripController.add(_trip);
   }
 
   Future<List<LatLng>> getPolylineCoordinates({
-    required List<PointOfInterest> places,
+    required List<Place> places,
     required LatLng currentLocation,
   }) async {
     final polylinePoints = PolylinePoints();

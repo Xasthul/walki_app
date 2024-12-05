@@ -16,11 +16,11 @@ class PlacesDiscovered extends PlacesState {
   });
 
   final FoundPlaces discovered;
-  final TripPlaces inTrip;
+  final List<Place> inTrip;
 
   PlacesDiscovered copyWith({
     FoundPlaces? discovered,
-    TripPlaces? inTrip,
+    List<Place>? inTrip,
   }) =>
       PlacesDiscovered(
         discovered: discovered ?? this.discovered,
