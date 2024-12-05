@@ -3,19 +3,19 @@ import 'dart:async';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:vall/app/common/utils/logger.dart';
 import 'package:vall/home/misc/entity/place.dart';
-import 'package:vall/home/misc/mapper/point_of_interest_mapper.dart';
+import 'package:vall/home/misc/mapper/place_mapper.dart';
 import 'package:vall/home/misc/network/entity/request/search_nearby/search_nearby_place_type.dart';
 import 'package:vall/home/misc/service/google_api_service.dart';
 
 class PlacesRepository {
   PlacesRepository({
     required GoogleApiService googleApiService,
-    required PointOfInterestMapper pointOfInterestMapper,
+    required PlaceMapper pointOfInterestMapper,
   })  : _googleApiService = googleApiService,
         _pointOfInterestMapper = pointOfInterestMapper;
 
   final GoogleApiService _googleApiService;
-  final PointOfInterestMapper _pointOfInterestMapper;
+  final PlaceMapper _pointOfInterestMapper;
 
   final StreamController<List<GooglePlace>> _placesController = StreamController.broadcast();
   final StreamController<List<GooglePlace>> _restaurantsController = StreamController.broadcast();

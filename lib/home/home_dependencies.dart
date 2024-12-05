@@ -5,7 +5,7 @@ import 'package:vall/app/common/network/dio_client_factory.dart';
 import 'package:vall/authentication/misc/repository/authentication_repository.dart';
 import 'package:vall/home/cubit/home_navigation/home_navigation_cubit.dart';
 import 'package:vall/home/cubit/location_permission/location_permission_cubit.dart';
-import 'package:vall/home/misc/mapper/point_of_interest_mapper.dart';
+import 'package:vall/home/misc/mapper/place_mapper.dart';
 import 'package:vall/home/misc/repository/current_location_repository.dart';
 import 'package:vall/home/misc/repository/places_repository.dart';
 import 'package:vall/home/misc/repository/trip_repository.dart';
@@ -52,11 +52,11 @@ class HomeDependencies extends StatelessWidget {
             ),
           ),
           RepositoryProvider<TripRepository>(create: (context) => TripRepository()),
-          RepositoryProvider<PointOfInterestMapper>(create: (context) => PointOfInterestMapper()),
+          RepositoryProvider<PlaceMapper>(create: (context) => PlaceMapper()),
           RepositoryProvider<PlacesRepository>(
             create: (context) => PlacesRepository(
               googleApiService: context.read<GoogleApiService>(),
-              pointOfInterestMapper: context.read<PointOfInterestMapper>(),
+              pointOfInterestMapper: context.read<PlaceMapper>(),
             ),
           ),
           RepositoryProvider<CurrentLocationRepository>(create: (context) => CurrentLocationRepository()),

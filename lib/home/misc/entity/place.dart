@@ -12,7 +12,7 @@ abstract class Place extends Equatable {
   final double longitude;
 
   @override
-  List<Object> get props => [];
+  List<Object?> get props => [];
 }
 
 class GooglePlace extends Place {
@@ -21,12 +21,21 @@ class GooglePlace extends Place {
     required super.latitude,
     required super.longitude,
     required this.photoUrl,
+    required this.summary,
+    required this.rating,
   });
 
   final String photoUrl;
+  final String? summary;
+  final double? rating;
 
   @override
-  List<Object> get props => super.props..add(photoUrl);
+  List<Object?> get props => super.props
+    ..addAll([
+      photoUrl,
+      summary,
+      rating,
+    ]);
 }
 
 class CustomPlace extends Place {

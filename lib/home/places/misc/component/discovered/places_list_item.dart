@@ -16,27 +16,29 @@ class _PlacesListItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) => Row(children: [
         if (_place is GooglePlace)
-          CachedNetworkImage(
-            imageUrl: _place.photoUrl,
+          PlaceImage(
+            url: _place.photoUrl,
             width: 64,
             height: 40,
-            placeholder: (context, url) => const Center(child: AppLoadingIndicator()),
-            errorWidget: (context, url, error) => _imagePlaceholder,
             fit: BoxFit.cover,
           )
         else
-          _imagePlaceholder,
+          const Icon(Icons.image_rounded),
         const SizedBox(width: 8),
         Expanded(
           child: Text(_place.name),
         ),
-        AppTextButton(
-          onPressed: () => _togglePlace(_place),
-          label: _isInTrip //
-              ? 'Remove'
-              : 'Add',
-        ),
+        if (_place is GooglePlace)
+          AppTextButton(
+            onPressed: () => HomeNavigator.of(context).navigateToPlaceDetails(_place),
+            label: 'Details',
+          )
+        else
+          AppTextButton(
+            onPressed: () => _togglePlace(_place),
+            label: _isInTrip //
+                ? 'Remove'
+                : 'Add',
+          ),
       ]);
-
-  Icon get _imagePlaceholder => const Icon(Icons.image_rounded);
 }
