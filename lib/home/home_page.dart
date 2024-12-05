@@ -12,12 +12,15 @@ import 'package:vall/home/trip/trip_page.dart';
 
 part 'misc/component/home_content.dart';
 
+final _navigationKey = GlobalKey<NavigatorState>();
+
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
 
   @override
   Widget build(BuildContext context) => HomeDependencies(
         child: HomeNavigator(
+          navigationKey: _navigationKey,
           child: BlocBuilder<LocationPermissionCubit, LocationPermissionState>(
             builder: (context, state) {
               if (state is! LocationPermissionProvided) {

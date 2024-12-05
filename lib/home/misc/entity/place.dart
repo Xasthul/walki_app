@@ -23,11 +23,21 @@ class GooglePlace extends Place {
     required this.photoUrl,
     required this.summary,
     required this.rating,
+    required this.isOpen,
+    required this.nextOpenTime,
+    required this.nextCloseTime,
   });
 
   final String photoUrl;
   final String? summary;
   final double? rating;
+  final bool? isOpen;
+
+  /// Local time
+  final DateTime? nextOpenTime;
+
+  /// Local time
+  final DateTime? nextCloseTime;
 
   @override
   List<Object?> get props => super.props
@@ -35,6 +45,9 @@ class GooglePlace extends Place {
       photoUrl,
       summary,
       rating,
+      isOpen,
+      nextOpenTime,
+      nextCloseTime,
     ]);
 }
 

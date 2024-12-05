@@ -14,6 +14,13 @@ class PlaceMapper {
       photoUrl: photoUrl,
       summary: googleApiPlace.editorialSummary?.text,
       rating: googleApiPlace.rating,
+      isOpen: googleApiPlace.currentOpeningHours?.openNow,
+      nextOpenTime: googleApiPlace.currentOpeningHours?.nextOpenTime != null
+          ? DateTime.parse(googleApiPlace.currentOpeningHours!.nextOpenTime!).toLocal()
+          : null,
+      nextCloseTime: googleApiPlace.currentOpeningHours?.nextCloseTime != null
+          ? DateTime.parse(googleApiPlace.currentOpeningHours!.nextCloseTime!).toLocal()
+          : null,
     );
   }
 }

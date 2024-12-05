@@ -1,22 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:vall/home/misc/entity/place.dart';
-import 'package:vall/home/places/misc/component/place_details.dart';
+import 'package:vall/home/places/misc/component/details/place_details.dart';
 import 'package:vall/home/profile/misc/widget/settings/profile_settings_page.dart';
 
 class HomeNavigator extends InheritedWidget {
-  factory HomeNavigator({required Widget child}) {
-    final navigationKey = GlobalKey<NavigatorState>();
-    return HomeNavigator._(
-      navigationKey: navigationKey,
-      child: NavigatorPopHandler(
-        onPop: () => navigationKey.currentState!.maybePop(),
-        child: Navigator(
-          key: navigationKey,
-          onGenerateRoute: (_) => MaterialPageRoute(builder: (_) => child),
+  factory HomeNavigator({
+    required GlobalKey<NavigatorState> navigationKey,
+    required Widget child,
+  }) =>
+      HomeNavigator._(
+        navigationKey: navigationKey,
+        child: NavigatorPopHandler(
+          onPop: () => navigationKey.currentState!.maybePop(),
+          child: Navigator(
+            key: navigationKey,
+            onGenerateRoute: (_) => MaterialPageRoute(builder: (_) => child),
+          ),
         ),
-      ),
-    );
-  }
+      );
 
   const HomeNavigator._({
     required super.child,

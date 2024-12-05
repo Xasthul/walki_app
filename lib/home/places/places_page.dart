@@ -10,15 +10,10 @@ import 'package:vall/home/places/cubit/places_cubit.dart';
 import 'package:vall/home/places/misc/component/place_image.dart';
 
 part 'misc/component/discovered/places_discovered.dart';
-
 part 'misc/component/discovered/places_discovered_others_tab.dart';
-
 part 'misc/component/discovered/places_discovered_tab.dart';
-
 part 'misc/component/discovered/places_in_trip_tab.dart';
-
 part 'misc/component/discovered/places_list_item.dart';
-
 part 'misc/component/places_not_discovered.dart';
 
 class PlacesPage extends StatelessWidget {

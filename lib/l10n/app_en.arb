@@ -1,3 +1,23 @@
 {
-  "discoverPlaces": "Discover places"
+  "discoverPlaces": "Discover places",
+  "formatPlaceClosesAt": "Closes at {dateTime}",
+  "@formatPlaceClosesAt": {
+    "placeholders": {
+      "dateTime": {
+        "type": "DateTime",
+        "format": "HH:mm",
+        "isCustomDateFormat": "true"
+      }
+    }
+  },
+  "formatPlaceOpensAt": "Opens at {dateTime}",
+  "@formatPlaceOpensAt": {
+    "placeholders": {
+      "dateTime": {
+        "type": "DateTime",
+        "format": "HH:mm",
+        "isCustomDateFormat": "true"
+      }
+    }
+  }
 }
