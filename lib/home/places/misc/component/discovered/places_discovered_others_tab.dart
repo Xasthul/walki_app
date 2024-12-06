@@ -15,9 +15,6 @@ class _PlacesDiscoveredOthersTab extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => CustomScrollView(slivers: [
-        const SliverToBoxAdapter(
-          child: SizedBox(height: 12),
-        ),
         if (_discoveredRestaurants.isNotEmpty) ...[
           SliverToBoxAdapter(
             child: _buildSectionTitle('Restaurants'),

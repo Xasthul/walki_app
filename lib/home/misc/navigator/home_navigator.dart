@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:vall/home/misc/entity/place.dart';
-import 'package:vall/home/places/misc/component/details/place_details.dart';
+import 'package:vall/home/places/misc/component/details/place_details_page.dart';
 import 'package:vall/home/profile/misc/widget/settings/profile_settings_page.dart';
 
 class HomeNavigator extends InheritedWidget {
@@ -38,8 +38,10 @@ class HomeNavigator extends InheritedWidget {
         MaterialPageRoute(builder: (_) => const ProfileSettingsPage()),
       );
 
-  void navigateToPlaceDetails(GooglePlace place) => _navigationKey.currentState!.push(
-        MaterialPageRoute(builder: (_) => PlaceDetails(place: place)),
+  void navigateToPlaceDetails({required GooglePlace place}) => _navigationKey.currentState!.push(
+        MaterialPageRoute(
+          builder: (_) => PlaceDetailsPage(place: place),
+        ),
       );
 
   @override

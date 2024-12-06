@@ -30,7 +30,7 @@ class _PlacesListItem extends StatelessWidget {
         ),
         if (_place is GooglePlace)
           AppTextButton(
-            onPressed: () => HomeNavigator.of(context).navigateToPlaceDetails(_place),
+            onPressed: () => HomeNavigator.of(context).navigateToPlaceDetails(place: _place),
             label: 'Details',
           )
         else

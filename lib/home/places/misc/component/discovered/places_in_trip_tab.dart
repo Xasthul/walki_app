@@ -14,26 +14,14 @@ class _PlacesInTripTab extends StatelessWidget {
         child: Text('No places added to trip yet'),
       );
     }
-    return CustomScrollView(slivers: [
-      const SliverToBoxAdapter(
-        child: SizedBox(height: 12),
+    return ListView.builder(
+      padding: const EdgeInsets.only(top: 12),
+      itemCount: _placesInTrip.length,
+      itemBuilder: (context, index) => _PlacesListItem(
+        place: _placesInTrip[index],
+        togglePlace: context.read<PlacesCubit>().togglePlace,
+        isInTrip: true,
       ),
-      SliverList.builder(
-        itemCount: _placesInTrip.length,
-        itemBuilder: (context, index) => _PlacesListItem(
-          place: _placesInTrip[index],
-          togglePlace: context.read<PlacesCubit>().togglePlace,
-          isInTrip: true,
-        ),
-      ),
-      SliverList.builder(
-        itemCount: _placesInTrip.length,
-        itemBuilder: (context, index) => _PlacesListItem(
-          place: _placesInTrip[index],
-          togglePlace: context.read<PlacesCubit>().togglePlace,
-          isInTrip: true,
-        ),
-      ),
-    ]);
+    );
   }
 }

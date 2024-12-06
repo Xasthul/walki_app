@@ -1,18 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:vall/app/common/widget/app_filled_button.dart';
 import 'package:vall/home/misc/entity/place.dart';
 import 'package:vall/home/misc/navigator/home_navigator.dart';
+import 'package:vall/home/places/cubit/places_cubit.dart';
 import 'package:vall/home/places/misc/component/place_image.dart';
 import 'package:vall/l10n/generated/app_localizations.dart';
 
 part 'place_rating.dart';
-
 part 'place_summary.dart';
-
+part 'place_trip_action_button.dart';
 part 'place_working_time.dart';
 
-class PlaceDetails extends StatelessWidget {
-  const PlaceDetails({
+class PlaceDetailsPage extends StatelessWidget {
+  const PlaceDetailsPage({
     super.key,
     required GooglePlace place,
   }) : _place = place;
@@ -50,6 +52,8 @@ class PlaceDetails extends StatelessWidget {
                   _PlaceWorkingTime(place: _place),
                   const SizedBox(height: 20),
                   _PlaceSummary(place: _place),
+                  const SizedBox(height: 28),
+                  _PlaceTripActionButton(place: _place),
                   const SizedBox(height: 24),
                 ],
               ),
