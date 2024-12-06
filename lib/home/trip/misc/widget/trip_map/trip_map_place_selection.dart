@@ -20,9 +20,9 @@ class _TripMapPlaceSelection extends StatelessWidget {
             alignment: Alignment.topLeft,
             child: Padding(
               padding: const EdgeInsets.only(left: 16),
-              child: FilledButton(
+              child: AppFilledButton(
                 onPressed: context.read<TripCubit>().closePlaceSelection,
-                child: const Text('Close'),
+                label: 'Close',
               ),
             ),
           ),
@@ -31,9 +31,9 @@ class _TripMapPlaceSelection extends StatelessWidget {
           alignment: Alignment.bottomCenter,
           child: Padding(
             padding: const EdgeInsets.only(bottom: 12),
-            child: FilledButton(
+            child: AppFilledButton(
               onPressed: _onPlaceSelected,
-              child: const Text('Select place'),
+              label: 'Select place',
             ),
           ),
         )

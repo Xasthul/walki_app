@@ -3,7 +3,9 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:vall/app/common/widget/app_filled_button.dart';
 import 'package:vall/home/misc/entity/place.dart';
+import 'package:vall/home/misc/navigator/home_navigator.dart';
 import 'package:vall/home/trip/cubit/trip_cubit.dart';
 
 part 'trip_map_place_selection.dart';
@@ -126,12 +128,21 @@ class _TripMapComponentState extends State<TripMapComponent> {
     required BitmapDescriptor icon,
   }) =>
       places.map(
-        (place) => Marker(
-          markerId: MarkerId('$place'),
-          position: LatLng(place.latitude, place.longitude),
-          icon: icon,
-          infoWindow: InfoWindow(title: place.name),
-        ),
+        (place) {
+          final isGooglePlace = place is GooglePlace;
+          return Marker(
+            markerId: MarkerId('$place'),
+            position: LatLng(place.latitude, place.longitude),
+            icon: icon,
+            infoWindow: InfoWindow(
+              title: place.name,
+              snippet: isGooglePlace ? 'Press to open details' : null,
+              onTap: isGooglePlace //
+                  ? () => HomeNavigator.of(context).navigateToPlaceDetails(place: place)
+                  : null,
+            ),
+          );
+        },
       );
 
   BitmapDescriptor get _selectedPlaceMarkerIcon => BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueGreen);
