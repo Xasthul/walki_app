@@ -5,9 +5,7 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 class CurrentLocationRepository {
   Stream<LatLng> get currentLocationStream => Geolocator.getPositionStream(
-        locationSettings: const LocationSettings(
-          distanceFilter: 10,
-        ),
+        locationSettings: const LocationSettings(),
       ).transform(_positionTransformer);
 
   final _positionTransformer = StreamTransformer<Position, LatLng>.fromHandlers(

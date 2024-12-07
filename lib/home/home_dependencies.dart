@@ -16,7 +16,7 @@ import 'package:vall/home/profile/misc/repository/user_repository.dart';
 import 'package:vall/home/profile/misc/repository/visited_places_repository.dart';
 import 'package:vall/home/profile/misc/service/user_service.dart';
 import 'package:vall/home/profile/misc/service/visited_places_service.dart';
-import 'package:vall/home/trip/cubit/initial_location/initial_location_cubit.dart';
+import 'package:vall/home/trip/cubit/current_location/current_location_cubit.dart';
 import 'package:vall/home/trip/cubit/trip_cubit.dart';
 import 'package:vall/home/trip/visit_place/cubit/trip_visit_place_cubit.dart';
 import 'package:vall/home/trip/visit_place/misc/mapper/visited_place_mapper.dart';
@@ -84,8 +84,8 @@ class HomeDependencies extends StatelessWidget {
             BlocProvider<LocationPermissionCubit>(
               create: (context) => LocationPermissionCubit()..load(),
             ),
-            BlocProvider<InitialLocationCubit>(
-              create: (context) => InitialLocationCubit(
+            BlocProvider<CurrentLocationCubit>(
+              create: (context) => CurrentLocationCubit(
                 currentLocationRepository: context.read<CurrentLocationRepository>(),
               )..load(),
             ),
