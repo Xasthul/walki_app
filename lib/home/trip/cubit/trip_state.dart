@@ -120,9 +120,11 @@ class TripCreated extends TripState {
     super.foundPlaces,
     super.tripPlaces,
     required this.polylinePoints,
+    required this.initialPoint,
   });
 
   final List<LatLng> polylinePoints;
+  final LatLng initialPoint;
 
   @override
   TripCreated copyWith({
@@ -130,16 +132,18 @@ class TripCreated extends TripState {
     FoundPlaces? foundPlaces,
     List<Place>? tripPlaces,
     List<LatLng>? polylinePoints,
+    LatLng? initialPoint,
   }) =>
       TripCreated(
         settings: settings ?? this.settings,
         foundPlaces: foundPlaces ?? this.foundPlaces,
         tripPlaces: tripPlaces ?? this.tripPlaces,
         polylinePoints: polylinePoints ?? this.polylinePoints,
+        initialPoint: initialPoint ?? this.initialPoint,
       );
 
   @override
-  List<Object?> get props => super.props..add(polylinePoints);
+  List<Object?> get props => super.props..addAll([polylinePoints, initialPoint]);
 }
 
 class TripCreationFailed extends TripState {

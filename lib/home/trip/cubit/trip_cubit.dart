@@ -100,6 +100,7 @@ class TripCubit extends Cubit<TripState> {
           foundPlaces: state.foundPlaces,
           tripPlaces: state.tripPlaces,
           polylinePoints: polylineCoordinates,
+          initialPoint: currentLocation,
         ),
       );
     } catch (error, stackTrace) {

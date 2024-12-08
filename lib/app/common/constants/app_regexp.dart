@@ -1,6 +1,4 @@
-class AppRegExp {
-  AppRegExp._();
-
+abstract class AppRegExp {
   ///     [\w-.]+ - Matches one or more characters. This represents the local part of the email address before the "@" symbol.
   ///     @ - Matches the "@" symbol.
   ///     ([\w-]+\.)+ - Matches one or more occurrences of one or more characters. This represents the domain name part of the email address, which consists of one or more subdomains separated by periods.

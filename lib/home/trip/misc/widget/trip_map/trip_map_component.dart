@@ -100,10 +100,13 @@ class _TripMapComponentState extends State<TripMapComponent> {
     final tripPlaces = state.tripPlaces;
     return {
       ...switch (state) {
-        TripCreated() => _drawMarkers(
-            places: tripPlaces,
-            icon: _selectedPlaceMarkerIcon,
-          ),
+        TripCreated() => {
+            _drawInitialTripPointMarker(initialPoint: state.initialPoint),
+            ..._drawMarkers(
+              places: tripPlaces,
+              icon: _selectedPlaceMarkerIcon,
+            ),
+          },
         _ => {
             ..._drawMarkers(
               places: state.foundPlaces.places,
@@ -148,6 +151,13 @@ class _TripMapComponentState extends State<TripMapComponent> {
         },
       );
 
+  Marker _drawInitialTripPointMarker({required LatLng initialPoint}) => Marker(
+        markerId: const MarkerId('initialTripPoint'),
+        position: initialPoint,
+        icon: _initialPointMarker,
+        infoWindow: const InfoWindow(title: 'Initial point'),
+      );
+
   BitmapDescriptor get _selectedPlaceMarkerIcon => BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueGreen);
 
   BitmapDescriptor get _foundPlaceMarkerIcon => BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueMagenta);
@@ -155,4 +165,6 @@ class _TripMapComponentState extends State<TripMapComponent> {
   BitmapDescriptor get _foundRestaurantMarkerIcon => BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueAzure);
 
   BitmapDescriptor get _foundCafeMarkerIcon => BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueRose);
+
+  BitmapDescriptor get _initialPointMarker => BitmapDescriptor.defaultMarker;
 }
