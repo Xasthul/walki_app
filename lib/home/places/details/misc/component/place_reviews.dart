@@ -28,9 +28,7 @@ class _PlaceReviews extends StatelessWidget {
                         Text('There are ${state.reviews.length} reviews available.'),
                         AppTextButton(
                           label: 'Read',
-                          onPressed: () {
-                            // TODO(Naz): implement
-                          },
+                          onPressed: () => HomeNavigator.of(context).navigateToPlaceReviews(reviews: state.reviews),
                         ),
                       ],
                     ),

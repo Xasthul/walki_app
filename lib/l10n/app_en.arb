@@ -19,5 +19,18 @@
         "isCustomDateFormat": "true"
       }
     }
+  },
+  "formatPlaceReviewAuthorDate": "{author} wrote on {dateTime}:",
+  "@formatPlaceReviewAuthorDate": {
+    "placeholders": {
+      "author": {
+        "type": "String"
+      },
+      "dateTime": {
+        "type": "DateTime",
+        "format": "MMM d y",
+        "isCustomDateFormat": "true"
+      }
+    }
   }
 }

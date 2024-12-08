@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:vall/home/misc/entity/place.dart';
+import 'package:vall/home/misc/entity/place_review.dart';
+import 'package:vall/home/places/details/misc/component/place_reviews/place_reviews_page.dart';
 import 'package:vall/home/places/details/place_details_page.dart';
 import 'package:vall/home/profile/misc/widget/settings/profile_settings_page.dart';
 
@@ -41,6 +43,12 @@ class HomeNavigator extends InheritedWidget {
   void navigateToPlaceDetails({required GooglePlace place}) => _navigationKey.currentState!.push(
         MaterialPageRoute(
           builder: (_) => PlaceDetailsPage(place: place),
+        ),
+      );
+
+  void navigateToPlaceReviews({required List<PlaceReview> reviews}) => _navigationKey.currentState!.push(
+        MaterialPageRoute(
+          builder: (_) => PlaceReviewsPage(reviews: reviews),
         ),
       );
 

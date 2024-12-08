@@ -9,7 +9,10 @@ class AppThemeData {
         themeData: ThemeData(
           useMaterial3: true,
           scaffoldBackgroundColor: AppColors.white,
-          appBarTheme: const AppBarTheme(backgroundColor: AppColors.white),
+          appBarTheme: const AppBarTheme(
+            backgroundColor: AppColors.white,
+            surfaceTintColor: AppColors.white,
+          ),
           extensions: [
             HomeTheme.light(),
           ],

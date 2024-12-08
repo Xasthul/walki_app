@@ -5,6 +5,6 @@ class PlaceReviewMapper {
   PlaceReview mapPlaceReviewFromResponse(PlaceReviewResponse response) => PlaceReview(
         author: response.author,
         content: response.content,
-        createdAt: DateTime.parse(response.createdAt),
+        createdAt: DateTime.parse(response.createdAt).toLocal(),
       );
 }
