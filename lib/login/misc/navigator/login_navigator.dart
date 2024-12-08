@@ -2,19 +2,20 @@ import 'package:flutter/material.dart';
 import 'package:vall/login/create_account/create_account_page.dart';
 
 class LoginNavigator extends InheritedWidget {
-  factory LoginNavigator({required Widget child}) {
-    final navigationKey = GlobalKey<NavigatorState>();
-    return LoginNavigator._(
-      navigationKey: navigationKey,
-      child: NavigatorPopHandler(
-        onPop: () => navigationKey.currentState!.maybePop(),
-        child: Navigator(
-          key: navigationKey,
-          onGenerateRoute: (_) => MaterialPageRoute(builder: (_) => child),
+  factory LoginNavigator({
+    required GlobalKey<NavigatorState> navigationKey,
+    required Widget child,
+  }) =>
+      LoginNavigator._(
+        navigationKey: navigationKey,
+        child: NavigatorPopHandler(
+          onPop: () => navigationKey.currentState!.maybePop(),
+          child: Navigator(
+            key: navigationKey,
+            onGenerateRoute: (_) => MaterialPageRoute(builder: (_) => child),
+          ),
         ),
-      ),
-    );
-  }
+      );
 
   const LoginNavigator._({
     required super.child,
