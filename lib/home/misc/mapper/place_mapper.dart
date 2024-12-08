@@ -8,6 +8,7 @@ class PlaceMapper {
     final photoUrl =
         'https://places.googleapis.com/v1/$firstPhotoName/media?maxHeightPx=400&maxWidthPx=640&key=${AppConstants.googleApiKey}';
     return GooglePlace(
+      id: googleApiPlace.id,
       name: googleApiPlace.displayName.text,
       latitude: googleApiPlace.location.latitude,
       longitude: googleApiPlace.location.longitude,

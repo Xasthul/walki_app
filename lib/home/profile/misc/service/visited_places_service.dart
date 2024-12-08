@@ -9,7 +9,7 @@ class VisitedPlacesService {
 
   final AuthorizedDioClient _client;
 
-  static const _baseUrl = '${AppConstants.serviceBaseUrl}/visited-places';
+  static const _baseUrl = '${AppConstants.serviceBaseUrl}/place-visit-records';
 
   Future<List<VisitedPlaceResponse>> getVisitedPlaces({required String fromDate}) async {
     final response = await _client.get(
@@ -21,13 +21,15 @@ class VisitedPlacesService {
   }
 
   Future<void> visitPlace({
+    required String googlePlaceId,
     required String name,
     required double latitude,
     required double longitude,
   }) async =>
       _client.post(
-        '$_baseUrl/add',
+        '$_baseUrl/create',
         body: {
+          'googlePlaceId': googlePlaceId,
           'name': name,
           'latitude': latitude,
           'longitude': longitude,

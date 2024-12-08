@@ -51,7 +51,7 @@ class TripVisitPlaceCubit extends Cubit<TripVisitPlaceState> {
           places: places,
           visitedPlaces: state.visitedPlaces,
         );
-        if (approachedPlace == null) {
+        if (approachedPlace == null || approachedPlace is! GooglePlace) {
           return;
         }
         emit(
@@ -62,10 +62,13 @@ class TripVisitPlaceCubit extends Cubit<TripVisitPlaceState> {
         );
       });
 
-  Future<void> markPlaceAsVisited(Place place) async {
+  Future<void> markPlaceAsVisited(GooglePlace place) async {
     try {
       final visitedPlace = _visitedPlaceMapper.mapVisitedPlaceFromPlace(place);
-      await _visitedPlacesRepository.visitPlace(visitedPlace);
+      await _visitedPlacesRepository.visitPlace(
+        googlePlaceId: place.id,
+        place: visitedPlace,
+      );
       emit(TripVisitPlaceMarked(visitedPlaces: [...state.visitedPlaces, visitedPlace]));
     } catch (error, stackTrace) {
       logger.e('Visit place failed', error: error, stackTrace: stackTrace);

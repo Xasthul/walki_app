@@ -20,7 +20,12 @@ class VisitedPlacesRepository {
     return response.map(_visitedPlaceMapper.mapVisitedPlaceFromResponse).toList();
   }
 
-  Future<void> visitPlace(VisitedPlace place) async => _visitedPlacesService.visitPlace(
+  Future<void> visitPlace({
+    required String googlePlaceId,
+    required VisitedPlace place,
+  }) async =>
+      _visitedPlacesService.visitPlace(
+        googlePlaceId: googlePlaceId,
         name: place.name,
         latitude: place.latitude,
         longitude: place.longitude,

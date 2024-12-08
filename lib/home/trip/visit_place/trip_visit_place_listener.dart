@@ -43,7 +43,7 @@ class TripVisitPlaceListener extends StatelessWidget {
     );
   }
 
-  void _showPlaceReachedDialog(BuildContext context, Place place) => showDialog(
+  void _showPlaceReachedDialog(BuildContext context, GooglePlace place) => showDialog(
         context: context,
         useRootNavigator: false,
         barrierDismissible: false,

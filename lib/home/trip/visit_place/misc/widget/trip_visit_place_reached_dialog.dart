@@ -2,10 +2,10 @@ part of '../../trip_visit_place_listener.dart';
 
 class _TripVisitPlaceReachedDialog extends StatelessWidget {
   const _TripVisitPlaceReachedDialog({
-    required Place place,
+    required GooglePlace place,
   }) : _place = place;
 
-  final Place _place;
+  final GooglePlace _place;
 
   @override
   Widget build(BuildContext context) => AlertDialog(
@@ -18,9 +18,7 @@ class _TripVisitPlaceReachedDialog extends StatelessWidget {
           children: [
             const Text(
               'You have reached:',
-              style: TextStyle(
-                fontSize: 16
-              ),
+              style: TextStyle(fontSize: 16),
             ),
             Padding(
               padding: const EdgeInsets.only(top: 8),
