@@ -1,4 +1,4 @@
-part of 'place_details_page.dart';
+part of '../../place_details_page.dart';
 
 class _PlaceTripActionButton extends StatelessWidget {
   const _PlaceTripActionButton({

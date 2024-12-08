@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:vall/home/misc/entity/place.dart';
-import 'package:vall/home/places/misc/component/details/place_details_page.dart';
+import 'package:vall/home/places/details/place_details_page.dart';
 import 'package:vall/home/profile/misc/widget/settings/profile_settings_page.dart';
 
 class HomeNavigator extends InheritedWidget {
