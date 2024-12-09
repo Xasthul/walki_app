@@ -16,4 +16,16 @@ class PlaceReviewsService {
     final items = (response as Map<String, dynamic>)['items'] as List<dynamic>;
     return items.map((item) => PlaceReviewResponse.fromJson(item as Map<String, dynamic>)).toList();
   }
+
+  Future<void> createPlaceReviews({
+    required String googlePlaceId,
+    required String content,
+  }) async =>
+      _client.post(
+        '$_baseUrl/create',
+        body: {
+          'googlePlaceId': googlePlaceId,
+          'content': content,
+        },
+      );
 }

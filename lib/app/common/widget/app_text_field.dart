@@ -8,17 +8,23 @@ class AppTextField extends StatelessWidget {
     String? errorText,
     Function(String)? onChanged,
     bool obscureText = false,
+    int? maxLines,
+    int? maxLength,
   })  : _controller = controller,
         _hint = hint,
         _errorText = errorText,
         _onChanged = onChanged,
-        _obscureText = obscureText;
+        _obscureText = obscureText,
+        _maxLines = maxLines,
+        _maxLength = maxLength;
 
   final TextEditingController _controller;
   final String _hint;
   final String? _errorText;
   final Function(String)? _onChanged;
   final bool _obscureText;
+  final int? _maxLines;
+  final int? _maxLength;
 
   @override
   Widget build(BuildContext context) => TextField(
@@ -34,6 +40,8 @@ class AppTextField extends StatelessWidget {
         autocorrect: false,
         onChanged: _onChanged,
         obscureText: _obscureText,
+        maxLines: _maxLines,
+        maxLength: _maxLength,
       );
 
   InputBorder _buildBorder(Color color) => OutlineInputBorder(

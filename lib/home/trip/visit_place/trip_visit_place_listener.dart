@@ -1,13 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:vall/app/common/theme/app_colors.dart';
-import 'package:vall/app/common/widget/app_filled_button.dart';
-import 'package:vall/app/common/widget/app_outlined_button.dart';
-import 'package:vall/home/misc/entity/place.dart';
+import 'package:vall/home/misc/navigator/home_navigator.dart';
 import 'package:vall/home/trip/cubit/trip_cubit.dart';
 import 'package:vall/home/trip/visit_place/cubit/trip_visit_place_cubit.dart';
-
-part 'misc/widget/trip_visit_place_reached_dialog.dart';
 
 class TripVisitPlaceListener extends StatelessWidget {
   const TripVisitPlaceListener({
@@ -35,7 +30,7 @@ class TripVisitPlaceListener extends StatelessWidget {
         child: BlocListener<TripVisitPlaceCubit, TripVisitPlaceState>(
           listener: (context, state) {
             if (state is TripVisitPlaceReached) {
-              return _showPlaceReachedDialog(context, state.place);
+              HomeNavigator.of(context).showTripVisitPlaceDialog(place: state.place);
             }
           },
           child: _child,
@@ -43,11 +38,4 @@ class TripVisitPlaceListener extends StatelessWidget {
       ),
     );
   }
-
-  void _showPlaceReachedDialog(BuildContext context, GooglePlace place) => showDialog(
-        context: context,
-        useRootNavigator: false,
-        barrierDismissible: false,
-        builder: (context) => _TripVisitPlaceReachedDialog(place: place),
-      );
 }

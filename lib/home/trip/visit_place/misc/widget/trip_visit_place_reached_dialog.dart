@@ -1,7 +1,15 @@
-part of '../../trip_visit_place_listener.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:vall/app/common/theme/app_colors.dart';
+import 'package:vall/app/common/widget/app_filled_button.dart';
+import 'package:vall/app/common/widget/app_outlined_button.dart';
+import 'package:vall/home/misc/entity/place.dart';
+import 'package:vall/home/misc/navigator/home_navigator.dart';
+import 'package:vall/home/trip/visit_place/cubit/trip_visit_place_cubit.dart';
 
-class _TripVisitPlaceReachedDialog extends StatelessWidget {
-  const _TripVisitPlaceReachedDialog({
+class TripVisitPlaceReachedDialog extends StatelessWidget {
+  const TripVisitPlaceReachedDialog({
+    super.key,
     required GooglePlace place,
   }) : _place = place;
 
@@ -37,8 +45,7 @@ class _TripVisitPlaceReachedDialog extends StatelessWidget {
           Center(
             child: AppFilledButton(
               onPressed: () {
-                // TODO(Naz): push review creation
-                Navigator.of(context).pop();
+                HomeNavigator.of(context).navigateToCreatePlaceReview(place: _place);
                 context.read<TripVisitPlaceCubit>().markPlaceAsVisited(_place);
               },
               label: 'Share your impressions',
@@ -47,7 +54,7 @@ class _TripVisitPlaceReachedDialog extends StatelessWidget {
           Center(
             child: AppOutlinedButton(
               onPressed: () {
-                Navigator.of(context).pop();
+                HomeNavigator.of(context).pop();
                 context.read<TripVisitPlaceCubit>().markPlaceAsVisited(_place);
               },
               label: 'Continue the trip',

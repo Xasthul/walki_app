@@ -16,4 +16,13 @@ class PlaceReviewsRepository {
     final reviews = await _placeReviewsService.getPlaceReviews(googlePlaceId: googlePlaceId);
     return reviews.map(_placeReviewMapper.mapPlaceReviewFromResponse).toList();
   }
+
+  Future<void> createPlaceReview({
+    required String googlePlaceId,
+    required String content,
+  }) async =>
+      _placeReviewsService.createPlaceReviews(
+        googlePlaceId: googlePlaceId,
+        content: content,
+      );
 }
