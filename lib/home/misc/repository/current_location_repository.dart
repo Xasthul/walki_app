@@ -4,9 +4,7 @@ import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 class CurrentLocationRepository {
-  Stream<LatLng> get currentLocationStream => Geolocator.getPositionStream(
-        locationSettings: const LocationSettings(),
-      ).transform(_positionTransformer);
+  Stream<LatLng> get currentLocationStream => Geolocator.getPositionStream().transform(_positionTransformer);
 
   final _positionTransformer = StreamTransformer<Position, LatLng>.fromHandlers(
     handleData: (position, sink) {
@@ -15,7 +13,7 @@ class CurrentLocationRepository {
   );
 
   Future<LatLng> getCurrentLocation() async {
-    final position = await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
+    final position = await Geolocator.getCurrentPosition();
     return LatLng(position.latitude, position.longitude);
   }
 }
