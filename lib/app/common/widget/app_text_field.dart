@@ -8,7 +8,7 @@ class AppTextField extends StatelessWidget {
     String? errorText,
     Function(String)? onChanged,
     bool obscureText = false,
-    int? maxLines,
+    int? maxLines = 1,
     int? maxLength,
   })  : _controller = controller,
         _hint = hint,
