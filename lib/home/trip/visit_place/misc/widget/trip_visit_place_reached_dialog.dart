@@ -28,21 +28,33 @@ class _TripVisitPlaceReachedDialog extends StatelessWidget {
                   fontSize: 20,
                   fontWeight: FontWeight.bold,
                 ),
+                textAlign: TextAlign.center,
               ),
             ),
           ],
         ),
         actions: [
-          AppFilledButton(
-            onPressed: () {
-              Navigator.of(context).pop();
-              context.read<TripVisitPlaceCubit>().markPlaceAsVisited(_place);
-            },
-            label: 'Mark as visited',
+          Center(
+            child: AppFilledButton(
+              onPressed: () {
+                // TODO(Naz): push review creation
+                Navigator.of(context).pop();
+                context.read<TripVisitPlaceCubit>().markPlaceAsVisited(_place);
+              },
+              label: 'Share your impressions',
+            ),
+          ),
+          Center(
+            child: AppOutlinedButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+                context.read<TripVisitPlaceCubit>().markPlaceAsVisited(_place);
+              },
+              label: 'Continue the trip',
+            ),
           ),
         ],
         alignment: Alignment.center,
-        actionsAlignment: MainAxisAlignment.center,
         shape: const RoundedRectangleBorder(
           borderRadius: BorderRadius.all(Radius.circular(8)),
         ),
