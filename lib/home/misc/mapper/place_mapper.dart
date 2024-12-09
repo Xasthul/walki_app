@@ -1,9 +1,13 @@
 import 'package:vall/app/common/constants/app_constants.dart';
 import 'package:vall/home/misc/entity/place.dart';
+import 'package:vall/home/misc/network/entity/request/search_nearby/search_nearby_place_type.dart';
 import 'package:vall/home/misc/network/entity/response/google_api_place.dart';
 
 class PlaceMapper {
-  GooglePlace mapFromGoogleApiPlace(GoogleApiPlace googleApiPlace) {
+  GooglePlace mapFromGoogleApiPlace({
+    required GoogleApiPlace googleApiPlace,
+    required SearchNearbyPlaceType type,
+  }) {
     final firstPhotoName = googleApiPlace.photos.first.name;
     final photoUrl =
         'https://places.googleapis.com/v1/$firstPhotoName/media?maxHeightPx=400&maxWidthPx=640&key=${AppConstants.googleApiKey}';
@@ -22,6 +26,7 @@ class PlaceMapper {
       nextCloseTime: googleApiPlace.currentOpeningHours?.nextCloseTime != null
           ? DateTime.parse(googleApiPlace.currentOpeningHours!.nextCloseTime!).toLocal()
           : null,
+      type: type,
     );
   }
 }

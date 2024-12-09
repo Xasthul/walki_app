@@ -1,4 +1,5 @@
 import 'package:equatable/equatable.dart';
+import 'package:vall/home/misc/network/entity/request/search_nearby/search_nearby_place_type.dart';
 
 abstract class Place extends Equatable {
   const Place({
@@ -31,6 +32,7 @@ class GooglePlace extends Place {
     required this.isOpen,
     required this.nextOpenTime,
     required this.nextCloseTime,
+    required this.type,
   });
 
   final String id;
@@ -40,6 +42,7 @@ class GooglePlace extends Place {
   final bool? isOpen;
   final DateTime? nextOpenTime; // Local time
   final DateTime? nextCloseTime; // Local time
+  final SearchNearbyPlaceType type;
 
   @override
   List<Object?> get props => super.props
@@ -51,6 +54,7 @@ class GooglePlace extends Place {
       isOpen,
       nextOpenTime,
       nextCloseTime,
+      type,
     ]);
 }
 
