@@ -13,17 +13,20 @@ import 'package:vall/login/misc/navigator/login_navigator.dart';
 import 'package:vall/login/misc/validator/login_validation.dart';
 
 part 'misc/widget/login_content.dart';
-
 part 'misc/widget/login_email_text_field.dart';
-
 part 'misc/widget/login_password_text_field.dart';
+
+final _navigationKey = GlobalKey<NavigatorState>();
 
 class LoginPage extends StatelessWidget {
   const LoginPage({super.key});
 
   @override
   Widget build(BuildContext context) => LoginDependencies(
-        child: LoginNavigator(child: const _LoginPageBase()),
+        child: LoginNavigator(
+          navigationKey: _navigationKey,
+          child: const _LoginPageBase(),
+        ),
       );
 }
 

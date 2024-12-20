@@ -14,24 +14,26 @@ class _CreateAccountContent extends StatelessWidget {
                 );
           }
         },
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16),
-          child: Column(
-            children: [
-              const SizedBox(height: 24),
-              const _CreateAccountNameTextField(),
-              const SizedBox(height: 24),
-              const _CreateAccountEmailTextField(),
-              const SizedBox(height: 24),
-              const _CreateAccountPasswordTextField(),
-              const SizedBox(height: 24),
-              const _CreateAccountConfirmPasswordTextField(),
-              const SizedBox(height: 24),
-              AppFilledButton(
-                onPressed: context.read<CreateAccountValidationCubit>().validate,
-                label: 'Submit',
-              ),
-            ],
+        child: SingleChildScrollView(
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16),
+            child: Column(
+              children: [
+                const SizedBox(height: 24),
+                const _CreateAccountNameTextField(),
+                const SizedBox(height: 24),
+                const _CreateAccountEmailTextField(),
+                const SizedBox(height: 24),
+                const _CreateAccountPasswordTextField(),
+                const SizedBox(height: 24),
+                const _CreateAccountConfirmPasswordTextField(),
+                const SizedBox(height: 24),
+                AppFilledButton(
+                  onPressed: context.read<CreateAccountValidationCubit>().validate,
+                  label: 'Submit',
+                ),
+              ],
+            ),
           ),
         ),
       );

@@ -99,7 +99,10 @@ class PlacesRepository {
     );
     return googleApiPlaces
         .map(
-          (place) => _pointOfInterestMapper.mapFromGoogleApiPlace(place),
+          (place) => _pointOfInterestMapper.mapFromGoogleApiPlace(
+            googleApiPlace: place,
+            type: placeType,
+          ),
         )
         .toList();
   }

@@ -1,4 +1,4 @@
-part of 'place_details_page.dart';
+part of '../../place_details_page.dart';
 
 class _PlaceRating extends StatelessWidget {
   const _PlaceRating({

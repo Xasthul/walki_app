@@ -23,7 +23,7 @@ class TripVisitPlaceReached extends TripVisitPlaceState {
     required super.visitedPlaces,
   });
 
-  final Place place;
+  final GooglePlace place;
 
   @override
   List<Object?> get props => super.props..add(place);

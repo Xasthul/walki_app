@@ -9,6 +9,7 @@ part 'google_api_place.g.dart';
 @JsonSerializable()
 class GoogleApiPlace {
   GoogleApiPlace({
+    required this.id,
     required this.displayName,
     required this.location,
     required this.editorialSummary,
@@ -19,6 +20,7 @@ class GoogleApiPlace {
 
   factory GoogleApiPlace.fromJson(Map<String, dynamic> json) => _$GoogleApiPlaceFromJson(json);
 
+  final String id;
   final GoogleApiLocalizedText displayName;
   final GoogleApiLatLng location;
   final GoogleApiLocalizedText? editorialSummary;
@@ -30,6 +32,7 @@ class GoogleApiPlace {
 
   /// Should be one of these: https://developers.google.com/maps/documentation/places/web-service/reference/rest/v1/places#resource:-place
   static List<String> get props => [
+        'id',
         'displayName',
         'location',
         'editorialSummary',

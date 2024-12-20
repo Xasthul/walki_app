@@ -89,6 +89,7 @@ class _TripMapComponentState extends State<TripMapComponent> {
               },
               compassEnabled: false,
               myLocationEnabled: true,
+              mapToolbarEnabled: false,
               onCameraMove: (position) => _onCameraMove(position, state),
             ),
             if (state is TripPlaceSelection) _TripMapPlaceSelection(onPlaceSelected: _onPlaceSelected),

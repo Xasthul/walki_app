@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:vall/app/common/utils/logger.dart';
 import 'package:vall/home/misc/entity/place.dart';
+import 'package:vall/home/misc/network/entity/request/search_nearby/search_nearby_place_type.dart';
 import 'package:vall/home/misc/repository/current_location_repository.dart';
 import 'package:vall/home/profile/misc/entity/visited_place.dart';
 import 'package:vall/home/profile/misc/repository/visited_places_repository.dart';
@@ -51,7 +52,9 @@ class TripVisitPlaceCubit extends Cubit<TripVisitPlaceState> {
           places: places,
           visitedPlaces: state.visitedPlaces,
         );
-        if (approachedPlace == null) {
+        if (approachedPlace == null ||
+            approachedPlace is! GooglePlace ||
+            approachedPlace.type != SearchNearbyPlaceType.touristAttraction) {
           return;
         }
         emit(
@@ -62,10 +65,13 @@ class TripVisitPlaceCubit extends Cubit<TripVisitPlaceState> {
         );
       });
 
-  Future<void> markPlaceAsVisited(Place place) async {
+  Future<void> markPlaceAsVisited(GooglePlace place) async {
     try {
       final visitedPlace = _visitedPlaceMapper.mapVisitedPlaceFromPlace(place);
-      await _visitedPlacesRepository.visitPlace(visitedPlace);
+      await _visitedPlacesRepository.visitPlace(
+        googlePlaceId: place.id,
+        place: visitedPlace,
+      );
       emit(TripVisitPlaceMarked(visitedPlaces: [...state.visitedPlaces, visitedPlace]));
     } catch (error, stackTrace) {
       logger.e('Visit place failed', error: error, stackTrace: stackTrace);
