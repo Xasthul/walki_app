@@ -20,23 +20,21 @@ class ProfileSettingsPage extends StatelessWidget {
         body: SafeArea(
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16),
-            child: Expanded(
-              child: Center(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    AppFilledButton(
-                      onPressed: context.read<ProfileCubit>().logOut,
-                      label: 'Logout',
-                    ),
-                    const SizedBox(height: 16),
-                    AppFilledButton(
-                      onPressed: context.read<ProfileCubit>().deleteAccount,
-                      label: 'Delete account',
-                      backgroundColor: AppColors.error300,
-                    ),
-                  ],
-                ),
+            child: Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  AppFilledButton(
+                    onPressed: context.read<ProfileCubit>().logOut,
+                    label: 'Logout',
+                  ),
+                  const SizedBox(height: 16),
+                  AppFilledButton(
+                    onPressed: context.read<ProfileCubit>().deleteAccount,
+                    label: 'Delete account',
+                    backgroundColor: AppColors.error300,
+                  ),
+                ],
               ),
             ),
           ),
