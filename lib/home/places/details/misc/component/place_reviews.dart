@@ -25,7 +25,7 @@ class _PlaceReviews extends StatelessWidget {
                   : Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text('There are ${state.reviews.length} reviews available.'),
+                        Text(AppLocalizations.of(context).formatReviewsAvailable(state.reviews.length)),
                         AppTextButton(
                           label: 'Read',
                           onPressed: () => HomeNavigator.of(context).navigateToPlaceReviews(reviews: state.reviews),
