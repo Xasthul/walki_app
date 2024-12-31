@@ -32,5 +32,13 @@
         "isCustomDateFormat": "true"
       }
     }
+  },
+  "formatReviewsAvailable": "There {count, plural, =1{is 1 review} other{are {count} reviews}} available.",
+  "@formatReviewsAvailable": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
   }
 }
