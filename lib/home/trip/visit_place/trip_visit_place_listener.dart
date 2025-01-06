@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:vall/home/misc/navigator/home_navigator.dart';
+import 'package:vall/home/profile/cubit/profile_cubit.dart';
 import 'package:vall/home/trip/cubit/trip_cubit.dart';
 import 'package:vall/home/trip/visit_place/cubit/trip_visit_place_cubit.dart';
 
@@ -31,6 +32,10 @@ class TripVisitPlaceListener extends StatelessWidget {
           listener: (context, state) {
             if (state is TripVisitPlaceReached) {
               HomeNavigator.of(context).showTripVisitPlaceDialog(place: state.place);
+              return;
+            }
+            if (state is TripVisitPlaceMarked) {
+              context.read<ProfileCubit>().reloadVisitedPlaces();
             }
           },
           child: _child,

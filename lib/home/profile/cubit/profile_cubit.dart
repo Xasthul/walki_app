@@ -52,4 +52,24 @@ class ProfileCubit extends Cubit<ProfileState> {
       logger.e('Delete account failed', error: error, stackTrace: stackTrace);
     }
   }
+
+  Future<void> reloadVisitedPlaces() async {
+    emit(
+      ProfileLoading(
+        user: state.user,
+        visitedPlaces: const [],
+      ),
+    );
+    try {
+      final visitedPlaces = await _visitedPlacesRepository.loadVisitedPlaces();
+      emit(
+        ProfileIdle(
+          user: state.user,
+          visitedPlaces: visitedPlaces,
+        ),
+      );
+    } catch (error, stackTrace) {
+      logger.e('Reload visited places failed', error: error, stackTrace: stackTrace);
+    }
+  }
 }
