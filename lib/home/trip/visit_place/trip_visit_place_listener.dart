@@ -32,10 +32,8 @@ class TripVisitPlaceListener extends StatelessWidget {
           listener: (context, state) {
             if (state is TripVisitPlaceReached) {
               HomeNavigator.of(context).showTripVisitPlaceDialog(place: state.place);
-              return;
-            }
-            if (state is TripVisitPlaceMarked) {
               context.read<ProfileCubit>().reloadVisitedPlaces();
+              return;
             }
           },
           child: _child,

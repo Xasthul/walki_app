@@ -67,37 +67,13 @@ void main() {
   });
 
   test(
-      'Given visitedPlaceMapper mapVisitedPlaceFromPlace is successful '
-      'When markPlaceAsVisited is called '
-      'Then TripVisitPlaceMarked state is emitted', () async {
-    when(visitedPlaceMapper.mapVisitedPlaceFromPlace(fakeGooglePlace)).thenReturn(fakeVisitedPlace);
-
-    await cubit.markPlaceAsVisited(fakeGooglePlace);
+      'When resetState is called '
+      'Then TripVisitPlaceInitial state is emitted', () {
+    cubit.resetState();
 
     expect(
       cubit.state,
-      TripVisitPlaceMarked(visitedPlaces: [fakeVisitedPlace]),
-    );
-  });
-
-  test(
-      'Given visitedPlacesRepository visitPlace throws an error '
-      'When markPlaceAsVisited is called '
-      'Then TripVisitPlaceMarked state is not emitted', () async {
-    final expectedError = Exception();
-    when(visitedPlaceMapper.mapVisitedPlaceFromPlace(fakeGooglePlace)).thenReturn(fakeVisitedPlace);
-    when(
-      visitedPlacesRepository.visitPlace(
-        googlePlaceId: fakeGooglePlace.id,
-        place: fakeVisitedPlace,
-      ),
-    ).thenThrow(expectedError);
-
-    await cubit.markPlaceAsVisited(fakeGooglePlace);
-
-    expect(
-      cubit.state.runtimeType,
-      isNot(TripVisitPlaceMarked),
+      const TripVisitPlaceInitial(visitedPlaces: []),
     );
   });
 }

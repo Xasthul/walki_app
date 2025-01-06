@@ -10,7 +10,7 @@ sealed class TripVisitPlaceState extends Equatable {
 }
 
 class TripVisitPlaceInitial extends TripVisitPlaceState {
-  TripVisitPlaceInitial() : super(visitedPlaces: []);
+  const TripVisitPlaceInitial({required super.visitedPlaces});
 }
 
 class TripVisitPlaceLoaded extends TripVisitPlaceState {
@@ -27,8 +27,4 @@ class TripVisitPlaceReached extends TripVisitPlaceState {
 
   @override
   List<Object?> get props => super.props..add(place);
-}
-
-class TripVisitPlaceMarked extends TripVisitPlaceState {
-  const TripVisitPlaceMarked({required super.visitedPlaces});
 }

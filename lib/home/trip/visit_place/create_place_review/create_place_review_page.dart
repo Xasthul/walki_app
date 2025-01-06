@@ -8,6 +8,7 @@ import 'package:vall/home/misc/entity/place.dart';
 import 'package:vall/home/misc/navigator/home_navigator.dart';
 import 'package:vall/home/trip/visit_place/create_place_review/create_place_review_dependencies.dart';
 import 'package:vall/home/trip/visit_place/create_place_review/cubit/create_place_review_cubit.dart';
+import 'package:vall/home/trip/visit_place/cubit/trip_visit_place_cubit.dart';
 
 class CreatePlaceReviewPage extends StatelessWidget {
   const CreatePlaceReviewPage({
@@ -44,6 +45,7 @@ class _CreatePlaceReviewPageBaseState extends State<_CreatePlaceReviewPageBase> 
   Widget build(BuildContext context) => BlocListener<CreatePlaceReviewCubit, CreatePlaceReviewState>(
         listener: (context, state) {
           if (state is CreatePlaceReviewSuccessful) {
+            context.read<TripVisitPlaceCubit>().resetState();
             HomeNavigator.of(context).popUntilFirst();
             ScaffoldMessenger.of(context).showInfoSnackBar(text: 'Thanks for sharing!');
             return;

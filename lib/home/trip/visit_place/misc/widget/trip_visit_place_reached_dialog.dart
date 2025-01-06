@@ -44,10 +44,7 @@ class TripVisitPlaceReachedDialog extends StatelessWidget {
         actions: [
           Center(
             child: AppFilledButton(
-              onPressed: () {
-                HomeNavigator.of(context).navigateToCreatePlaceReview(place: _place);
-                context.read<TripVisitPlaceCubit>().markPlaceAsVisited(_place);
-              },
+              onPressed: () => HomeNavigator.of(context).navigateToCreatePlaceReview(place: _place),
               label: 'Share your impressions',
             ),
           ),
@@ -55,7 +52,7 @@ class TripVisitPlaceReachedDialog extends StatelessWidget {
             child: AppOutlinedButton(
               onPressed: () {
                 HomeNavigator.of(context).pop();
-                context.read<TripVisitPlaceCubit>().markPlaceAsVisited(_place);
+                context.read<TripVisitPlaceCubit>().resetState();
               },
               label: 'Continue the trip',
             ),

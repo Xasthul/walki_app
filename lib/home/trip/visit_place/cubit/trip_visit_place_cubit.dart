@@ -24,7 +24,7 @@ class TripVisitPlaceCubit extends Cubit<TripVisitPlaceState> {
         _visitedPlacesRepository = visitedPlacesRepository,
         _tripVisitPlaceRepository = tripVisitPlaceRepository,
         _visitedPlaceMapper = visitedPlaceMapper,
-        super(TripVisitPlaceInitial());
+        super(const TripVisitPlaceInitial(visitedPlaces: []));
 
   final CurrentLocationRepository _currentLocationRepository;
   final VisitedPlacesRepository _visitedPlacesRepository;
@@ -57,26 +57,34 @@ class TripVisitPlaceCubit extends Cubit<TripVisitPlaceState> {
             approachedPlace.type != SearchNearbyPlaceType.touristAttraction) {
           return;
         }
+        final visitedPlace = _visitedPlaceMapper.mapVisitedPlaceFromPlace(approachedPlace);
+        await _markPlaceAsVisited(
+          googlePlaceId: approachedPlace.id,
+          place: visitedPlace,
+        );
         emit(
           TripVisitPlaceReached(
             place: approachedPlace,
-            visitedPlaces: state.visitedPlaces,
+            visitedPlaces: [...state.visitedPlaces, visitedPlace],
           ),
         );
       });
 
-  Future<void> markPlaceAsVisited(GooglePlace place) async {
+  Future<void> _markPlaceAsVisited({
+    required String googlePlaceId,
+    required VisitedPlace place,
+  }) async {
     try {
-      final visitedPlace = _visitedPlaceMapper.mapVisitedPlaceFromPlace(place);
       await _visitedPlacesRepository.visitPlace(
-        googlePlaceId: place.id,
-        place: visitedPlace,
+        googlePlaceId: googlePlaceId,
+        place: place,
       );
-      emit(TripVisitPlaceMarked(visitedPlaces: [...state.visitedPlaces, visitedPlace]));
     } catch (error, stackTrace) {
       logger.e('Visit place failed', error: error, stackTrace: stackTrace);
     }
   }
+
+  void resetState() => emit(TripVisitPlaceInitial(visitedPlaces: state.visitedPlaces));
 
   void onTripFinished() => _currentLocationSubscription?.cancel();
 }
