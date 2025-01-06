@@ -30,7 +30,7 @@ class _CreateAccountPasswordTextFieldState extends State<_CreateAccountPasswordT
 
   String? _getErrorText(CreateAccountPasswordValidationError? error) => switch (error) {
         CreateAccountPasswordValidationError.empty => 'Password field cannot be empty',
-        CreateAccountPasswordValidationError.invalid => 'Password has to be stronger',
+        CreateAccountPasswordValidationError.invalid => 'Password must be at least 12 characters, contain an uppercase and a lowercase letter, a digit, and a special character',
         _ => null,
       };
 }

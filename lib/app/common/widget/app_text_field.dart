@@ -33,7 +33,17 @@ class AppTextField extends StatelessWidget {
           hintText: _hint,
           border: _buildBorder(Colors.grey),
           focusedBorder: _buildBorder(Colors.grey),
-          errorText: _errorText,
+          // errorText: _errorText,
+          error: _errorText != null
+              ? Expanded(
+                  child: Text(
+                    _errorText,
+                    style: const TextStyle(
+                      color: Color(0xff9b374d),
+                    ),
+                  ),
+                )
+              : null,
           // errorStyle: AppTextTheme.of(context).captionRegular,
         ),
         // style: AppTextTheme.of(context).body1Regular,
