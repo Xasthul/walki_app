@@ -99,34 +99,32 @@ class _TripMapComponentState extends State<TripMapComponent> {
 
   Set<Marker> _getMarkers(TripState state) {
     final tripPlaces = state.tripPlaces;
-    return {
-      ...switch (state) {
-        TripCreated() => {
-            _drawInitialTripPointMarker(initialPoint: state.initialPoint),
-            ..._drawMarkers(
-              places: tripPlaces,
-              icon: _selectedPlaceMarkerIcon,
-            ),
-          },
-        _ => {
-            ..._drawMarkers(
-              places: state.foundPlaces.places,
-              icon: _foundPlaceMarkerIcon,
-            ),
-            ..._drawMarkers(
-              places: state.foundPlaces.restaurants,
-              icon: _foundRestaurantMarkerIcon,
-            ),
-            ..._drawMarkers(
-              places: state.foundPlaces.cafes,
-              icon: _foundCafeMarkerIcon,
-            ),
-            ..._drawMarkers(
-              places: tripPlaces,
-              icon: _selectedPlaceMarkerIcon,
-            ),
-          },
-      }
+    return switch (state) {
+      TripCreated() => {
+          _drawInitialTripPointMarker(initialPoint: state.initialPoint),
+          ..._drawMarkers(
+            places: tripPlaces,
+            icon: _selectedPlaceMarkerIcon,
+          ),
+        },
+      _ => {
+          ..._drawMarkers(
+            places: state.foundPlaces.places,
+            icon: _foundPlaceMarkerIcon,
+          ),
+          ..._drawMarkers(
+            places: state.foundPlaces.restaurants,
+            icon: _foundRestaurantMarkerIcon,
+          ),
+          ..._drawMarkers(
+            places: state.foundPlaces.cafes,
+            icon: _foundCafeMarkerIcon,
+          ),
+          ..._drawMarkers(
+            places: tripPlaces,
+            icon: _selectedPlaceMarkerIcon,
+          ),
+        },
     };
   }
 
@@ -138,7 +136,7 @@ class _TripMapComponentState extends State<TripMapComponent> {
         (place) {
           final isGooglePlace = place is GooglePlace;
           return Marker(
-            markerId: MarkerId('$place'),
+            markerId: MarkerId(place.name),
             position: LatLng(place.latitude, place.longitude),
             icon: icon,
             infoWindow: InfoWindow(
