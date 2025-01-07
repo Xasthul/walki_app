@@ -35,12 +35,10 @@ class AppTextField extends StatelessWidget {
           focusedBorder: _buildBorder(Colors.grey),
           // errorText: _errorText,
           error: _errorText != null
-              ? Expanded(
-                  child: Text(
-                    _errorText,
-                    style: const TextStyle(
-                      color: Color(0xff9b374d),
-                    ),
+              ? Text(
+                  _errorText,
+                  style: const TextStyle(
+                    color: Color(0xff9b374d),
                   ),
                 )
               : null,
